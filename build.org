@@ -15,7 +15,7 @@
 ** Initialize package system
 #+BEGIN_SRC emacs-lisp :tangle ./build.el
   ;; Initialize the package system
-  (package-initializ  (unless package-archive-contents
+  (package-initialize  (unless package-archive-contents
     (package-refresh-contents)))
 #+END_SRC
 ** Install dependencies

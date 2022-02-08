@@ -6,7 +6,7 @@
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 
 ;; Initialize the package system
-(package-initializ  (unless package-archive-contents
+(package-initialize  (unless package-archive-contents
   (package-refresh-contents)))
 
 (package-install 'htmlize)
