@@ -7,7 +7,7 @@
 
 ;; Initialize the package system
 (package-initializ  (unless package-archive-contents
-  (package-refresh-contents))
+  (package-refresh-contents)))
 
 (package-install 'htmlize)
 
