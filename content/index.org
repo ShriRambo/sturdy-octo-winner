@@ -3,9 +3,9 @@
 #+OPTIONS: tex:t toc:nil 
 
 * Posts
-**   [[./Emacs.org][Emacs configuration]]
+** [[./emacs-config.org][Emacs configuration]]
 My ever evolving literate emacs configuration
-
+** [[./publish-settings.org][Website publishing setup]]
 ** Testing mathematical equations
  - E = mc^{2} 
  - $$ \int xdx = \frac{x^2}{2} $$
