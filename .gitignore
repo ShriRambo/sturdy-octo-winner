@@ -1,0 +1,8 @@
+# Ignore backup files
+*~
+
+# Emacs packages
+./.packages
+
+# Publishing folder
+./publish

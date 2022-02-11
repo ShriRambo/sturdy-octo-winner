@@ -1,29 +1,12 @@
 #+TITLE: Home page 
 #+AUTHOR: Shriram Ashirgade
+#+OPTIONS: tex:t toc:nil 
 
-*  This is main title
-some stuff to go with it
+* Posts
+**   [[./Emacs.org][Emacs configuration]]
+My ever evolving literate emacs configuration
 
-* Other stuff
-more stuff
-** more
-gfhfgdsgf
-*** more
-asdfdhggfhgh
-**** and more
-\asdsad
-**** morex
-asdsa
-***** and finally some extra
-dfgghfkjfdsjoi344354 438uyfdgohj 34v9834t;ldf
-
-
-* New stuff
-| ds    | dsfdsff | 324ddddddd |
-|-------+---------+------------|
-| 1     | 999999  | dff        |
-| zx    | cxz     | zxc        |
-| cxvcx | cxz     | cxzxcz     |
-
-
-[[./Emacs.org][Emacs link]]
+** Testing mathematical equations
+ - E = mc^{2} 
+ - $$ \int xdx = \frac{x^2}{2} $$
+ - 

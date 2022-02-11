@@ -2,8 +2,6 @@
 #+AUTHOR: Shriram Ashirgade
 #+STARTUP: content  hidestars indent
 
-* Contents
-
 * Package management
 ** Use [[https://melpa.org/#/][MELPA]] for package archive
 Adding melpa package repository and initializint

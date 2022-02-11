@@ -18,6 +18,10 @@
   (package-initialize  (unless package-archive-contents
     (package-refresh-contents)))
 #+END_SRC
+** No backups or temp files
+#+BEGIN_SRC emacs-lisp
+  (setq make-backup-files nil)
+#+END_SRC
 ** Install dependencies
 #+BEGIN_SRC emacs-lisp :tangle ./build.el
   (package-install 'htmlize)
