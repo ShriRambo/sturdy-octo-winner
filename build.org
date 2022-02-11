@@ -1,5 +1,5 @@
-#+TITLE: Website publishing: Build config
-#+AUTHOR: Shriram Ashirgade
+#+TITLE: Website Publishing: Build config
+#+AUTHOR: Shrirambo
 #+STARTUP: content
 
 * Emacs Build Configuration
@@ -19,8 +19,12 @@
     (package-refresh-contents)))
 #+END_SRC
 ** No backups or temp files
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle ./build.el
   (setq make-backup-files nil)
+#+END_SRC
+** URL handeler mode to include external files
+#+BEGIN_SRC emacs-lisp :tangle ./build.el
+  (url-handler-mode 1)
 #+END_SRC
 ** Install dependencies
 #+BEGIN_SRC emacs-lisp :tangle ./build.el

@@ -9,6 +9,10 @@
 (package-initialize  (unless package-archive-contents
   (package-refresh-contents)))
 
+(setq make-backup-files nil)
+
+(url-handler-mode 1)
+
 (package-install 'htmlize)
 
 (require 'ox-publish)
