@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Website Publishing: Build config</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+</head>
+<body>
+<div id="content">
+<h1 class="title">Website Publishing: Build config</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgecb83fb">Emacs Build Configuration</a>
+<ul>
+<li><a href="#orga712fb0">Package manager settings</a></li>
+<li><a href="#org9e65190">Initialize package system</a></li>
+<li><a href="#org4eebab3">No backups or temp files</a></li>
+<li><a href="#org75b4d01">URL handeler mode to include external files</a></li>
+<li><a href="#org6621304">Install dependencies</a></li>
+<li><a href="#org31e096c">Load publishing system</a></li>
+<li><a href="#org1f38efe">Customize HTML output</a></li>
+<li><a href="#org2438bd2">Publishing project properties</a></li>
+<li><a href="#org08e2e56">Generate Output</a></li>
+</ul>
+</li>
+<li><a href="#org3311522">Build</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgecb83fb" class="outline-2">
+<h2 id="orgecb83fb">Emacs Build Configuration</h2>
+<div class="outline-text-2" id="text-orgecb83fb">
+</div>
+<div id="outline-container-orga712fb0" class="outline-3">
+<h3 id="orga712fb0">Package manager settings</h3>
+<div class="outline-text-3" id="text-orga712fb0">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Set the package installation directory so that packages aren't stored in the</span>
+<span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">~/.emacs.d/elpa path.</span>
+(<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">package</span>)
+(<span style="font-weight: bold;">setq</span> package-user-dir (expand-file-name <span style="font-style: italic;">"./.packages"</span>))
+(<span style="font-weight: bold;">setq</span> package-archives '((<span style="font-style: italic;">"melpa"</span> . <span style="font-style: italic;">"https://melpa.org/packages/"</span>)
+                         (<span style="font-style: italic;">"elpa"</span> . <span style="font-style: italic;">"https://elpa.gnu.org/packages/"</span>)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9e65190" class="outline-3">
+<h3 id="org9e65190">Initialize package system</h3>
+<div class="outline-text-3" id="text-org9e65190">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Initialize the package system</span>
+(package-initialize  (<span style="font-weight: bold;">unless</span> package-archive-contents
+  (package-refresh-contents)))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org4eebab3" class="outline-3">
+<h3 id="org4eebab3">No backups or temp files</h3>
+<div class="outline-text-3" id="text-org4eebab3">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="font-weight: bold;">setq</span> make-backup-files nil)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org75b4d01" class="outline-3">
+<h3 id="org75b4d01">URL handeler mode to include external files</h3>
+<div class="outline-text-3" id="text-org75b4d01">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(url-handler-mode 1)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org6621304" class="outline-3">
+<h3 id="org6621304">Install dependencies</h3>
+<div class="outline-text-3" id="text-org6621304">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(package-install 'htmlize)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org31e096c" class="outline-3">
+<h3 id="org31e096c">Load publishing system</h3>
+<div class="outline-text-3" id="text-org31e096c">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">ox-publish</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1f38efe" class="outline-3">
+<h3 id="org1f38efe">Customize HTML output</h3>
+<div class="outline-text-3" id="text-org1f38efe">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Customize the HTML output</span>
+(<span style="font-weight: bold;">setq</span> org-html-validation-link nil            <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Don't show validation link</span>
+      org-html-head-include-scripts nil       <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Use our own scripts</span>
+      org-html-head-include-default-style nil <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Use our own styles</span>
+      org-html-head <span style="font-style: italic;">"&lt;link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" /&gt;"</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2438bd2" class="outline-3">
+<h3 id="org2438bd2">Publishing project properties</h3>
+<div class="outline-text-3" id="text-org2438bd2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Define the publishing project</span>
+(<span style="font-weight: bold;">setq</span> org-publish-project-alist
+      (list
+       (list <span style="font-style: italic;">"org-site:main"</span>
+             <span style="font-weight: bold;">:recursive</span> t
+             <span style="font-weight: bold;">:base-directory</span> <span style="font-style: italic;">"./content"</span>
+             <span style="font-weight: bold;">:publishing-function</span> 'org-html-publish-to-html
+             <span style="font-weight: bold;">:publishing-directory</span> <span style="font-style: italic;">"./public"</span>
+             <span style="font-weight: bold;">:with-author</span> nil           <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Don't include author name</span>
+             <span style="font-weight: bold;">:with-creator</span> t            <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Include Emacs and Org versions in footer</span>
+             <span style="font-weight: bold;">:with-toc</span> t                <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Include a table of contents</span>
+             <span style="font-weight: bold;">:section-numbers</span> nil       <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Don't include section numbers</span>
+             <span style="font-weight: bold;">:time-stamp-file</span> nil)))    <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Don't include time stamp in file</span>
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org08e2e56" class="outline-3">
+<h3 id="org08e2e56">Generate Output</h3>
+<div class="outline-text-3" id="text-org08e2e56">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Generate the site output</span>
+(org-publish-all t)
+(message <span style="font-style: italic;">"Build complete!"</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org3311522" class="outline-2">
+<h2 id="org3311522">Build</h2>
+<div class="outline-text-2" id="text-org3311522">
+<div class="org-src-container">
+<pre class="src src-shell"><span style="font-weight: bold; font-style: italic;">#</span><span style="font-weight: bold; font-style: italic;">!/bin/</span><span style="font-weight: bold;">bash</span>
+emacs -Q --script build.el
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.1.9)</p>
+<p class="validation"></p>
+</div>
+</body>
+</html>
