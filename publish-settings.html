@@ -16,31 +16,31 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org5b55dcd">Emacs Build Configuration</a>
+<li><a href="#orgfec426d">Emacs Build Configuration</a>
 <ul>
-<li><a href="#orgdd596e3">Package manager settings</a></li>
-<li><a href="#orgd88dcce">Initialize package system</a></li>
-<li><a href="#orga7d1220">No backups or temp files</a></li>
-<li><a href="#org8a4e585">URL handeler mode to include external files</a></li>
-<li><a href="#org89acd91">Install dependencies</a></li>
-<li><a href="#org8cb4d7a">Load publishing system</a></li>
-<li><a href="#org169a48c">Customize HTML output</a></li>
-<li><a href="#orgb5b43de">Publishing project properties</a></li>
-<li><a href="#org956052a">Generate Output</a></li>
+<li><a href="#org4891541">Package manager settings</a></li>
+<li><a href="#org0e12cae">Initialize package system</a></li>
+<li><a href="#org2877285">No backups or temp files</a></li>
+<li><a href="#org067c2ac">URL handeler mode to include external files</a></li>
+<li><a href="#orgbab316f">Install dependencies</a></li>
+<li><a href="#org25a337e">Load publishing system</a></li>
+<li><a href="#orgba93bf2">Customize HTML output</a></li>
+<li><a href="#org5397e91">Publishing project properties</a></li>
+<li><a href="#org7b298e9">Generate Output</a></li>
 </ul>
 </li>
-<li><a href="#org28d39fc">Build</a></li>
+<li><a href="#org7bfe7e0">Build</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org5b55dcd" class="outline-2">
-<h2 id="org5b55dcd">Emacs Build Configuration</h2>
-<div class="outline-text-2" id="text-org5b55dcd">
+<div id="outline-container-orgfec426d" class="outline-2">
+<h2 id="orgfec426d">Emacs Build Configuration</h2>
+<div class="outline-text-2" id="text-orgfec426d">
 </div>
-<div id="outline-container-orgdd596e3" class="outline-3">
-<h3 id="orgdd596e3">Package manager settings</h3>
-<div class="outline-text-3" id="text-orgdd596e3">
+<div id="outline-container-org4891541" class="outline-3">
+<h3 id="org4891541">Package manager settings</h3>
+<div class="outline-text-3" id="text-org4891541">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Set the package installation directory so that packages aren't stored in the</span>
 <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">~/.emacs.d/elpa path.</span>
@@ -52,9 +52,9 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgd88dcce" class="outline-3">
-<h3 id="orgd88dcce">Initialize package system</h3>
-<div class="outline-text-3" id="text-orgd88dcce">
+<div id="outline-container-org0e12cae" class="outline-3">
+<h3 id="org0e12cae">Initialize package system</h3>
+<div class="outline-text-3" id="text-org0e12cae">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Initialize the package system</span>
 (package-initialize  (<span style="font-weight: bold;">unless</span> package-archive-contents
@@ -63,45 +63,45 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orga7d1220" class="outline-3">
-<h3 id="orga7d1220">No backups or temp files</h3>
-<div class="outline-text-3" id="text-orga7d1220">
+<div id="outline-container-org2877285" class="outline-3">
+<h3 id="org2877285">No backups or temp files</h3>
+<div class="outline-text-3" id="text-org2877285">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="font-weight: bold;">setq</span> make-backup-files nil)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org8a4e585" class="outline-3">
-<h3 id="org8a4e585">URL handeler mode to include external files</h3>
-<div class="outline-text-3" id="text-org8a4e585">
+<div id="outline-container-org067c2ac" class="outline-3">
+<h3 id="org067c2ac">URL handeler mode to include external files</h3>
+<div class="outline-text-3" id="text-org067c2ac">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(url-handler-mode 1)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org89acd91" class="outline-3">
-<h3 id="org89acd91">Install dependencies</h3>
-<div class="outline-text-3" id="text-org89acd91">
+<div id="outline-container-orgbab316f" class="outline-3">
+<h3 id="orgbab316f">Install dependencies</h3>
+<div class="outline-text-3" id="text-orgbab316f">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(package-install 'htmlize)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org8cb4d7a" class="outline-3">
-<h3 id="org8cb4d7a">Load publishing system</h3>
-<div class="outline-text-3" id="text-org8cb4d7a">
+<div id="outline-container-org25a337e" class="outline-3">
+<h3 id="org25a337e">Load publishing system</h3>
+<div class="outline-text-3" id="text-org25a337e">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">ox-publish</span>)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org169a48c" class="outline-3">
-<h3 id="org169a48c">Customize HTML output</h3>
-<div class="outline-text-3" id="text-org169a48c">
+<div id="outline-container-orgba93bf2" class="outline-3">
+<h3 id="orgba93bf2">Customize HTML output</h3>
+<div class="outline-text-3" id="text-orgba93bf2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Customize the HTML output</span>
 (<span style="font-weight: bold;">setq</span> org-html-validation-link nil            <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Don't show validation link</span>
@@ -112,9 +112,9 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgb5b43de" class="outline-3">
-<h3 id="orgb5b43de">Publishing project properties</h3>
-<div class="outline-text-3" id="text-orgb5b43de">
+<div id="outline-container-org5397e91" class="outline-3">
+<h3 id="org5397e91">Publishing project properties</h3>
+<div class="outline-text-3" id="text-org5397e91">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Define the publishing project</span>
 (<span style="font-weight: bold;">setq</span> org-publish-project-alist
@@ -134,9 +134,9 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org956052a" class="outline-3">
-<h3 id="org956052a">Generate Output</h3>
-<div class="outline-text-3" id="text-org956052a">
+<div id="outline-container-org7b298e9" class="outline-3">
+<h3 id="org7b298e9">Generate Output</h3>
+<div class="outline-text-3" id="text-org7b298e9">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Generate the site output</span>
 (org-publish-all t)
@@ -146,9 +146,9 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org28d39fc" class="outline-2">
-<h2 id="org28d39fc">Build</h2>
-<div class="outline-text-2" id="text-org28d39fc">
+<div id="outline-container-org7bfe7e0" class="outline-2">
+<h2 id="org7bfe7e0">Build</h2>
+<div class="outline-text-2" id="text-org7bfe7e0">
 <div class="org-src-container">
 <pre class="src src-shell"><span style="font-weight: bold; font-style: italic;">#</span><span style="font-weight: bold; font-style: italic;">!/bin/</span><span style="font-weight: bold;">bash</span>
 emacs -Q --script build.el
