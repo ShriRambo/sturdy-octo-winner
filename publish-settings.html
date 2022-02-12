@@ -16,31 +16,35 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgfec426d">Emacs Build Configuration</a>
+<li><a href="#orgb32e5ed">Emacs Build Configuration</a>
 <ul>
-<li><a href="#org4891541">Package manager settings</a></li>
-<li><a href="#org0e12cae">Initialize package system</a></li>
-<li><a href="#org2877285">No backups or temp files</a></li>
-<li><a href="#org067c2ac">URL handeler mode to include external files</a></li>
-<li><a href="#orgbab316f">Install dependencies</a></li>
-<li><a href="#org25a337e">Load publishing system</a></li>
-<li><a href="#orgba93bf2">Customize HTML output</a></li>
-<li><a href="#org5397e91">Publishing project properties</a></li>
-<li><a href="#org7b298e9">Generate Output</a></li>
+<li><a href="#org9cd0db7">Package manager settings</a></li>
+<li><a href="#orgb248066">Initialize package system</a></li>
+<li><a href="#orge4fb275">No backups or temp files</a></li>
+<li><a href="#org201bb4d">URL handeler mode to include external files</a></li>
+<li><a href="#org687f3f0">Install dependencies</a></li>
+<li><a href="#orgd7e9efb">Load publishing system</a></li>
+<li><a href="#org3dbe77f">Customize HTML output</a></li>
+<li><a href="#org9e478f9">Publishing project properties</a></li>
+<li><a href="#org88924c8">Generate Output</a></li>
 </ul>
 </li>
-<li><a href="#org7bfe7e0">Build</a></li>
+<li><a href="#org53ba3b2">Build</a>
+<ul>
+<li><a href="#orgc1bf707"><span class="todo TODO">TODO</span> One step less</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgfec426d" class="outline-2">
-<h2 id="orgfec426d">Emacs Build Configuration</h2>
-<div class="outline-text-2" id="text-orgfec426d">
+<div id="outline-container-orgb32e5ed" class="outline-2">
+<h2 id="orgb32e5ed">Emacs Build Configuration</h2>
+<div class="outline-text-2" id="text-orgb32e5ed">
 </div>
-<div id="outline-container-org4891541" class="outline-3">
-<h3 id="org4891541">Package manager settings</h3>
-<div class="outline-text-3" id="text-org4891541">
+<div id="outline-container-org9cd0db7" class="outline-3">
+<h3 id="org9cd0db7">Package manager settings</h3>
+<div class="outline-text-3" id="text-org9cd0db7">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Set the package installation directory so that packages aren't stored in the</span>
 <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">~/.emacs.d/elpa path.</span>
@@ -52,9 +56,9 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org0e12cae" class="outline-3">
-<h3 id="org0e12cae">Initialize package system</h3>
-<div class="outline-text-3" id="text-org0e12cae">
+<div id="outline-container-orgb248066" class="outline-3">
+<h3 id="orgb248066">Initialize package system</h3>
+<div class="outline-text-3" id="text-orgb248066">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Initialize the package system</span>
 (package-initialize  (<span style="font-weight: bold;">unless</span> package-archive-contents
@@ -63,45 +67,45 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org2877285" class="outline-3">
-<h3 id="org2877285">No backups or temp files</h3>
-<div class="outline-text-3" id="text-org2877285">
+<div id="outline-container-orge4fb275" class="outline-3">
+<h3 id="orge4fb275">No backups or temp files</h3>
+<div class="outline-text-3" id="text-orge4fb275">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="font-weight: bold;">setq</span> make-backup-files nil)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org067c2ac" class="outline-3">
-<h3 id="org067c2ac">URL handeler mode to include external files</h3>
-<div class="outline-text-3" id="text-org067c2ac">
+<div id="outline-container-org201bb4d" class="outline-3">
+<h3 id="org201bb4d">URL handeler mode to include external files</h3>
+<div class="outline-text-3" id="text-org201bb4d">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(url-handler-mode 1)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgbab316f" class="outline-3">
-<h3 id="orgbab316f">Install dependencies</h3>
-<div class="outline-text-3" id="text-orgbab316f">
+<div id="outline-container-org687f3f0" class="outline-3">
+<h3 id="org687f3f0">Install dependencies</h3>
+<div class="outline-text-3" id="text-org687f3f0">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(package-install 'htmlize)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org25a337e" class="outline-3">
-<h3 id="org25a337e">Load publishing system</h3>
-<div class="outline-text-3" id="text-org25a337e">
+<div id="outline-container-orgd7e9efb" class="outline-3">
+<h3 id="orgd7e9efb">Load publishing system</h3>
+<div class="outline-text-3" id="text-orgd7e9efb">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="font-weight: bold;">require</span> '<span style="font-weight: bold; text-decoration: underline;">ox-publish</span>)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgba93bf2" class="outline-3">
-<h3 id="orgba93bf2">Customize HTML output</h3>
-<div class="outline-text-3" id="text-orgba93bf2">
+<div id="outline-container-org3dbe77f" class="outline-3">
+<h3 id="org3dbe77f">Customize HTML output</h3>
+<div class="outline-text-3" id="text-org3dbe77f">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Customize the HTML output</span>
 (<span style="font-weight: bold;">setq</span> org-html-validation-link nil            <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Don't show validation link</span>
@@ -112,9 +116,9 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org5397e91" class="outline-3">
-<h3 id="org5397e91">Publishing project properties</h3>
-<div class="outline-text-3" id="text-org5397e91">
+<div id="outline-container-org9e478f9" class="outline-3">
+<h3 id="org9e478f9">Publishing project properties</h3>
+<div class="outline-text-3" id="text-org9e478f9">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Define the publishing project</span>
 (<span style="font-weight: bold;">setq</span> org-publish-project-alist
@@ -134,9 +138,9 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org7b298e9" class="outline-3">
-<h3 id="org7b298e9">Generate Output</h3>
-<div class="outline-text-3" id="text-org7b298e9">
+<div id="outline-container-org88924c8" class="outline-3">
+<h3 id="org88924c8">Generate Output</h3>
+<div class="outline-text-3" id="text-org88924c8">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">Generate the site output</span>
 (org-publish-all t)
@@ -146,13 +150,27 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org7bfe7e0" class="outline-2">
-<h2 id="org7bfe7e0">Build</h2>
-<div class="outline-text-2" id="text-org7bfe7e0">
+<div id="outline-container-org53ba3b2" class="outline-2">
+<h2 id="org53ba3b2">Build</h2>
+<div class="outline-text-2" id="text-org53ba3b2">
+<p>
+First line evaluates thin org file and creates a <code>build.el</code> file which contains all the publishing configuration. The second line evaluates <code>build.el</code> file itself and publish the web pages. And the final line removes <code>build.el</code> file.
+</p>
+
 <div class="org-src-container">
 <pre class="src src-shell"><span style="font-weight: bold; font-style: italic;">#</span><span style="font-weight: bold; font-style: italic;">!/bin/</span><span style="font-weight: bold;">bash</span>
+emacs -Q --batch --eval <span style="font-style: italic;">"(require 'org)"</span> --eval <span style="font-style: italic;">'(org-babel-tangle-file "build.org")'</span>
 emacs -Q --script build.el
+rm build.el
 </pre>
+</div>
+</div>
+<div id="outline-container-orgc1bf707" class="outline-3">
+<h3 id="orgc1bf707"><span class="todo TODO">TODO</span> One step less</h3>
+<div class="outline-text-3" id="text-orgc1bf707">
+<p>
+Make emacs evaluate <code>build.org</code> itself, rahter than tangling <code>build.el</code> first. This will remove one step from the deployment. 
+</p>
 </div>
 </div>
 </div>
