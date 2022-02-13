@@ -1,6 +1,9 @@
 #+TITLE: Home page 
 #+AUTHOR: Shriram Ashirgade
-#+OPTIONS: tex:t toc:nil 
+#+OPTIONS: tex:t toc:nil
+#+SETUPFILE: ./../resources/theme.css.org
+#+SETUPFILE: ./../resources/giscus.setup.org
+
 
 * Posts
 ** [[./emacs-config.org][Emacs configuration]]
@@ -10,3 +13,9 @@ My ever evolving literate emacs configuration
  - E = mc^{2} 
  - $$ \int xdx = \frac{x^2}{2} $$
  - 
+
+* Comments
+
+#+BEGIN_giscus
+
+#+END_giscus 
