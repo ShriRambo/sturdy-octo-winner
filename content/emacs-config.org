@@ -1,1 +1,6 @@
+# Including source org file for emacs config
 #+INCLUDE: "https://raw.githubusercontent.com/ShriRambo/dot-configs/master/emacs/config.org"
+
+
+# Including giscus discussing widget config
+#+INCLUDE: ./../resources/giscus.setup.org

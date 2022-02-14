@@ -1,1 +1,7 @@
+# Including source for publishing config org file
 #+INCLUDE: "./../build.org"
+
+
+# Including giscus discussing widget config
+#+INCLUDE: ./../resources/giscus.setup.org
+

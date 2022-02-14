@@ -2,21 +2,33 @@
 #+AUTHOR: Shrirambo
 #+STARTUP: content
 
-* Emacs Build Configuration
-** Package manager settings
+*  Emacs Build Configuration
+
+** Save package in local =.packages= folder
+This will set a local package initialisation directory so that packages are downloaded and saved locally and not in users or systems =.emacs.d= folder
 #+BEGIN_SRC emacs-lisp :tangle ./build.el
-  ;; Set the package installation directory so that packages aren't stored in the
-  ;; ~/.emacs.d/elpa path.
   (require 'package)
   (setq package-user-dir (expand-file-name "./.packages"))
+#+END_SRC
+** Package archive path
+This add package archives path, the location where package manager will search for the required packages.
+#+BEGIN_SRC emacs-lisp :tangle ./build.el
   (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                            ("elpa" . "https://elpa.gnu.org/packages/")))
 #+END_SRC
 ** Initialize package system
 #+BEGIN_SRC emacs-lisp :tangle ./build.el
-  ;; Initialize the package system
-  (package-initialize  (unless package-archive-contents
-    (package-refresh-contents)))
+  (package-initialize )
+  (unless package-archive-contents
+    (package-refresh-contents))
+#+END_SRC
+** Adding usepackage package
+For nicer imports of packages
+#+BEGIN_SRC emacs-lisp :tangle ./build.el
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
+  (require 'use-package)
+  (setq use-package-always-ensure t)
 #+END_SRC
 ** No backups or temp files
 #+BEGIN_SRC emacs-lisp :tangle ./build.el
@@ -28,8 +40,11 @@
 #+END_SRC
 ** Install dependencies
 #+BEGIN_SRC emacs-lisp :tangle ./build.el
+ ; (use-package ox-slimhtml
+  ;  :ensure t)
   (package-install 'htmlize)
 #+END_SRC
+
 ** Load publishing system
 #+BEGIN_SRC emacs-lisp :tangle ./build.el
   (require 'ox-publish)
@@ -40,6 +55,9 @@
   (setq org-html-validation-link nil            ;; Don't show validation link
         org-html-head-include-scripts nil       ;; Use our own scripts
         org-html-head-include-default-style nil ;; Use our own styles
+        org-export-use-babel nil                ;; Do not use babel to execute src blocks
+        org-html-htmlize-output-type 'css       ;; Instead of using inline css for each element
+        org-export-with-todo-keywords nil       ;; Ignore TODO keywords
         org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />")
 #+END_SRC
 ** Publishing project properties
