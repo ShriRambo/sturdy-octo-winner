@@ -149,7 +149,7 @@ pre.src:before {
     right: 10px;
     padding: 2px 6px;
     border: 1px solid black;
-    opacity: 1;
+    box-shadow: inset -3px -3px 0px #0006;
 }
 pre.src:hover:before { display: inline;}
 /* Languages per Org manual */
