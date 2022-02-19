@@ -4,3 +4,6 @@
 
 # Including giscus discussing widget config
 #+INCLUDE: ./../resources/giscus.setup.org
+
+
+#+SETUPFILE: ./../resources/theme.css.org

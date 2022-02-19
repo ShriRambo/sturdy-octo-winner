@@ -6,7 +6,9 @@
 * Posts
 ** [[./emacs-config.org][Emacs configuration]]
 My ever evolving literate emacs configuration
-** [[./publish-settings.org][Website publishing setup]]
-
-
+** [[./publish-settings.org][Website publishing setup]] 
+** TODO Self Linkable h tags (anchor link with para symbol ) 
+** Comments
 #+INCLUDE: ./../resources/giscus.setup.org
+** Footer
+footer

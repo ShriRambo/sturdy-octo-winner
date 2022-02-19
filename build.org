@@ -30,6 +30,13 @@ For nicer imports of packages
   (require 'use-package)
   (setq use-package-always-ensure t)
 #+END_SRC
+** Raimbow delimiters
+#+BEGIN_SRC emacs-lisp :tangle ./build.el
+  (use-package rainbow-delimiters
+    :ensure t
+    :hook ((prog-mode . rainbow-delimiters-mode)
+           (org-mode . rainbow-delimiters-mode)))
+#+END_SRC
 ** No backups or temp files
 #+BEGIN_SRC emacs-lisp :tangle ./build.el
   (setq make-backup-files nil)
@@ -56,9 +63,12 @@ For nicer imports of packages
         org-html-head-include-scripts nil       ;; Use our own scripts
         org-html-head-include-default-style nil ;; Use our own styles
         org-export-use-babel nil                ;; Do not use babel to execute src blocks
-        org-html-htmlize-output-type 'css       ;; Instead of using inline css for each element
+        org-html-htmlize-output-type 'css     ;; Instead of using inline css for each element
         org-export-with-todo-keywords nil       ;; Ignore TODO keywords
-        org-html-head "<link rel=\"stylesheet\" href=\"https://cdn.simplecss.org/simple.min.css\" />")
+        org-html-doctype "html5"
+        org-html-html5-fancy nil
+        org-html-head "<link rel=\"stylesheet\" href=\"./css/simple.css\" />"
+        )
 #+END_SRC
 ** Publishing project properties
 #+BEGIN_SRC emacs-lisp :tangle ./build.el
@@ -93,4 +103,21 @@ First line evaluates thin org file and creates a =build.el= file which contains 
   rm build.el
 #+END_SRC
 ** TODO One step less
-Make emacs evaluate =build.org= itself, rahter than tangling =build.el= first. This will remove one step from the deployment. 
+Make emacs evaluate =build.org= itself, rahter than tangling =build.el= first. This will remove one step from the deployment.
+* Tricks
+#+BEGIN_SRC js :tangle no
+  var allClasses = [];
+
+  var allElements = document.querySelectorAll('*');
+
+  for (var i = 0; i < allElements.length; i++) {
+    var classes = allElements[i].className.toString().split(/\s+/);
+    for (var j = 0; j < classes.length; j++) {
+      var cls = classes[j];
+      if (cls && allClasses.indexOf(cls) === -1)
+        allClasses.push(cls);
+    }
+  }
+
+  console.log(allClasses);
+#+END_SRC
