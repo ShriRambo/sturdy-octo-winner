@@ -1,5 +1,6 @@
 #+TITLE: Website Publishing: Build config
-#+AUTHOR: Shrirambo
+#+AUTHOR: shrirambo
+#+DATE: 1st Feb, 2022
 #+STARTUP: content
 
 *  Emacs Build Configuration
