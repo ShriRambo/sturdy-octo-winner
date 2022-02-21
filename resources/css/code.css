@@ -143,6 +143,7 @@ pre.src:before {
     display: none;
     position: absolute;
     background-color: #e9ebf5;
+    color: black;
     font-size:x-small;
     border-radius: 15px 50px;
     top: 10px;

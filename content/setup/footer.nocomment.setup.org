@@ -1,2 +1,3 @@
 * Footer
 ------
+Made with Emacs (Org-mode) and lots of  ❤
