@@ -1,13 +1,11 @@
-# Including thenm
-#+SETUPFILE: ./../resources/theme.css.org
-
-
-
 # Including source for publishing config org file
+#+INCLUDE: ./setup/theme.setup.org
 #+INCLUDE: "./../build.org"
 
 
-# Including giscus discussing widget config
-#+INCLUDE: ./../resources/giscus.setup.org
+* 
+# Including footer
+#+INCLUDE: ./setup/footer.setup.org
+
 
 

@@ -67,7 +67,7 @@ For nicer imports of packages
         org-export-with-todo-keywords nil       ;; Ignore TODO keywords
         org-html-doctype "html5"
         org-html-html5-fancy nil
-        org-html-head "<link rel=\"stylesheet\" href=\"./css/simple.css\" />"
+        org-html-head "<link rel=\"stylesheet\" href=\"/css/simple.css\" />"
         )
 #+END_SRC
 ** Publishing project properties
@@ -78,6 +78,8 @@ For nicer imports of packages
          (list "org-site:main"
                :recursive t
                :base-directory "./content"
+               :base-extension "org"
+               :exclude ".*\.\\(setup\\|draft\\)\.org"  ;; This ignores all the setup and draft files  
                :publishing-function 'org-html-publish-to-html
                :publishing-directory "./public"
                :with-author nil           ;; Don't include author name

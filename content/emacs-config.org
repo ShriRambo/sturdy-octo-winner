@@ -1,9 +1,7 @@
+#+INCLUDE: ./setup/theme.setup.org
+
 # Including source org file for emacs config
 #+INCLUDE: "https://raw.githubusercontent.com/ShriRambo/dot-configs/master/emacs/config.org"
 
-
-# Including giscus discussing widget config
-#+INCLUDE: ./../resources/giscus.setup.org
-
-
-#+SETUPFILE: ./../resources/theme.css.org
+# Including footer
+#+INCLUDE: ./setup/footer.setup.org
