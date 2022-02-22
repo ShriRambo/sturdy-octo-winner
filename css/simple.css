@@ -6,13 +6,13 @@
 		 "Nimbus Sans L", Roboto, Noto, "Segoe UI", Arial, Helvetica,
 		 "Helvetica Neue", sans-serif;
     --mono-font: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-    --bg: #0E1525;
-    --accent-bg: #1C2333;
-    --text: #dcdcdc;
+    --bg: #191B1F;
+    --accent-bg: #212839;
+    --text: #d8cab1;
     --text-light: #ababab;
     --border: #fff;
-    --accent: #0079F2;
-    --code: #ce9a78;
+    --accent: #72b2de;
+    --code: #b8bb26;
     --preformatted: #ccc;
     --disabled: #111;
 }
@@ -23,8 +23,8 @@ video {
 }
 
   
-:
-/* Light theme */
+
+/* Light theme 
 @media (prefers-color-scheme: light) {
  root {
   --bg: #fff;
@@ -40,6 +40,7 @@ video {
  }
 
 }
+*/
 
 html {
   /* Set the font globally */
@@ -467,6 +468,9 @@ samp {
   font-size: 1.075rem;
   font-family: var(--mono-font);
   color: var(--code);
+}
+code {
+    padding: 3px 6px;
 }
 
 kbd {
