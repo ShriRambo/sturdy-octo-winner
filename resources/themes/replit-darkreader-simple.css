@@ -24,7 +24,7 @@ video {
 
   
 
-/* Light theme 
+/* Light theme */
 @media (prefers-color-scheme: light) {
  root {
   --bg: #fff;
@@ -40,7 +40,6 @@ video {
  }
 
 }
-*/
 
 html {
   /* Set the font globally */
