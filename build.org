@@ -108,20 +108,3 @@ First line evaluates thin org file and creates a =build.el= file which contains 
 #+END_SRC
 ** TODO One step less
 Make emacs evaluate =build.org= itself, rahter than tangling =build.el= first. This will remove one step from the deployment.
-* Tricks
-#+BEGIN_SRC js :tangle no
-  var allClasses = [];
-
-  var allElements = document.querySelectorAll('*');
-
-  for (var i = 0; i < allElements.length; i++) {
-    var classes = allElements[i].className.toString().split(/\s+/);
-    for (var j = 0; j < classes.length; j++) {
-      var cls = classes[j];
-      if (cls && allClasses.indexOf(cls) === -1)
-        allClasses.push(cls);
-    }
-  }
-
-  console.log(allClasses);
-#+END_SRC
