@@ -1,0 +1,5 @@
+#!/bin/sh
+echo "In pre commit"
+echo "Publishing project before commiting"
+bash build.sh
+echo "Publication process completed. Commiting changes"
