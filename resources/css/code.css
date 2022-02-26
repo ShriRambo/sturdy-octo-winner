@@ -152,6 +152,14 @@ pre.src:before {
     border: 1px solid black;
     box-shadow: inset -3px -3px 0px #0006;
 }
+.linenr {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    color:#4c5a7c;
+}
 pre.src:hover:before { display: inline;}
 /* Languages per Org manual */
 pre.src-C:before { content: 'C'; }

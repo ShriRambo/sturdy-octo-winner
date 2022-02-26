@@ -42,7 +42,7 @@ If I set the same variable to ='css=, it will create org classes for each differ
 
 To get all the classes in the exported html, I used following javascript snippet from a kind user on [[https://stackoverflow.com/a/38025297][stackoverflow]]:
 
-#+BEGIN_SRC js :tangle no
+#+BEGIN_SRC js 
   var allClasses = [];
 
   var allElements = document.querySelectorAll('*');
