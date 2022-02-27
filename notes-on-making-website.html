@@ -15,9 +15,9 @@
 Here lies some general things, big and small (although mostly small) that I learned while making my website.
 </p>
 
-<div id="outline-container-orge416ca4" class="outline-2">
-<h2 id="orge416ca4">The root dir</h2>
-<div class="outline-text-2" id="text-orge416ca4">
+<div id="outline-container-org0c2955c" class="outline-2">
+<h2 id="org0c2955c">The root dir</h2>
+<div class="outline-text-2" id="text-org0c2955c">
 <p>
 When hosting a website, we can add links (e.g. links to some css or jacascript files) in the header. The path used can be relative to the document. This becomes a trouble when the html pages are in complicated directory structure.
 </p>
@@ -42,9 +42,9 @@ The root dir for http server is the folder where it is started. If the web serve
 </p>
 </div>
 
-<div id="outline-container-org0dd4ecb" class="outline-3">
-<h3 id="org0dd4ecb">Github pages caveat</h3>
-<div class="outline-text-3" id="text-org0dd4ecb">
+<div id="outline-container-org6f767df" class="outline-3">
+<h3 id="org6f767df">Github pages caveat</h3>
+<div class="outline-text-3" id="text-org6f767df">
 <p>
 On github, we can host static html sites. The root dir for the http server hosting our site is <code>[username].github.io</code>. If we have another repo called <code>blog-post</code> with github pages enabled, then all the content of this repo will be added to <code>root/blog-post</code> i.e. <code>[username].github.io/blogpost</code>. The html file (say <code>page1.html</code> which in in working dir of blog-post repo), which has <code>/css/style.css/</code> in its head will look for the css file in <code>[username].github.io/css/style.css</code>. Therefore, if the html page repo is not  <code>[username].github.io</code>, then it will no be able to load resources. So we can either keep our resources in <code>[username].github.io</code> repo or keep the resources path absolute according to where the http server is hosted.
 </p>
@@ -53,9 +53,9 @@ On github, we can host static html sites. The root dir for the http server hosti
 </div>
 
 
-<div id="outline-container-orgc965bd5" class="outline-2">
-<h2 id="orgc965bd5"></h2>
-<div class="outline-text-2" id="text-orgc965bd5">
+<div id="outline-container-org354bccb" class="outline-2">
+<h2 id="org354bccb"></h2>
+<div class="outline-text-2" id="text-org354bccb">
 <hr>
 <script src="https://giscus.app/client.js" 
   data-repo="ShriRambo/giscus-comments"
