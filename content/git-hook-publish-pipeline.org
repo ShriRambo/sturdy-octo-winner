@@ -1,0 +1,42 @@
+#+TITLE: Publishing Pipelines with git hooks
+#+AUTHOR: shrirambo
+#+DATE: 27th Feb, 2022
+#+OPTIONS: tex:t toc:nil
+#+INCLUDE: ./setup/theme.setup.org
+------
+
+I have all of my publishing configuration witten as a in [[./publish-settings.org][build.org]] file and the shell commands in =build.sh=. Moreover, I have made =build.sh= an executable file. Running this file will build the project and make all of the html files in =./content= folder. I would like to automate the publishing process so that, when I write a page in org mode and commit the changes, it gets published automatically. For that, I am using git hooks.
+
+* Git hooks
+In git scm, there is a way to run custom script which are triggred by specific actions. That is called [[https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks][Git Hooks]]. Some of the common hooks are
+
++ pre-commit
++ prepare-commit-msg
++ commit-msg
++ post-commit
++ post-checkout
++ pre-rebase
+
+Hooks are stored in =.git/hooks/= folder of the repositore. To "install" a hook, I just have to write a script, make it executable, and save in hooks dir with appropriate name. The coolest thing is, these scripts doesn't have to be shell script. It can be python, perl, or any other script. It just have to be executable with a shebang on top. I can make these scripts as complicated as I want. Some of them even get inputs which can be used in the scrpt.
+
+Note: Hooks always run in the repository root.
+
+
+* Hooks under (version) control?
+
+The hooks in =.git/hooks/= folder are local. They are not pushed to the remote and they are not pulled from a remote. What I can do is keep the script in working directory and copy to the hooks folder. Although, it would be better to create symlink in hooks folder, then I do not have to copy it evrytime it is changed. 
+
+* My setup
+
+In my working directory, I have created a =hooks= folder which contains all the scripts I would like to use hooks. And then use symlink. I have a bash script with following contents:
+
+#+BEGIN_SRC bash
+  #!/bin/bash
+  bash build.sh
+#+END_SRC
+
+This script is basically running my main build script as a hook. I could have just used =build.sh= as hook, but I did not think about it at the time. Moreover, I can add other stuff to the hook which I do not want in my build script.
+
+I then linked this script to =./git/hooks/pre-commit=. So now, whenever I try to commit, my project is built before changes are commited. I am planning to add some checks in the hook so that if something goes wrong, the commit gets rejected.
+
+#+INCLUDE: ./setup/footer.setup.org
