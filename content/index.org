@@ -10,5 +10,7 @@
 + [[./notes-on-making-website.org][Notes on making website]]
 + [[./themeing-website.org][Styling the website]]
 + [[./git-hook-publish-pipeline.org][Project publish pipeline with git hooks]]
++ [[./blog-repo-structure.org][Web Blog Repository structure]]
+
 
 #+INCLUDE: ./setup/footer.setup.org

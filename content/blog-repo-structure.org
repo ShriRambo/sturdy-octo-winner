@@ -1,0 +1,68 @@
+#+TITLE: Web Blog Repository Structure
+#+AUTHOR: shrirambo
+#+DATE: 7th of March, 2022
+#+OPTIONS: tex:t toc:nil
+#+INCLUDE: ./setup/theme.setup.org
+------
+
+In this note, I am explaining the structure of the repository I use to write notes and how everythong is set up. The blog is under version control with git which makes it easier to track all the changes and setup automations which will update the webserver with newly written content. The repo contains two branches, master and publish. Master tracks all the resources needed to build the website and publish contains the final product ready to host on a web server. 
+
+* The Master Branch
+This is the main branch of the project. The [[./publish-settings.org][build.org]] contins all the publishing settings for the project. It only tracks the resources required, i.e .org, .css, .js files, and not the actual published html filed. The folder =public= is not tracked by this branch. Running =build.sh= publishes the project in this folder. All the notes which are needed to be published are kept in =content= folder. The folder =public/setup= contains org files with common settigs for all the other files. These org files are not published.  The folder =resources= contains all the shared css and js files. The =hooks= folder contains all of the automation scripts.
+#+begin_example
+root                             # Master branch worktree
+├── build.org                    # Build setup
+├── build.sh                     # Publishing script
+├── build.sh
+├── content                      # Page content
+│   ├── index.org
+│   └── setup                    # General setup settings 
+│       ├── footer.setup.org
+│       ├── header.setup.org
+│       └── theme.setup.org
+├── hooks                        # Automation scripts
+│   └── publish-on-commit
+├── public                       # Untracked publish folder
+│   ├── css
+│   │   ├── code.css
+│   │   └── simple.css
+│   ├── img
+│   ├── index.html
+│   └── sitemap.html
+└── resources                    # Version controlled general resources
+    ├── css
+    │   ├── code.css
+    │   └── simple.css
+    ├── js
+    └── themes                   # Alternate stylings
+        └── alt-theme.css
+#+end_example
+
+
+* The Publish Branch
+This branch is the root of webserver. The worktree of this branch has all the contents of =public= folder obtained by building the project. As the web server do not need org files, only required files are tracked by this branch. In my case, I am using this branch to host static webpages with github pages. 
+#+begin_example
+root                      # Publish branch worktree
+ ├── css
+ │   ├── code.css
+ │   └── simple.css
+ ├── img
+ ├── index.html
+ ├── other-pages.html
+ └── sitemap.html
+#+end_example
+
+* Publishing Steps
+Everytime I write a page or make changes to the project, I run the following steps.
+
+1. Commit changes to the master branch.
+2. Run =build.sh=
+3. Checkout publish branch
+4. Remove all the old html files
+5. Move contents of =publish= folder to the worktree
+6. Commit changes to the publish branch
+7. Push both master and publish to the remote
+
+I am planning to create a post-commit hook which will automate the execution of steps 2-6. [see [[./git-hook-publish-pipeline.org][git hooks]]].
+
+#+INCLUDE: ./setup/footer.setup.org
