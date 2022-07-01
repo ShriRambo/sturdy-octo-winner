@@ -234,6 +234,7 @@ pre.src-plain-tex:before { content: 'Plain TeX'; }
 pre.src-verilog:before { content: 'Verilog'; }
 pre.src-vhdl:before { content: 'VHDL'; }
 pre.src-xml:before { content: 'XML'; }
+pre.src-yaml:before { content: 'YAML'; }
 pre.src-nxml:before { content: 'XML'; }
 /* add a generic configuration mode; LaTeX export needs an additional
      (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
