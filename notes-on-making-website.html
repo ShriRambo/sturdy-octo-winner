@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes on making a website with Emacs and orgmode</title>
+<meta name="generator" content="Org mode">
+<link rel="stylesheet" href=" ./css/code.css" />
+<link rel="stylesheet" href="./css/simple.css" />
+</head>
+<body>
+<div id="content">
+<h1 class="title">Notes on making a website with Emacs and orgmode</h1>
+<p>
+Here lies some general things, big and small (although mostly small) that I learned while making my website.
+</p>
+
+<div id="outline-container-org49ea8ca" class="outline-2">
+<h2 id="org49ea8ca">The root dir</h2>
+<div class="outline-text-2" id="text-org49ea8ca">
+<p>
+When hosting a website, we can add links (e.g. links to some css or jacascript files) in the header. The path used can be relative to the document. This becomes a trouble when the html pages are in complicated directory structure.
+</p>
+<pre class="example">
+/-  project
+|---css
+|    |---style.css
+|---page1.html
+|---folder1
+|    |---page2.html
+|---folder2
+|     |---folder3
+|     |      |---page3.html
+</pre>
+
+<p>
+In the above tree structure, <code>page1.html</code> will can have relative path for stylesheet as <code>./css/style.css</code>, while <code>page2.html</code> will have <code>./../css/style.css</code> and <code>page3.html</code> will have <code>./../../css/style.css</code>. Then it is easier to put absolute path <code>~/abs/path/to/project/css/style.css</code> and this stays constant in all of the html files. 
+</p>
+
+<p>
+The root dir for http server is the folder where it is started. If the web server is started in the <code>project</code> directory, each html can hace <code>/css/style.css</code> as the path to stylesheet. Now, our life is much simpler than it was. 
+</p>
+</div>
+
+<div id="outline-container-org4c388f4" class="outline-3">
+<h3 id="org4c388f4">Github pages caveat</h3>
+<div class="outline-text-3" id="text-org4c388f4">
+<p>
+On github, we can host static html sites. The root dir for the http server hosting our site is <code>[username].github.io</code>. If we have another repo called <code>blog-post</code> with github pages enabled, then all the content of this repo will be added to <code>root/blog-post</code> i.e. <code>[username].github.io/blogpost</code>. The html file (say <code>page1.html</code> which in in working dir of blog-post repo), which has <code>/css/style.css/</code> in its head will look for the css file in <code>[username].github.io/css/style.css</code>. Therefore, if the html page repo is not  <code>[username].github.io</code>, then it will no be able to load resources. So we can either keep our resources in <code>[username].github.io</code> repo or keep the resources path absolute according to where the http server is hosted.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org0bfff4f" class="outline-2">
+<h2 id="org0bfff4f"></h2>
+<div class="outline-text-2" id="text-org0bfff4f">
+<hr>
+<script src="https://giscus.app/client.js" 
+  data-repo="ShriRambo/giscus-comments"
+  data-repo-id="R_kgDOG1mtrQ"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOG1mtrc4CBJNW" 
+  data-mapping="title" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top" 
+  data-theme="dark" 
+  data-lang="en" 
+  crossorigin="anonymous" 
+  async> </script>
+<hr>
+<p>
+Made with ❤️ and Emacs (Org-mode)
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"></p>
+</div>
+</body>
+</html>
