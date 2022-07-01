@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DuckDNS: A Dynamic DNS Service</title>
+<meta name="generator" content="Org mode">
+<link rel="stylesheet" href=" ./css/code.css" />
+<link rel="stylesheet" href="./css/simple.css" />
+</head>
+<body>
+<div id="content">
+<h1 class="title">DuckDNS: A Dynamic DNS Service</h1>
+<hr>
+
+<p>
+DuckDNS ia a free Domain Name Service which can be setup to point any (available) subdomain of <a href="http://duckdns.org">duckdns</a> to an IP address or our choice. This is a dynamic DNS service, which means the IP address corresponding to your domain can easily be change.
+</p>
+
+<div id="outline-container-orgee53be6" class="outline-2">
+<h2 id="orgee53be6">Why?</h2>
+<div class="outline-text-2" id="text-orgee53be6">
+<p>
+This type of service is useful when the IP address assigned to you by your ISP is not a static one and changes. To keep your services running, the domain name entry must be always up to date with current IP address. As update of IP can be done on periodic basis with duckdns, it is always gurenteed that the domain name will point to the correct IP
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf7b457c" class="outline-2">
+<h2 id="orgf7b457c">How?</h2>
+<div class="outline-text-2" id="text-orgf7b457c">
+<p>
+With DuckDNS, I can just use a simple http/https request to update the IP address corresponding to my domain name.
+</p>
+
+<ul class="org-ul">
+<li>With query parameters</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-bash">curl https://www.duckdns.org/update?<span class="org-variable-name">domains</span>=<span class="org-rainbow-delimiters-depth-1">{</span>value<span class="org-rainbow-delimiters-depth-1">}</span>&amp;<span class="org-variable-name">token</span>=<span class="org-rainbow-delimiters-depth-1">{</span>value<span class="org-rainbow-delimiters-depth-1">}[</span>&amp;<span class="org-variable-name">ip</span>=<span class="org-rainbow-delimiters-depth-2">{</span>value<span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">][</span>&amp;<span class="org-variable-name">ipv6</span>=<span class="org-rainbow-delimiters-depth-2">{</span>value<span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">][</span>&amp;<span class="org-variable-name">verbose</span>=true<span class="org-rainbow-delimiters-depth-1">][</span>&amp;<span class="org-variable-name">clear</span>=true<span class="org-rainbow-delimiters-depth-1">]</span>
+</pre>
+</div>
+<p>
+where
+</p>
+<ul class="org-ul">
+<li>domains - REQUIRED - comma separated list of the subdomains that are to be updated</li>
+<li>token - REQUIRED - account token</li>
+<li>ip - OPTIONAL - if left blank, IP address is automatically detected. IPV6 needs to be specified explicitly</li>
+<li>ipv6 - OPTIONAL - a valid IPv6 address, if you specify this then the autodetection for ip is not used</li>
+<li>verbose - OPTIONAL - if set to true, you get information back about how the request went</li>
+<li>clear - OPTIONAL - if set to true, the update will ignore all ip's and clear both your records</li>
+</ul>
+
+
+
+<ul class="org-ul">
+<li>With path parameters</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-bash">curl https://duckdns.org/update/<span class="org-rainbow-delimiters-depth-1">{</span>domain<span class="org-rainbow-delimiters-depth-1">}</span>/<span class="org-rainbow-delimiters-depth-1">{</span>token<span class="org-rainbow-delimiters-depth-1">}[</span>/<span class="org-rainbow-delimiters-depth-2">{</span>ip<span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">]</span>
+</pre>
+</div>
+<p>
+where 
+</p>
+<ul class="org-ul">
+<li>domain - REQUIRED - only a single subdomain</li>
+<li>token - REQUIRED -  account token</li>
+<li>ip - OPTIONAL - if left blank, ip address is automatically detected</li>
+</ul>
+
+<p>
+With this, I can just setup a cron job to run at a certain interval doing https request with correct parameters so that my record is always updated.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org19c8d97" class="outline-2">
+<h2 id="org19c8d97">Then?</h2>
+<div class="outline-text-2" id="text-org19c8d97">
+<p>
+After setting an dynamic IP, I can expose all the services running on my home server to the internet so that they can be accessed from anywhere in the world. Of course, it will need port forwarding set up.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4749f94" class="outline-2">
+<h2 id="org4749f94">Some thing extra</h2>
+<div class="outline-text-2" id="text-org4749f94">
+<p>
+Say if I have purchased a domain name from a DNS provider who does not allow dynamic update of IP address, then I can just use a <code>CNAME</code> entry which will point to my duckdns domain which will always be up to date.
+</p>
+
+<hr>
+<script src="https://giscus.app/client.js" 
+  data-repo="ShriRambo/giscus-comments"
+  data-repo-id="R_kgDOG1mtrQ"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOG1mtrc4CBJNW" 
+  data-mapping="title" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top" 
+  data-theme="dark" 
+  data-lang="en" 
+  crossorigin="anonymous" 
+  async> </script>
+<hr>
+<p>
+Made with ❤️ and Emacs (Org-mode)
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"></p>
+</div>
+</body>
+</html>

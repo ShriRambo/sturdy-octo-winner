@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paperless-ngx setup</title>
+<meta name="generator" content="Org mode">
+<link rel="stylesheet" href=" ./css/code.css" />
+<link rel="stylesheet" href="./css/simple.css" />
+</head>
+<body>
+<div id="content">
+<h1 class="title">Paperless-ngx setup</h1>
+<hr>
+
+<p>
+Paperless-ngx is a fork of paperless-ng which is in turn a fork of paperless. This is a server app to manage documents, tag, organize and even perform OCR on documents. Here is my docker-compose setup for paperless-ngx.
+</p>
+
+<p>
+Redis broker
+</p>
+<div class="org-src-container">
+<pre class="src src-yaml">version: "3.4"
+services:
+  broker:
+    image: redis:6.0
+    name: paperless-redis-broker
+    restart: unless-stopped
+    volumes:
+      - /srv/dev-disk-by-uuid-4c9bfec2-c3ff-428e-9363-1171f41a770c/appdata/paperless-ngx/redisdata:/data
+
+</pre>
+</div>
+
+<p>
+Postgres database
+</p>
+<div class="org-src-container">
+<pre class="src src-yaml">db:
+  image: postgres:13
+  name: paperless-db
+  restart: unless-stopped
+  volumes:
+    - /srv/dev-disk-by-uuid-4c9bfec2-c3ff-428e-9363-1171f41a770c/appdata/paperless-ngx/pgdata:/var/lib/postgresql/data
+  environment:
+    POSTGRES_DB: paperless
+    POSTGRES_USER: paperless
+    POSTGRES_PASSWORD: paperless
+
+</pre>
+</div>
+
+<p>
+Paperless-ngx websever. This is the frontend where I can access the app from my pc or mobile phone. 
+</p>
+<div class="org-src-container">
+<pre class="src src-yaml">webserver:
+  image: ghcr.io/paperless-ngx/paperless-ngx:latest
+  name: paperless-webserver
+  restart: unless-stopped
+  depends_on:
+    - db
+    - broker
+  ports:
+    - 49160:8000
+  healthcheck:
+    test: ["CMD", "curl", "-fs", "-S", "--max-time", "2", "http://localhost:8000"]
+    interval: 30s
+    timeout: 10s
+    retries: 5
+  volumes:
+    - /srv/dev-disk-by-uuid-4c9bfec2-c3ff-428e-9363-1171f41a770c/appdata/paperless-ngx/data:/usr/src/paperless/data
+    - /srv/dev-disk-by-uuid-4c9bfec2-c3ff-428e-9363-1171f41a770c/appdata/paperless-ngx/media:/usr/src/paperless/media
+    - /srv/dev-disk-by-uuid-4c9bfec2-c3ff-428e-9363-1171f41a770c/appdata/paperless-ngx/export:/usr/src/paperless/export
+    - /srv/dev-disk-by-uuid-4c9bfec2-c3ff-428e-9363-1171f41a770c/appdata/paperless-ngx/inbox:/usr/src/paperless/consume
+  #env_file: docker-compose.env
+  environment:
+    PAPERLESS_REDIS: redis://broker:6379
+    PAPERLESS_DBHOST: db
+    COMPOSE_PROJECT_NAME: paperless
+    PAPERLESS_ADMIN_USER: admin
+    PAPERLESS_ADMIN_PASSWORD: admin
+</pre>
+</div>
+
+<div id="outline-container-org6a424c7" class="outline-2">
+<h2 id="org6a424c7">Refrences</h2>
+<div class="outline-text-2" id="text-org6a424c7">
+<ul class="org-ul">
+<li><a href="https://github.com/paperless-ngx/paperless-ngx">Paperless-ngx Github</a></li>
+<li><a href="https://github.com/bauerj/paperless_app">Paperless app</a></li>
+</ul>
+
+<hr>
+<script src="https://giscus.app/client.js" 
+  data-repo="ShriRambo/giscus-comments"
+  data-repo-id="R_kgDOG1mtrQ"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOG1mtrc4CBJNW" 
+  data-mapping="title" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top" 
+  data-theme="dark" 
+  data-lang="en" 
+  crossorigin="anonymous" 
+  async> </script>
+<hr>
+<p>
+Made with ❤️ and Emacs (Org-mode)
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Webpage look and feel</title>
+<meta name="generator" content="Org mode">
+<link rel="stylesheet" href=" ./css/code.css" />
+<link rel="stylesheet" href="./css/simple.css" />
+</head>
+<body>
+<div id="content">
+<h1 class="title">Webpage look and feel</h1>
+<hr>
+<p>
+Writing notes in rich markup style i.e. org-mode is very cool thing. Emacs comes with functionality of exporting org files into html the way I want it. Default style of the published file is nice, but the better thing is I can control each and every aspect of the export. Here, I write my experience about themeing of the webpage export. 
+</p>
+
+<div id="outline-container-org2941f59" class="outline-2">
+<h2 id="org2941f59">The custom styling</h2>
+<div class="outline-text-2" id="text-org2941f59">
+<p>
+The default publishing settings might already be good. But the best part is, I can can customize each and every aspect of it. The way to do this is to set some of the org export variables. 
+</p>
+<ul class="org-ul">
+<li>Set <code>org-html-head-include-scripts</code> to <code>nil</code>, so that the export doesn't add default scripts in the head.</li>
+<li>Set <code>org-html-head-include-default-style</code> to <code>nil</code>, this will avoid adding any default stylesheet in the head so that I can use my own.</li>
+<li>Set <code>org-html-head</code> to "<code class="src src-html">&lt;<span class="org-function-name">link</span> <span class="org-variable-name">rel</span>=<span class="org-string">"stylesheet"</span> <span class="org-variable-name">href</span>=<span class="org-string">"/css/style.css"</span> /&gt;</code>" where href refers to the stylesheet I want. This will add the link tag in all of the exported html files. Probably, if we have <code>#+SETUPFILE: path/to/setup/file.org</code> included in the org file, the content of this variable is ignored.</li>
+</ul>
+<p>
+Note: Remember to escape the special characters in the string assigned to this variable.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org13c96bb" class="outline-2">
+<h2 id="org13c96bb">Stylesheet</h2>
+<div class="outline-text-2" id="text-org13c96bb">
+<p>
+Now that I know how to add custom stylesheet and scripts in the exported html files, I want to "make" a custom stylesheet. I can go and write rules for each required tags and classes one by one. But I am not really a web designer. Some nice people, who are professional, have contributed to the open source community by making nice stylesheets which are free to use and modify. 
+</p>
+
+<dl class="org-dl">
+<dt><a href="https://getbootstrap.com">Bootstrap css</a></dt><dd>Bootstrap is a nice css framework for making responsive webpages. It is a bit heavy one.</dd>
+<dt><a href="https://www.w3schools.com/w3css/">w3-css</a></dt><dd>Framework from w3-schools. It is marketed as smaller faster and easier to use alternative to Bootstrap. I used this in the old version of my web-page.</dd>
+<dt><a href="https://tailwindcss.com">Tailwind css</a></dt><dd>It has mode complicated but common styles and transformations defined as classes. Although, I never tried it.</dd>
+</dl>
+
+<p>
+All of these are kind of heavy as most of the styling are defined as classes and to apply that style to a div, I need to add that class to the tag. But, here I just want to make simple webpage where I can write my notes and publish. So, I do not really need stylesheets defined by classes. The one I like and use is 
+</p>
+<dl class="org-dl">
+<dt><a href="https://simplecss.org">Simple-css</a></dt><dd>A simple css framework. Not as class definitions but tags themselves are styled. And it is very lite. Keep is simple, silly!!! 😛</dd>
+</dl>
+
+<p>
+The upside of useing standard frameworks is that they are usually hosted on content delivery networks like CDNJS and JSDeliver. I can just inclide http link to the script. But the downside of using content delivery network is that the stylesheet cannot be customised. But I can just download <code>.css</code> files, modify it and add to my project.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga100ef1" class="outline-2">
+<h2 id="orga100ef1">Custom modifications</h2>
+<div class="outline-text-2" id="text-orga100ef1">
+<p>
+Now that I have a basic stylesheet, I want to modify the way I want it. What I did is use some easily available tools and some hacky tricks to make it work.
+</p>
+<dl class="org-dl">
+<dt>Inspect element <kbd>Ctrl+Shift+I</kbd></dt><dd>When I publish a page, I will just open console, inspect each element and select colors that I like. I can even take styles from other webpages which I like.</dd>
+<dt><a href="https://www.colorzilla.com">Colorzilla tool</a></dt><dd>I used this tool to pick colors from webpages and images. It is nice tool to get hex value of color that I like.</dd>
+<dt><a href="https://darkreader.org">Dark reader</a></dt><dd>With this tool, I adjusted some settings of overall color feel. And when I arrived at a style I liked, I used above two tools to make the style sheet.</dd>
+</dl>
+</div>
+</div>
+
+
+<div id="outline-container-orgcf69055" class="outline-2">
+<h2 id="orgcf69055">Code highliting</h2>
+<div class="outline-text-2" id="text-orgcf69055">
+<p>
+The styling I did so far is only for normal html elements. The code blocks are exported to <code>pre</code> and <code>code</code> tags. But the code itself does not contain language specific highliting. To do that I use <code>htmlize</code> package and  set the variable <code>org-html-htmlize-output-type</code> to <code>inline</code>. This will export code with syntax highliting used by current emacs themes. Although the colors will be exported as inline css style. Theme change, code highliting change. 
+</p>
+
+<p>
+If I set the same variable to <code>'css</code>, it will create org classes for each different code elements. Then I can make a stylesheet to have a custom code highliting, or again pick it up from themes. To get the color values of an emacs theme, I use the command <code>org-html-htmlize-generate-css</code>. This creates a buffer with emacs theme exported as a css. But this contains styles for all the emacs related packages and elements which I do not need. I can then pick up the definitions and put it in code css stylesheet and add to the html.
+</p>
+
+<p>
+To get all the classes in the exported html, I used following javascript snippet from a kind user on <a href="https://stackoverflow.com/a/38025297">stackoverflow</a>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">allClasses</span> = <span class="org-rainbow-delimiters-depth-1">[]</span>;
+
+<span class="org-keyword">var</span> <span class="org-variable-name">allElements</span> = document.querySelectorAll<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">'*'</span><span class="org-rainbow-delimiters-depth-1">)</span>;
+
+<span class="org-keyword">for</span> <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">var</span> <span class="org-variable-name">i</span> = 0; i &lt; allElements.length; i++<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-rainbow-delimiters-depth-1">{</span>
+  <span class="org-keyword">var</span> <span class="org-variable-name">classes</span> = allElements<span class="org-rainbow-delimiters-depth-2">[</span>i<span class="org-rainbow-delimiters-depth-2">]</span>.className.toString<span class="org-rainbow-delimiters-depth-2">()</span>.split<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">/\s+/</span><span class="org-rainbow-delimiters-depth-2">)</span>;
+  <span class="org-keyword">for</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">var</span> <span class="org-variable-name">j</span> = 0; j &lt; classes.length; j++<span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">{</span>
+    <span class="org-keyword">var</span> <span class="org-variable-name">cls</span> = classes<span class="org-rainbow-delimiters-depth-3">[</span>j<span class="org-rainbow-delimiters-depth-3">]</span>;
+    <span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>cls &amp;&amp; allClasses.indexOf<span class="org-rainbow-delimiters-depth-4">(</span>cls<span class="org-rainbow-delimiters-depth-4">)</span> === -1<span class="org-rainbow-delimiters-depth-3">)</span>
+      allClasses.push<span class="org-rainbow-delimiters-depth-3">(</span>cls<span class="org-rainbow-delimiters-depth-3">)</span>;
+  <span class="org-rainbow-delimiters-depth-2">}</span>
+<span class="org-rainbow-delimiters-depth-1">}</span>
+
+console.log<span class="org-rainbow-delimiters-depth-1">(</span>allClasses<span class="org-rainbow-delimiters-depth-1">)</span>;
+</pre>
+</div>
+
+<p>
+And that is how I styled my webpage 😎
+</p>
+
+<hr>
+<script src="https://giscus.app/client.js" 
+  data-repo="ShriRambo/giscus-comments"
+  data-repo-id="R_kgDOG1mtrQ"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOG1mtrc4CBJNW" 
+  data-mapping="title" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top" 
+  data-theme="dark" 
+  data-lang="en" 
+  crossorigin="anonymous" 
+  async> </script>
+<hr>
+<p>
+Made with ❤️ and Emacs (Org-mode)
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"></p>
+</div>
+</body>
+</html>
