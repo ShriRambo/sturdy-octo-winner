@@ -5,7 +5,7 @@
 #+INCLUDE: ./setup/theme.setup.org
 ------
 
-DuckDNS ia a free Domain Name Service which can be setup to point any (available) subdomain of [[duckdns.org]] to an IP address or our choice. This is a dynamic DNS service, which means the IP address corresponding to your domain can easily be change. 
+DuckDNS ia a free Domain Name Service which can be setup to point any (available) subdomain of [[duckdns.org]] to an IP address or our choice. This is a dynamic DNS service, which means the IP address corresponding to your domain can easily be change.
 
 * Why?
 This type of service is useful when the IP address assigned to you by your ISP is not a static one and changes. To keep your services running, the domain name entry must be always up to date with current IP address. As update of IP can be done on periodic basis with duckdns, it is always gurenteed that the domain name will point to the correct IP
