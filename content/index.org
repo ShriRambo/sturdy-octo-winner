@@ -11,6 +11,8 @@
 + [[./themeing-website.org][Styling the website]]
 + [[./git-hook-publish-pipeline.org][Project publish pipeline with git hooks]]
 + [[./blog-repo-structure.org][Web Blog Repository structure]]
++ [[./paperless-ngx-config.org][Paperless-ngx configuration]]
+
 
 
 #+INCLUDE: ./setup/footer.setup.org
