@@ -1,0 +1,47 @@
+#+TITLE: DuckDNS: A Dynamic DNS Service
+#+AUTHOR: shrirambo
+#+DATE: 1st of July, 2022
+#+OPTIONS: tex:t toc:nil
+#+INCLUDE: ./setup/theme.setup.org
+------
+
+DuckDNS ia a free Domain Name Service which can be setup to point any (available) subdomain of [[duckdns.org]] to an IP address or our choice. This is a dynamic DNS service, which means the IP address corresponding to your domain can easily be change. 
+
+* Why?
+This type of service is useful when the IP address assigned to you by your ISP is not a static one and changes. To keep your services running, the domain name entry must be always up to date with current IP address. As update of IP can be done on periodic basis with duckdns, it is always gurenteed that the domain name will point to the correct IP
+
+* How?
+With DuckDNS, I can just use a simple http/https request to update the IP address corresponding to my domain name.
+
+- With query parameters
+#+BEGIN_SRC bash
+curl https://www.duckdns.org/update?domains={value}&token={value}[&ip={value}][&ipv6={value}][&verbose=true][&clear=true]
+#+END_SRC
+where
++ domains - REQUIRED - comma separated list of the subdomains that are to be updated
++ token - REQUIRED - account token
++ ip - OPTIONAL - if left blank, IP address is automatically detected. IPV6 needs to be specified explicitly
++ ipv6 - OPTIONAL - a valid IPv6 address, if you specify this then the autodetection for ip is not used
++ verbose - OPTIONAL - if set to true, you get information back about how the request went
++ clear - OPTIONAL - if set to true, the update will ignore all ip's and clear both your records
+
+
+
+- With path parameters
+#+BEGIN_SRC bash
+curl https://duckdns.org/update/{domain}/{token}[/{ip}]
+#+END_SRC
+where 
++ domain - REQUIRED - only a single subdomain
++ token - REQUIRED -  account token
++ ip - OPTIONAL - if left blank, ip address is automatically detected
+
+With this, I can just setup a cron job to run at a certain interval doing https request with correct parameters so that my record is always updated.
+
+* Then?
+After setting an dynamic IP, I can expose all the services running on my home server to the internet so that they can be accessed from anywhere in the world. Of course, it will need port forwarding set up.
+
+* Some thing extra
+Say if I have purchased a domain name from a DNS provider who does not allow dynamic update of IP address, then I can just use a ~CNAME~ entry which will point to my duckdns domain which will always be up to date.
+
+#+INCLUDE: ./setup/footer.setup.org
