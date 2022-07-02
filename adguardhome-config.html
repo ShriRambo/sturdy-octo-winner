@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AdGuardhome Setup</title>
+<meta name="generator" content="Org mode">
+<link rel="stylesheet" href=" ./css/code.css" />
+<link rel="stylesheet" href="./css/simple.css" />
+</head>
+<body>
+<div id="content">
+<h1 class="title">AdGuardhome Setup</h1>
+<hr>
+<p>
+Adguard home is a software that blocks ads and trackers over your complete network. And for it to work, no client side apps are required at all. Adguard achieves this by acting as a dns server and redirects all the requests to domains, which are known to be ad servers or trackers, to black hole. We can also add our own list of domain names or from a publicaly maintained list of trackers. 
+</p>
+
+<div id="outline-container-org70991f3" class="outline-2">
+<h2 id="org70991f3">Docker compose file</h2>
+<div class="outline-text-2" id="text-org70991f3">
+<p>
+Here is my docker compose file.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">version: "2"
+services:
+  adguardhome:
+    image: adguard/adguardhome
+    container_name: adguardhome
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+      - 68:68/tcp
+      - 68:68/udp
+      - 853:853/tcp
+      - 3000:3000/tcp
+    environment:
+      - USER_ID=998
+      - GROUP_ID=100
+      - TZ=Europe/Amsterdam
+    volumes:
+      - /srv/dev-disk-by-uuid-4c9bfec2-c3ff-428e-9363-1171f41a770c/appdata/adguard/work:/opt/adguardhome/work
+      - /srv/dev-disk-by-uuid-4c9bfec2-c3ff-428e-9363-1171f41a770c/appdata/adguard/conf:/opt/adguardhome/conf
+    restart: unless-stopped
+</pre>
+</div>
+
+<p>
+There are many ports exposed by the container and many of them are to be mapped to the same port on server. Here is what those ports are used for:
+</p>
+<dl class="org-dl">
+<dt>53 (tcp/udp)</dt><dd>Used by DNS service for domain name resolutoin</dd>
+<dt>67 (udp)</dt><dd>Bootstrap protocol server. Used by DHCP servers to communicate addressing information to remote DHCP clients. Cool stuff, we can use Adguard to act as DHCP server as well.</dd>
+<dt>68 (tcp/udp)</dt><dd>Bootstrap protocol client. Used by client machines to obtain dynamic IP addressing information from a DHCP server.</dd>
+<dt>853 (tcp) </dt><dd>DNS over TLS. A bit more secured.</dd>
+<dt>3000 (tcp)</dt><dd>AdGuard Home web interface.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org11d929f" class="outline-2">
+<h2 id="org11d929f">Refrences</h2>
+<div class="outline-text-2" id="text-org11d929f">
+<ul class="org-ul">
+<li><a href="https://github.com/paperless-ngx/paperless-ngx">Paperless-ngx Github</a></li>
+<li><a href="https://github.com/bauerj/paperless_app">Paperless app</a></li>
+</ul>
+
+<hr>
+<script src="https://giscus.app/client.js" 
+  data-repo="ShriRambo/giscus-comments"
+  data-repo-id="R_kgDOG1mtrQ"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOG1mtrc4CBJNW" 
+  data-mapping="title" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top" 
+  data-theme="dark" 
+  data-lang="en" 
+  crossorigin="anonymous" 
+  async> </script>
+<hr>
+<p>
+Made with ❤️ and Emacs (Org-mode)
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"></p>
+</div>
+</body>
+</html>
