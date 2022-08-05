@@ -16,9 +16,9 @@
 Adguard home is a software that blocks ads and trackers over your complete network. And for it to work, no client side apps are required at all. Adguard achieves this by acting as a dns server and redirects all the requests to domains, which are known to be ad servers or trackers, to black hole. We can also add our own list of domain names or from a publicaly maintained list of trackers. 
 </p>
 
-<div id="outline-container-orgddf1808" class="outline-2">
-<h2 id="orgddf1808">Docker compose file</h2>
-<div class="outline-text-2" id="text-orgddf1808">
+<div id="outline-container-orga29e91c" class="outline-2">
+<h2 id="orga29e91c">Docker compose file</h2>
+<div class="outline-text-2" id="text-orga29e91c">
 <p>
 Here is my docker compose file.
 </p>
@@ -42,8 +42,8 @@ services:
       - GROUP_ID=100
       - TZ=Europe/Amsterdam
     volumes:
-      - /srv/dev-disk-by-uuid-4c9bfec2-c3ff-428e-9363-1171f41a770c/appdata/adguard/work:/opt/adguardhome/work
-      - /srv/dev-disk-by-uuid-4c9bfec2-c3ff-428e-9363-1171f41a770c/appdata/adguard/conf:/opt/adguardhome/conf
+      - /mnt/local/appdata/adguard/work:/opt/adguardhome/work
+      - /mnt/local/appdata/adguard/conf:/opt/adguardhome/conf
     restart: unless-stopped
 </pre>
 </div>
@@ -55,6 +55,11 @@ There are many ports exposed by the container and many of them are to be mapped 
 <dt>53 (tcp/udp)</dt><dd>Used by DNS service for domain name resolutoin</dd>
 <dt>67 (udp)</dt><dd>Bootstrap protocol server. Used by DHCP servers to communicate addressing information to remote DHCP clients. Cool stuff, we can use Adguard to act as DHCP server as well.</dd>
 <dt>68 (tcp/udp)</dt><dd>Bootstrap protocol client. Used by client machines to obtain dynamic IP addressing information from a DHCP server.</dd>
+</dl>
+<p>
+<b>Note</b>: This port can be used by the host machine if static IP is not configured. And the docker container will not start as the port cannot be mapped
+</p>
+<dl class="org-dl">
 <dt>853 (tcp) </dt><dd>DNS over TLS. A bit more secured.</dd>
 <dt>3000 (tcp)</dt><dd>AdGuard Home web interface.</dd>
 </dl>
