@@ -14,6 +14,7 @@
 + [[./paperless-ngx-config.org][Paperless-ngx configuration]]
 + [[./duckdns.org][DuckDNS]]
 + [[./adguardhome-config.org][AdGuard Home Configuration]]
++ [[./a-mini-panic.org][A Mini Panic]]
 
 
 
