@@ -17,9 +17,9 @@
 In this note, I am explaining the structure of the repository I use to write notes and how everythong is set up. The blog is under version control with git which makes it easier to track all the changes and setup automations which will update the webserver with newly written content. The repo contains two branches, master and publish. Master tracks all the resources needed to build the website and publish contains the final product ready to host on a web server. 
 </p>
 
-<div id="outline-container-org101c3c0" class="outline-2">
-<h2 id="org101c3c0">The Master Branch</h2>
-<div class="outline-text-2" id="text-org101c3c0">
+<div id="outline-container-org2ee33ee" class="outline-2">
+<h2 id="org2ee33ee">The Master Branch</h2>
+<div class="outline-text-2" id="text-org2ee33ee">
 <p>
 This is the main branch of the project. The <a href="./publish-settings.html">build.org</a> contins all the publishing settings for the project. It only tracks the resources required, i.e .org, .css, .js files, and not the actual published html filed. The folder <code>public</code> is not tracked by this branch. Running <code>build.sh</code> publishes the project in this folder. All the notes which are needed to be published are kept in <code>content</code> folder. The folder <code>public/setup</code> contains org files with common settigs for all the other files. These org files are not published.  The folder <code>resources</code> contains all the shared css and js files. The <code>hooks</code> folder contains all of the automation scripts.
 </p>
@@ -55,9 +55,9 @@ root                             # Master branch worktree
 </div>
 
 
-<div id="outline-container-org4c7f0a9" class="outline-2">
-<h2 id="org4c7f0a9">The Publish Branch</h2>
-<div class="outline-text-2" id="text-org4c7f0a9">
+<div id="outline-container-org2a51020" class="outline-2">
+<h2 id="org2a51020">The Publish Branch</h2>
+<div class="outline-text-2" id="text-org2a51020">
 <p>
 This branch is the root of webserver. The worktree of this branch has all the contents of <code>public</code> folder obtained by building the project. As the web server do not need org files, only required files are tracked by this branch. In my case, I am using this branch to host static webpages with github pages. 
 </p>
@@ -74,9 +74,9 @@ root                      # Publish branch worktree
 </div>
 </div>
 
-<div id="outline-container-org62a7def" class="outline-2">
-<h2 id="org62a7def">Publishing Steps</h2>
-<div class="outline-text-2" id="text-org62a7def">
+<div id="outline-container-org8028064" class="outline-2">
+<h2 id="org8028064">Publishing Steps</h2>
+<div class="outline-text-2" id="text-org8028064">
 <p>
 Everytime I write a page or make changes to the project, I run the following steps.
 </p>
