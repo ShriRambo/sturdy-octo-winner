@@ -117,9 +117,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   if (tlast < tmin){
     fanOff();
-  }
-
-  
+  }  
 }
 
 #+END_SRC
@@ -151,8 +149,6 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(relayIP,OUTPUT);
 
-  
-  
   //Connect wIfi
   connectWifi();
 
@@ -161,26 +157,19 @@ void setup() {
   client.setCallback(callback);
   connectMqttBroker();
 
-  delay(1500);
-
-    
+  delay(1500);    
   client.publish("esp/test", "Hello from ESP8266");
- 
 }
 
 
 // the loop function runs over and over again forever
 void loop() {
-
   client.loop();
-  
-
   // Reconnect if connection breaks
   if (!client.connected()) {
     Serial.println("Reconnecting");
     reconnect();
   }
-
 }
 #+END_SRC
 
