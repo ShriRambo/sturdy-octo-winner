@@ -1,6 +1,6 @@
 #!/bin/bash
 echo Copying all the resources
-rm -r ./public/*
+rm -r ./public/* || mkdir ./public
 cp -r ./resources/css ./public/
 cp -r ./resources/js  ./public/
 cp -r ./content/img ./public/
