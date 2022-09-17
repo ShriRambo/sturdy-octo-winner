@@ -15,6 +15,7 @@
 + [[./duckdns.org][DuckDNS]]
 + [[./adguardhome-config.org][AdGuard Home Configuration]]
 + [[./a-mini-panic.org][A Mini Panic]]
++ [[./esp8266-usb-fan-controller.org][ESP8266 USB fan controller]]
 
 
 

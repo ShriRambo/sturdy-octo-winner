@@ -1,8 +1,9 @@
 #!/bin/bash
 echo Copying all the resources
-mkdir -p ./public/css ./public/js
-cp -r ./resources/css/. ./public/css
-cp -r ./resources/js/.  ./public/js
+rm -r ./public/*
+cp -r ./resources/css ./public/
+cp -r ./resources/js  ./public/
+cp -r ./content/img ./public/
 
 echo Building web pages
 emacs -Q --batch --eval "(require 'org)" --eval '(org-babel-tangle-file "build.org")'
