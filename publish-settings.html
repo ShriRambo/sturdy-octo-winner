@@ -15,39 +15,39 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf63a51b">Emacs Build Configuration</a>
+<li><a href="#org4e57b84">Emacs Build Configuration</a>
 <ul>
-<li><a href="#orgd1de760">Save package in local <code>.packages</code> folder</a></li>
-<li><a href="#orgaaa0cda">Package archive path</a></li>
-<li><a href="#org350eca4">Initialize package system</a></li>
-<li><a href="#org88c252f">Adding usepackage package</a></li>
-<li><a href="#org9035b60">Raimbow delimiters</a></li>
-<li><a href="#orge18ab23">No backups or temp files</a></li>
-<li><a href="#orge785697">URL handeler mode to include external files</a></li>
-<li><a href="#org2878b6f">Install dependencies</a></li>
-<li><a href="#org6dbf6c4">Load publishing system</a></li>
-<li><a href="#org6d2b8a3">Customize HTML output</a></li>
-<li><a href="#org3e39de8">Publishing project properties</a></li>
-<li><a href="#org401b8ba">Generate Output</a></li>
+<li><a href="#orgc0841d9">Save package in local <code>.packages</code> folder</a></li>
+<li><a href="#org707836d">Package archive path</a></li>
+<li><a href="#org213c441">Initialize package system</a></li>
+<li><a href="#orgebf5171">Adding usepackage package</a></li>
+<li><a href="#orgc0e2026">Raimbow delimiters</a></li>
+<li><a href="#org0f5be44">No backups or temp files</a></li>
+<li><a href="#org51008a6">URL handeler mode to include external files</a></li>
+<li><a href="#org065b5cc">Install dependencies</a></li>
+<li><a href="#orgaa16229">Load publishing system</a></li>
+<li><a href="#org91a9b50">Customize HTML output</a></li>
+<li><a href="#org8341a21">Publishing project properties</a></li>
+<li><a href="#org9e57547">Generate Output</a></li>
 </ul>
 </li>
-<li><a href="#org36a4b96">Build</a>
+<li><a href="#orgf705cf9">Build</a>
 <ul>
-<li><a href="#org78fc97f">One step less</a></li>
+<li><a href="#org3df181a">One step less</a></li>
 </ul>
 </li>
-<li><a href="#org2399825"></a></li>
+<li><a href="#orgfaea7c2"></a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgf63a51b" class="outline-2">
-<h2 id="orgf63a51b">Emacs Build Configuration</h2>
-<div class="outline-text-2" id="text-orgf63a51b">
+<div id="outline-container-org4e57b84" class="outline-2">
+<h2 id="org4e57b84">Emacs Build Configuration</h2>
+<div class="outline-text-2" id="text-org4e57b84">
 </div>
-<div id="outline-container-orgd1de760" class="outline-3">
-<h3 id="orgd1de760">Save package in local <code>.packages</code> folder</h3>
-<div class="outline-text-3" id="text-orgd1de760">
+<div id="outline-container-orgc0841d9" class="outline-3">
+<h3 id="orgc0841d9">Save package in local <code>.packages</code> folder</h3>
+<div class="outline-text-3" id="text-orgc0841d9">
 <p>
 This will set a local package initialisation directory so that packages are downloaded and saved locally and not in users or systems <code>.emacs.d</code> folder
 </p>
@@ -58,9 +58,9 @@ This will set a local package initialisation directory so that packages are down
 </div>
 </div>
 </div>
-<div id="outline-container-orgaaa0cda" class="outline-3">
-<h3 id="orgaaa0cda">Package archive path</h3>
-<div class="outline-text-3" id="text-orgaaa0cda">
+<div id="outline-container-org707836d" class="outline-3">
+<h3 id="org707836d">Package archive path</h3>
+<div class="outline-text-3" id="text-org707836d">
 <p>
 This add package archives path, the location where package manager will search for the required packages.
 </p>
@@ -71,9 +71,9 @@ This add package archives path, the location where package manager will search f
 </div>
 </div>
 </div>
-<div id="outline-container-org350eca4" class="outline-3">
-<h3 id="org350eca4">Initialize package system</h3>
-<div class="outline-text-3" id="text-org350eca4">
+<div id="outline-container-org213c441" class="outline-3">
+<h3 id="org213c441">Initialize package system</h3>
+<div class="outline-text-3" id="text-org213c441">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>package-initialize <span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">unless</span> package-archive-contents
@@ -82,9 +82,9 @@ This add package archives path, the location where package manager will search f
 </div>
 </div>
 </div>
-<div id="outline-container-org88c252f" class="outline-3">
-<h3 id="org88c252f">Adding usepackage package</h3>
-<div class="outline-text-3" id="text-org88c252f">
+<div id="outline-container-orgebf5171" class="outline-3">
+<h3 id="orgebf5171">Adding usepackage package</h3>
+<div class="outline-text-3" id="text-orgebf5171">
 <p>
 For nicer imports of packages
 </p>
@@ -97,9 +97,9 @@ For nicer imports of packages
 </div>
 </div>
 </div>
-<div id="outline-container-org9035b60" class="outline-3">
-<h3 id="org9035b60">Raimbow delimiters</h3>
-<div class="outline-text-3" id="text-org9035b60">
+<div id="outline-container-orgc0e2026" class="outline-3">
+<h3 id="orgc0e2026">Raimbow delimiters</h3>
+<div class="outline-text-3" id="text-orgc0e2026">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">use-package</span> <span class="org-constant">rainbow-delimiters</span>
   <span class="org-builtin">:ensure</span> t
@@ -109,27 +109,27 @@ For nicer imports of packages
 </div>
 </div>
 </div>
-<div id="outline-container-orge18ab23" class="outline-3">
-<h3 id="orge18ab23">No backups or temp files</h3>
-<div class="outline-text-3" id="text-orge18ab23">
+<div id="outline-container-org0f5be44" class="outline-3">
+<h3 id="org0f5be44">No backups or temp files</h3>
+<div class="outline-text-3" id="text-org0f5be44">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> make-backup-files nil<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orge785697" class="outline-3">
-<h3 id="orge785697">URL handeler mode to include external files</h3>
-<div class="outline-text-3" id="text-orge785697">
+<div id="outline-container-org51008a6" class="outline-3">
+<h3 id="org51008a6">URL handeler mode to include external files</h3>
+<div class="outline-text-3" id="text-org51008a6">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>url-handler-mode 1<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org2878b6f" class="outline-3">
-<h3 id="org2878b6f">Install dependencies</h3>
-<div class="outline-text-3" id="text-org2878b6f">
+<div id="outline-container-org065b5cc" class="outline-3">
+<h3 id="org065b5cc">Install dependencies</h3>
+<div class="outline-text-3" id="text-org065b5cc">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">(use-package ox-slimhtml</span>
  <span class="org-comment-delimiter">;  </span><span class="org-comment">:ensure t)</span>
@@ -139,18 +139,18 @@ For nicer imports of packages
 </div>
 </div>
 
-<div id="outline-container-org6dbf6c4" class="outline-3">
-<h3 id="org6dbf6c4">Load publishing system</h3>
-<div class="outline-text-3" id="text-org6dbf6c4">
+<div id="outline-container-orgaa16229" class="outline-3">
+<h3 id="orgaa16229">Load publishing system</h3>
+<div class="outline-text-3" id="text-orgaa16229">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">ox-publish</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org6d2b8a3" class="outline-3">
-<h3 id="org6d2b8a3">Customize HTML output</h3>
-<div class="outline-text-3" id="text-org6d2b8a3">
+<div id="outline-container-org91a9b50" class="outline-3">
+<h3 id="org91a9b50">Customize HTML output</h3>
+<div class="outline-text-3" id="text-org91a9b50">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Customize the HTML output</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-html-validation-link nil            <span class="org-comment-delimiter">;; </span><span class="org-comment">Don't show validation link</span>
@@ -167,9 +167,9 @@ For nicer imports of packages
 </div>
 </div>
 </div>
-<div id="outline-container-org3e39de8" class="outline-3">
-<h3 id="org3e39de8">Publishing project properties</h3>
-<div class="outline-text-3" id="text-org3e39de8">
+<div id="outline-container-org8341a21" class="outline-3">
+<h3 id="org8341a21">Publishing project properties</h3>
+<div class="outline-text-3" id="text-org8341a21">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Define the publishing project</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> org-publish-project-alist
@@ -192,9 +192,9 @@ For nicer imports of packages
 </div>
 </div>
 </div>
-<div id="outline-container-org401b8ba" class="outline-3">
-<h3 id="org401b8ba">Generate Output</h3>
-<div class="outline-text-3" id="text-org401b8ba">
+<div id="outline-container-org9e57547" class="outline-3">
+<h3 id="org9e57547">Generate Output</h3>
+<div class="outline-text-3" id="text-org9e57547">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Generate the site output</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>org-publish-all t<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -204,9 +204,9 @@ For nicer imports of packages
 </div>
 </div>
 </div>
-<div id="outline-container-org36a4b96" class="outline-2">
-<h2 id="org36a4b96">Build</h2>
-<div class="outline-text-2" id="text-org36a4b96">
+<div id="outline-container-orgf705cf9" class="outline-2">
+<h2 id="orgf705cf9">Build</h2>
+<div class="outline-text-2" id="text-orgf705cf9">
 <p>
 First line evaluates thin org file and creates a <code>build.el</code> file which contains all the publishing configuration. The second line evaluates <code>build.el</code> file itself and publish the web pages. And the final line removes <code>build.el</code> file.
 </p>
@@ -219,9 +219,9 @@ rm build.el
 </pre>
 </div>
 </div>
-<div id="outline-container-org78fc97f" class="outline-3">
-<h3 id="org78fc97f">One step less</h3>
-<div class="outline-text-3" id="text-org78fc97f">
+<div id="outline-container-org3df181a" class="outline-3">
+<h3 id="org3df181a">One step less</h3>
+<div class="outline-text-3" id="text-org3df181a">
 <p>
 Make emacs evaluate <code>build.org</code> itself, rahter than tangling <code>build.el</code> first. This will remove one step from the deployment.
 </p>
@@ -230,9 +230,9 @@ Make emacs evaluate <code>build.org</code> itself, rahter than tangling <code>bu
 </div>
 
 
-<div id="outline-container-org2399825" class="outline-2">
-<h2 id="org2399825"></h2>
-<div class="outline-text-2" id="text-org2399825">
+<div id="outline-container-orgfaea7c2" class="outline-2">
+<h2 id="orgfaea7c2"></h2>
+<div class="outline-text-2" id="text-orgfaea7c2">
 <hr>
 <script src="https://giscus.app/client.js" 
   data-repo="ShriRambo/giscus-comments"
