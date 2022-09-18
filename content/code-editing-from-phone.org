@@ -1,0 +1,16 @@
+#+TITLE: Code editing from phone
+#+DATE:  18th Sept, 2022
+#+AUTHOR: shrirambo
+#+OPTIONS: tex:t toc:nil
+#+INCLUDE: ./setup/theme.setup.org
+------
+Mobile phones are not really ideal devices to edit code and do serious programming. Although I still wanted to have a solution to let me edit scripts, push to git, save on home server or just run modified scripts. 
+
+There might be some good editors that works with webdav or sftp server. But I couldn't find any good ones for ios. My solution, run a code server and access it from anywhere with VPN. [[http://linuxserver.io][linuxserver.io]] has a nice docker image for this. It runs a selfhosted version of [[vscode.dev]]. 
+
+My main usecase is to write blogs/static web pages like this one in org mode. Which will be published on github pages. I will try to write my thoughts, informative notes as blogs, or any random things I wish to. 
+
+Let's see how long before I abandon this project. 🫣
+
+
+#+INCLUDE: ./setup/footer.nocomment.setup.org

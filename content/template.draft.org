@@ -1,0 +1,10 @@
+#+TITLE: 
+#+DATE: 
+#+AUTHOR: shrirambo
+#+OPTIONS: tex:t toc:nil
+#+INCLUDE: ./setup/theme.setup.org
+------
+
+
+
+#+INCLUDE: ./setup/footer.setup.org
