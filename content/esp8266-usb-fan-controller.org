@@ -5,7 +5,7 @@
 #+INCLUDE: ./setup/theme.setup.org
 
 * The Problem
-I have an old laptop repurposed as a home server, which I use to stream media, backup, and a simple file server. As it is an old laptop, the storage capacity of it was pretty less. So I just brought an external hard-drive to extend the capacity. I know, there are much better ways to do add additional storage capacity. But, I thought, this is very straightforward and cheapest. Now, as the hdd is always connected to the server, it can get pretty heated when being used extensively. So I wanted to have a solution to cool the hdd whenever the temperature rises about a threshold. Simplest solution, a \EUR2 usb fan controlled by ESP8266 based microcontroller. Here is a list of all tools/packages/devices I used for this project
+I have an old laptop repurposed as a home server, which I use to stream media, backup, and a simple file server. As it is an old laptop, the storage capacity is not enough. So I just bought an external hard-drive to extend the capacity. I know, there are better ways to add storage capacity. But, I thought, this is very straightforward and cheap way to achieve the goal. Now, as the hdd is always connected to the server, it can get pretty hot when being used extensively. So I wanted to have a solution to cool the hdd whenever the temperature rises above a certain threshold. Simplest solution, a \EUR2 usb fan controlled by ESP8266 based microcontroller. Here is a list of all tools/packages/devices I used for this project
 
 + Wemos D1 Mini (ESP8266 based board)
 + A relay switch
@@ -23,7 +23,7 @@ Here is the circuit setup I started with.
 The whole setup is powerd be USB port of my laptop. The usb cable I used has a ~GND~ and ~5V~ wire, which is powering both Wemos and the fan. The ~GND~ of fan is connected via the relay switch which is controlled by wemos.
 
 * The Sensor
-New hdds these days comes with a functionality to report the S.M.A.R.T. stats which gives information about the hard dirve which can be interpreted to evaluate hdds health and detect a failure before it happens. The linux tool called ~smartmontools~ let's us read this data and carry out some health check test on hdd. Here is the bash script I use to check the temperature of hdd and publish it to the mqtt server. Note: the flag ~--nocheck=standby~ is there to avoid polling of smart stats if the hdd is in standby or sleep mode. Otherwise, the disk will start spinning again when polled for this data. And we do not want to spinup the disk unnecessarily. The script is used in a cron job running every x minutes.
+New hdds these days comes with a functionality to report the S.M.A.R.T. stats which gives information about the hard dirve, which can be interpreted to evaluate hdds health and detect a failure before it happens. The linux tool called ~smartmontools~ lets us read this data and carry out some health check test on hdd. Here is the bash script I use to check the temperature of hdd and publish it to the mqtt server. Note: the flag ~--nocheck=standby~ is there to avoid polling of smart stats if the hdd is in standby or sleep mode. Otherwise, the disk will start spinning again when polled for this data. And we do not want to spin up the disk unnecessarily. The script is used in a cron job running every x minutes.
 
 #+BEGIN_SRC bash
 #!/bin/bash
@@ -40,7 +40,7 @@ HDD_TEMP=$(grep Temperature_Celsius ~/hdd_smart.stats | awk '{print $10}')
 mosquitto_pub -h localhost -t home/server/hdd/temperature -m $HDD_TEMP
 #+END_SRC
 
-Importtant note: The version of smartmontools I have only alows the output in plain text format which can vary by manufacturer of hdd. Or better option will be to use newer version of smartmontools which allows a json output which is easire to parse.
+Importtant note: The version of smartmontools I have only alows the output in plain text format which can vary with the manufacturer of hdd. Or better option will be to use newer version of smartmontools which allows a json output, which is easier to parse.
 
 * The Controller
 
@@ -175,7 +175,7 @@ void loop() {
 
 
 * The Wrapup
-So, with this setup, I cool my external hdd when it gets too warm. And if the disk is in sleep mode, this does not spin it up again time to time. Although, there is one problem that I have noticed. If the fan is on and hdd goes to sleep, the fan will not shut off as there is no temperature measurement when in sleep. To tackle this, I want to implement a timer after which the fan will shut off automatically regartless the hdd status. And if it is still hot, the fan will start up again.
+So, with this setup, I cool my external hdd when it gets too warm. And if the disk is in sleep mode, this does not spin it up again time to time. Although, there is one problem that I have noticed. If the fan is on and hdd goes to sleep, the fan will not shut off as there is no temperature measurement taken when in sleep. To tackle this, I want to implement a timer after which the fan will shut off automatically regardless the hdd status. And if it is still hot, the fan will start up again.
 
 
 #+INCLUDE: ./setup/footer.setup.org
