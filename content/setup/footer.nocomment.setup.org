@@ -1,3 +1,6 @@
- 
-------
+ ------
+#+BEGIN_EXPORT html
+<p style="text-align:center">
 Made with ❤️ and Emacs (Org-mode)
+</p>
+#+END_EXPORT
