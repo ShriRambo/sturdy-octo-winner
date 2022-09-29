@@ -7,6 +7,8 @@
 <meta name="generator" content="Org mode">
 <link rel="stylesheet" href=" ./css/code.css" />
 <link rel="stylesheet" href="./css/simple.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
 </head>
 <body>
 <div id="content">
@@ -16,9 +18,9 @@
 Writing notes in rich markup style i.e. org-mode is very cool thing. Emacs comes with functionality of exporting org files into html the way I want it. Default style of the published file is nice, but the better thing is I can control each and every aspect of the export. Here, I write my experience about themeing of the webpage export. 
 </p>
 
-<div id="outline-container-org068286f" class="outline-2">
-<h2 id="org068286f">The custom styling</h2>
-<div class="outline-text-2" id="text-org068286f">
+<div id="outline-container-org327abdb" class="outline-2">
+<h2 id="org327abdb">The custom styling</h2>
+<div class="outline-text-2" id="text-org327abdb">
 <p>
 The default publishing settings might already be good. But the best part is, I can can customize each and every aspect of it. The way to do this is to set some of the org export variables. 
 </p>
@@ -34,9 +36,9 @@ Note: Remember to escape the special characters in the string assigned to this v
 </div>
 
 
-<div id="outline-container-org9c7630d" class="outline-2">
-<h2 id="org9c7630d">Stylesheet</h2>
-<div class="outline-text-2" id="text-org9c7630d">
+<div id="outline-container-org6f2e4d7" class="outline-2">
+<h2 id="org6f2e4d7">Stylesheet</h2>
+<div class="outline-text-2" id="text-org6f2e4d7">
 <p>
 Now that I know how to add custom stylesheet and scripts in the exported html files, I want to "make" a custom stylesheet. I can go and write rules for each required tags and classes one by one. But I am not really a web designer. Some nice people, who are professional, have contributed to the open source community by making nice stylesheets which are free to use and modify. 
 </p>
@@ -60,9 +62,9 @@ The upside of useing standard frameworks is that they are usually hosted on cont
 </div>
 </div>
 
-<div id="outline-container-org8b47a41" class="outline-2">
-<h2 id="org8b47a41">Custom modifications</h2>
-<div class="outline-text-2" id="text-org8b47a41">
+<div id="outline-container-org8c347d4" class="outline-2">
+<h2 id="org8c347d4">Custom modifications</h2>
+<div class="outline-text-2" id="text-org8c347d4">
 <p>
 Now that I have a basic stylesheet, I want to modify the way I want it. What I did is use some easily available tools and some hacky tricks to make it work.
 </p>
@@ -75,9 +77,9 @@ Now that I have a basic stylesheet, I want to modify the way I want it. What I d
 </div>
 
 
-<div id="outline-container-org82651e0" class="outline-2">
-<h2 id="org82651e0">Code highliting</h2>
-<div class="outline-text-2" id="text-org82651e0">
+<div id="outline-container-org0b023b1" class="outline-2">
+<h2 id="org0b023b1">Code highliting</h2>
+<div class="outline-text-2" id="text-org0b023b1">
 <p>
 The styling I did so far is only for normal html elements. The code blocks are exported to <code>pre</code> and <code>code</code> tags. But the code itself does not contain language specific highliting. To do that I use <code>htmlize</code> package and  set the variable <code>org-html-htmlize-output-type</code> to <code>inline</code>. This will export code with syntax highliting used by current emacs themes. Although the colors will be exported as inline css style. Theme change, code highliting change. 
 </p>
@@ -127,6 +129,17 @@ And that is how I styled my webpage 😎
   crossorigin="anonymous" 
   async> </script>
 <hr>
+<div align=center>
+ <a href="#">
+    <i class="fa fa-home fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href="https://www.instagram.com/shrirambo/">
+    <i class="fa fa-github fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+    <a href='https://www.linkedin.com/in/shriram-ashirgade/'>
+    <i class="fa fa-linkedin-square fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+</div>
 <p style="text-align:center">
 Made with ❤️ and Emacs (Org-mode)
 </p>
