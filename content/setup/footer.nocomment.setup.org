@@ -1,5 +1,16 @@
  ------
 #+BEGIN_EXPORT html
+<div align=center>
+ <a href="#">
+    <i class="fa fa-home fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href="https://www.instagram.com/shrirambo/">
+    <i class="fa fa-github fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+    <a href='https://www.linkedin.com/in/shriram-ashirgade/'>
+    <i class="fa fa-linkedin-square fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+</div>
 <p style="text-align:center">
 Made with ❤️ and Emacs (Org-mode)
 </p>
