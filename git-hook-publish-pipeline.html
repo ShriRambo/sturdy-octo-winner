@@ -19,9 +19,9 @@
 I have all of my publishing configuration witten as a in <a href="./publish-settings.html">build.org</a> file and the shell commands in <code>build.sh</code>. Moreover, I have made <code>build.sh</code> an executable file. Running this file will build the project and make all of the html files in <code>./content</code> folder. I would like to automate the publishing process so that, when I write a page in org mode and commit the changes, it gets published automatically. For that, I am using git hooks.
 </p>
 
-<div id="outline-container-orgddb4407" class="outline-2">
-<h2 id="orgddb4407">Git hooks</h2>
-<div class="outline-text-2" id="text-orgddb4407">
+<div id="outline-container-org12bd1d4" class="outline-2">
+<h2 id="org12bd1d4">Git hooks</h2>
+<div class="outline-text-2" id="text-org12bd1d4">
 <p>
 In git scm, there is a way to run custom script which are triggred by specific actions. That is called <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">Git Hooks</a>. Some of the common hooks are
 </p>
@@ -46,18 +46,18 @@ Note: Hooks always run in the repository root.
 </div>
 
 
-<div id="outline-container-org8f898d5" class="outline-2">
-<h2 id="org8f898d5">Hooks under (version) control?</h2>
-<div class="outline-text-2" id="text-org8f898d5">
+<div id="outline-container-orgc1808ed" class="outline-2">
+<h2 id="orgc1808ed">Hooks under (version) control?</h2>
+<div class="outline-text-2" id="text-orgc1808ed">
 <p>
 The hooks in <code>.git/hooks/</code> folder are local. They are not pushed to the remote and they are not pulled from a remote. What I can do is keep the script in working directory and copy to the hooks folder. Although, it would be better to create symlink in hooks folder, then I do not have to copy it evrytime it is changed. 
 </p>
 </div>
 </div>
 
-<div id="outline-container-org80489d5" class="outline-2">
-<h2 id="org80489d5">My setup</h2>
-<div class="outline-text-2" id="text-org80489d5">
+<div id="outline-container-org85cb65c" class="outline-2">
+<h2 id="org85cb65c">My setup</h2>
+<div class="outline-text-2" id="text-org85cb65c">
 <p>
 In my working directory, I have created a <code>hooks</code> folder which contains all the scripts I would like to use hooks. And then use symlink. I have a bash script with following contents:
 </p>
@@ -91,20 +91,26 @@ I then linked this script to <code>./git/hooks/pre-commit</code>. So now, whenev
   crossorigin="anonymous" 
   async> </script>
 <hr>
-<div align=center>
- <a href="#">
-    <i class="fa fa-home fa-lg link-icon" aria-hidden="true"></i>
-  </a>
-  <a href="https://www.instagram.com/shrirambo/">
-    <i class="fa fa-github fa-lg link-icon" aria-hidden="true"></i>
-  </a>
-    <a href='https://www.linkedin.com/in/shriram-ashirgade/'>
-    <i class="fa fa-linkedin-square fa-lg link-icon" aria-hidden="true"></i>
-  </a>
-</div>
 <p style="text-align:center">
 Made with ❤️ and Emacs (Org-mode)
 </p>
+<div align=center>
+  <a href="#">
+    <i class="fa fa-home fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href="https://www.instagram.com/shrirambo/">
+    <i class="fa fa-instagram fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href="https://github.com/shrirambo">
+    <i class="fa fa-github fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href='https://www.linkedin.com/in/shriram-ashirgade/'>
+    <i class="fa fa-linkedin-square fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href='#content'>
+    <i class="fa fa-hand-o-up  fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+</div>
 </div>
 </div>
 </div>

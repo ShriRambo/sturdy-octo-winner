@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Temperature Measurement with ESP8266 and DST22</title>
+<meta name="generator" content="Org mode">
+<link rel="stylesheet" href=" ./css/code.css" />
+<link rel="stylesheet" href="./css/simple.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<div id="content">
+<h1 class="title">Temperature Measurement with ESP8266 and DST22</h1>
+<p>
+<code>ESP8266</code> based circuit boards are great for projects that needs wireless communications. They have very low form factor and can accomplish a lot. Combined with sensors like <code>DHT22</code>, we can make a great temperature sensors. This is what I was trying to achieve with this project.
+</p>
+
+<div id="outline-container-orgb170b89" class="outline-2">
+<h2 id="orgb170b89">🧭 The Problem</h2>
+<div class="outline-text-2" id="text-orgb170b89">
+<p>
+The aim is to create a sensor that can show temperature and humidity in the different rooms of my house. This information then I can use to do some home automations like open windows, turn up heater, or just to prepare my self the condition at home 🥶 🥵
+</p>
+
+<ul class="org-ul">
+<li><a href="https://www.wemos.cc/en/latest/d1/d1_mini.html">Wemos D1 Mini</a> (<code>ESP8266</code> based board)</li>
+<li><a href="https://components101.com/sensors/dht22-pinout-specs-datasheet">DHT22</a> temperature and humidity sensor</li>
+<li>MQTT broker (like <a href="https://mosquitto.org">mosquitto</a>)</li>
+<li><a href="https://components101.com/displays/tm1637-grove-4-digit-display-module">TM1677 7-segment display module</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9544361" class="outline-2">
+<h2 id="org9544361">🔌 The Circuit</h2>
+<div class="outline-text-2" id="text-org9544361">
+<p>
+Here is the circuit setup I started with. 
+</p>
+
+
+<div id="orge62ccc7" class="figure">
+<p><img src="./img/circuit-diagram-temp-sensor.png" alt="circuit-diagram-temp-sensor.png">
+</p>
+</div>
+
+<p>
+As always, I am using USB cable to power the circuit board. I think this is the easiest way to safely set input voltage with current limiter in place. I just use old phone chargers. There are plenty of them in this world.
+</p>
+
+<p>
+The 7-segment display is not really necessary. As I am publishing temperature to MQTT and I can just monitor from some app like Home Assistant. But I wanted to have both ways to checking temperature, from the display and from my phone as well. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4b62478" class="outline-2">
+<h2 id="org4b62478">🕸 The Network</h2>
+<div class="outline-text-2" id="text-org4b62478">
+<p>
+First, we will configure the wifi so that <code>wemos</code> can connect to our home wifi network. We include following header files and configuration and initialize <code>wifi</code> and <code>pubsub</code> client. The <code>pubsub</code> client will read and publish messages to the MQTT server.
+</p>
+<div class="org-src-container">
+<pre class="src src-cpp"><span class="org-preprocessor">#include</span> <span class="org-string"><span class="org-rainbow-delimiters-depth-1">&lt;</span></span><span class="org-string">ESP8266WiFi.h</span><span class="org-string"><span class="org-rainbow-delimiters-depth-1">&gt;</span></span>
+<span class="org-preprocessor">#include</span> <span class="org-string"><span class="org-rainbow-delimiters-depth-1">&lt;</span></span><span class="org-string">PubSubClient.h</span><span class="org-string"><span class="org-rainbow-delimiters-depth-1">&gt;</span></span>
+<span class="org-preprocessor">#include</span> <span class="org-string">"config.h"</span>
+
+<span class="org-type">WiFiClient</span> <span class="org-variable-name">espClient</span>;
+<span class="org-type">PubSubClient</span> <span class="org-function-name">client</span><span class="org-rainbow-delimiters-depth-1">(</span>espClient<span class="org-rainbow-delimiters-depth-1">)</span>;
+</pre>
+</div>
+
+
+<p>
+Connect to wifi.
+</p>
+<div class="org-src-container">
+<pre class="src src-cpp"><span class="org-type">void</span> <span class="org-function-name">connectWifi</span><span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-rainbow-delimiters-depth-1">{</span>
+  <span class="org-comment-delimiter">// </span><span class="org-comment">connecting to a WiFi network</span>
+  Serial.print<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Connicting WiFi"</span><span class="org-rainbow-delimiters-depth-2">)</span>;
+  <span class="org-keyword">while</span> <span class="org-rainbow-delimiters-depth-2">(</span>WiFi.status<span class="org-rainbow-delimiters-depth-3">()</span> != WL_CONNECTED<span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">{</span>
+      delay<span class="org-rainbow-delimiters-depth-3">(</span>200<span class="org-rainbow-delimiters-depth-3">)</span>;
+      Serial.println<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"Connecting to WiFi.."</span><span class="org-rainbow-delimiters-depth-3">)</span>;
+  <span class="org-rainbow-delimiters-depth-2">}</span>
+  Serial.println<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Connected to the WiFi network"</span><span class="org-rainbow-delimiters-depth-2">)</span>;
+  Serial.print<span class="org-rainbow-delimiters-depth-2">(</span>WiFi.localIP<span class="org-rainbow-delimiters-depth-3">()</span><span class="org-rainbow-delimiters-depth-2">)</span>;
+
+<span class="org-rainbow-delimiters-depth-1">}</span>
+</pre>
+</div>
+
+<p>
+Connect to mqtt broker.
+</p>
+<div class="org-src-container">
+<pre class="src src-cpp"><span class="org-type">void</span> <span class="org-function-name">connectMqttBroker</span><span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-rainbow-delimiters-depth-1">{</span>
+  <span class="org-comment-delimiter">//</span><span class="org-comment">connecting to a mqtt broker</span>
+  <span class="org-keyword">while</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-negation-char">!</span>client.connected<span class="org-rainbow-delimiters-depth-3">()</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">{</span>
+      <span class="org-type">String</span> <span class="org-variable-name">client_id</span> = <span class="org-string">"temp-sensor"</span>;
+      <span class="org-comment-delimiter">//</span><span class="org-comment">client_id += String(WiFi.macAddress());</span>
+      Serial.printf<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"The client %s connects to the home broker\n"</span>, client_id.c_str<span class="org-rainbow-delimiters-depth-4">()</span><span class="org-rainbow-delimiters-depth-3">)</span>;
+      <span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>client.connect<span class="org-rainbow-delimiters-depth-4">(</span>client_id.c_str<span class="org-rainbow-delimiters-depth-5">()</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-rainbow-delimiters-depth-3">{</span>
+          Serial.println<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"Connected to mqtt broker"</span><span class="org-rainbow-delimiters-depth-4">)</span>;
+      <span class="org-rainbow-delimiters-depth-3">}</span> <span class="org-keyword">else</span> <span class="org-rainbow-delimiters-depth-3">{</span>
+          Serial.print<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"failed with state "</span><span class="org-rainbow-delimiters-depth-4">)</span>;
+          Serial.print<span class="org-rainbow-delimiters-depth-4">(</span>client.state<span class="org-rainbow-delimiters-depth-5">()</span><span class="org-rainbow-delimiters-depth-4">)</span>;
+          delay<span class="org-rainbow-delimiters-depth-4">(</span>2000<span class="org-rainbow-delimiters-depth-4">)</span>;
+      <span class="org-rainbow-delimiters-depth-3">}</span>
+  <span class="org-rainbow-delimiters-depth-2">}</span>
+<span class="org-rainbow-delimiters-depth-1">}</span>
+
+</pre>
+</div>
+
+<p>
+And finally a function to reconnect in case of disconnection.
+</p>
+<div class="org-src-container">
+<pre class="src src-cpp"><span class="org-type">void</span> <span class="org-function-name">reconnect</span><span class="org-rainbow-delimiters-depth-1">(){</span>
+  connectWifi<span class="org-rainbow-delimiters-depth-2">()</span>;
+  connectMqttBroker<span class="org-rainbow-delimiters-depth-2">()</span>;
+<span class="org-rainbow-delimiters-depth-1">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org48c3eae" class="outline-2">
+<h2 id="org48c3eae">🌡 The Sensor</h2>
+<div class="outline-text-2" id="text-org48c3eae">
+<p>
+The <code>DHT22</code> sensor is quite straight forward. I am using this <a href="https://github.com/adafruit/DHT-sensor-library">DHT Sensor Library</a> in the project to read sensor data. We need following things to setup.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-cpp"><span class="org-preprocessor">#include</span> <span class="org-string">"DHT.h"</span>
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">DHTPIN</span> D2
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">DHTTYPE</span> DHT22 
+<span class="org-type">DHT</span> <span class="org-function-name">dht</span><span class="org-rainbow-delimiters-depth-1">(</span>DHTPIN, DHTTYPE<span class="org-rainbow-delimiters-depth-1">)</span>;
+</pre>
+</div>
+
+<p>
+Methods from <code>DHT</code> can then be used to get the temperature and humidity data. 
+</p>
+<div class="org-src-container">
+<pre class="src src-cpp"><span class="org-type">float</span> <span class="org-variable-name">hu</span>  = dht.readHumidity<span class="org-rainbow-delimiters-depth-1">()</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">In Percentage</span>
+<span class="org-type">float</span> <span class="org-variable-name">tc</span>  = dht.readTemperature<span class="org-rainbow-delimiters-depth-1">()</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">Temperature as Celsius (default)</span>
+<span class="org-type">float</span> <span class="org-variable-name">tf</span>  = dht.readTemperature<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-constant">true</span><span class="org-rainbow-delimiters-depth-1">)</span>;  <span class="org-comment-delimiter">// </span><span class="org-comment">Temperature as Fahrenheit (isFahrenheit = true)</span>
+<span class="org-type">float</span> <span class="org-variable-name">hif</span> = dht.computeHeatIndex<span class="org-rainbow-delimiters-depth-1">(</span>f, h<span class="org-rainbow-delimiters-depth-1">)</span>;  <span class="org-comment-delimiter">// </span><span class="org-comment">Heat index in Fahrenheit (the default)</span>
+<span class="org-type">float</span> <span class="org-variable-name">hic</span> = dht.computeHeatIndex<span class="org-rainbow-delimiters-depth-1">(</span>t, h, <span class="org-constant">false</span><span class="org-rainbow-delimiters-depth-1">)</span>;  <span class="org-comment-delimiter">// </span><span class="org-comment">Heat index in Celsius (isFahreheit = false)</span>
+</pre>
+</div>
+
+<p>
+In case if reading sensor fails, the value set will be <code>nan</code>. So, remember to check this to detect failure before publishing message. I am also publishing these measurements to the mqtt broker with <code>PubSubClient.h</code> library.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-cpp">client.publish<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"home/temperature"</span>, String<span class="org-rainbow-delimiters-depth-2">(</span>tc<span class="org-rainbow-delimiters-depth-2">)</span>.c_str<span class="org-rainbow-delimiters-depth-2">()</span><span class="org-rainbow-delimiters-depth-1">)</span>;
+client.publish<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"home/humidity"</span>, String<span class="org-rainbow-delimiters-depth-2">(</span>hu<span class="org-rainbow-delimiters-depth-2">)</span>.c_str<span class="org-rainbow-delimiters-depth-2">()</span><span class="org-rainbow-delimiters-depth-1">)</span>;
+client.publish<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"home/heat_index"</span>, String<span class="org-rainbow-delimiters-depth-2">(</span>hic<span class="org-rainbow-delimiters-depth-2">)</span>.c_str<span class="org-rainbow-delimiters-depth-2">()</span><span class="org-rainbow-delimiters-depth-1">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgaa422a7" class="outline-2">
+<h2 id="orgaa422a7">📺 The Display</h2>
+<div class="outline-text-2" id="text-orgaa422a7">
+<p>
+The 7 segment display module is very nice and efficient way to display numerical data. As long as it fits the display format. I am using <a href="https://github.com/avishorp/TM1637">TM1637 Display</a> library. This 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-cpp"><span class="org-preprocessor">#include</span> <span class="org-string"><span class="org-rainbow-delimiters-depth-1">&lt;</span></span><span class="org-string">TM1637Display.h</span><span class="org-string"><span class="org-rainbow-delimiters-depth-1">&gt;</span></span>
+
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">CLK</span> D6
+<span class="org-preprocessor">#define</span> <span class="org-variable-name">DIO</span> D7
+<span class="org-type">TM1637Display</span> <span class="org-function-name">display</span><span class="org-rainbow-delimiters-depth-1">(</span>CLK, DIO<span class="org-rainbow-delimiters-depth-1">)</span>;
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">degree celcius symbol </span>
+<span class="org-keyword">const</span> <span class="org-type">uint8_t</span> <span class="org-variable-name">DEG_C</span><span class="org-rainbow-delimiters-depth-1">[]</span> = <span class="org-rainbow-delimiters-depth-1">{</span> SEG_A | SEG_B | SEG_F | SEG_G, <span class="org-comment-delimiter">// </span><span class="org-comment">degree</span>
+                          SEG_A | SEG_D | SEG_E | SEG_F <span class="org-comment-delimiter">// </span><span class="org-comment">C</span>
+                        <span class="org-rainbow-delimiters-depth-1">}</span>;
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">Pc (to show percentage humidity)</span>
+<span class="org-keyword">const</span> <span class="org-type">uint8_t</span> <span class="org-variable-name">PER_C</span><span class="org-rainbow-delimiters-depth-1">[]</span> = <span class="org-rainbow-delimiters-depth-1">{</span> SEG_A | SEG_B | SEG_E | SEG_F | SEG_G, <span class="org-comment-delimiter">// </span><span class="org-comment">P</span>
+                          SEG_D | SEG_E | SEG_G <span class="org-comment-delimiter">// </span><span class="org-comment">C</span>
+                        <span class="org-rainbow-delimiters-depth-1">}</span>;
+</pre>
+</div>
+
+<p>
+The <code>display</code> module has methods to show digits. 
+</p>
+<div class="org-src-container">
+<pre class="src src-cpp">display.clear<span class="org-rainbow-delimiters-depth-1">()</span>;
+<span class="org-comment-delimiter">// </span><span class="org-comment">For temperature</span>
+display.showNumberDec<span class="org-rainbow-delimiters-depth-1">(</span>tc, <span class="org-constant">false</span>, 2, 0<span class="org-rainbow-delimiters-depth-1">)</span>;
+display.setSegments<span class="org-rainbow-delimiters-depth-1">(</span>DEG_C, 2, 2 <span class="org-rainbow-delimiters-depth-1">)</span>;
+<span class="org-comment-delimiter">// </span><span class="org-comment">For humidity</span>
+display.showNumberDec<span class="org-rainbow-delimiters-depth-1">(</span>hu, <span class="org-constant">false</span>, 2, 0<span class="org-rainbow-delimiters-depth-1">)</span>;
+display.setSegments<span class="org-rainbow-delimiters-depth-1">(</span>PER_C, 2, 2 <span class="org-rainbow-delimiters-depth-1">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc576731" class="outline-2">
+<h2 id="orgc576731">🌯 The Wrap-up</h2>
+<div class="outline-text-2" id="text-orgc576731">
+<p>
+That is the complete setup of a wireless temperature and humidity sensor. For the future scope, I would like to build automations around this, controlling thermostat. 
+</p>
+
+
+<hr>
+<script src="https://giscus.app/client.js" 
+  data-repo="ShriRambo/giscus-comments"
+  data-repo-id="R_kgDOG1mtrQ"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOG1mtrc4CBJNW" 
+  data-mapping="title" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top" 
+  data-theme="dark" 
+  data-lang="en" 
+  crossorigin="anonymous" 
+  async> </script>
+<hr>
+<p style="text-align:center">
+Made with ❤️ and Emacs (Org-mode)
+</p>
+<div align=center>
+  <a href="#">
+    <i class="fa fa-home fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href="https://www.instagram.com/shrirambo/">
+    <i class="fa fa-instagram fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href="https://github.com/shrirambo">
+    <i class="fa fa-github fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href='https://www.linkedin.com/in/shriram-ashirgade/'>
+    <i class="fa fa-linkedin-square fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href='#content'>
+    <i class="fa fa-hand-o-up  fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"></p>
+</div>
+</body>
+</html>
