@@ -19,7 +19,8 @@
 /* Add a bit of transparancy so light media isn't so glaring in dark mode */
 img,
 video {
-    opacity: 0.8;
+    opacity: 0.9;
+    max-width: 95vw;
 }
 
   
@@ -502,4 +503,13 @@ pre code {
 
 p {
    text-align: justify
+}
+
+.link-icon {
+    transition: transform .2s; /* Animation */
+    margin: 3px;
+}
+
+.link-icon:hover{
+    transform: scale(1.5);
 }
