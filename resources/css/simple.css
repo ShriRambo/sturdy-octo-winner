@@ -563,7 +563,7 @@ pre.src:before {
 }
 
 
-/* Code block language 
+/* Code block language */
 pre.src:hover:before { display: inline;}
 /* Languages per Org manual */
 pre.src-C:before { content: 'C'; }
