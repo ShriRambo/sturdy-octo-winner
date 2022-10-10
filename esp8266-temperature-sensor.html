@@ -17,9 +17,9 @@
 <code>ESP8266</code> based circuit boards are great for projects that needs wireless communications. They have very low form factor and can accomplish a lot. Combined with sensors like <code>DHT22</code>, we can make a great temperature sensors. This is what I was trying to achieve with this project.
 </p>
 
-<div id="outline-container-orgeba981d" class="outline-2">
-<h2 id="orgeba981d">🧭 The Problem</h2>
-<div class="outline-text-2" id="text-orgeba981d">
+<div id="outline-container-orgd418521" class="outline-2">
+<h2 id="orgd418521">🧭 The Problem</h2>
+<div class="outline-text-2" id="text-orgd418521">
 <p>
 The aim is to create a sensor that can show temperature and humidity in the different rooms of my house. This information then I can use to do some home automations like open windows, turn up heater, or just to prepare my self the condition at home 🥶 🥵
 </p>
@@ -33,15 +33,15 @@ The aim is to create a sensor that can show temperature and humidity in the diff
 </div>
 </div>
 
-<div id="outline-container-orgb8da690" class="outline-2">
-<h2 id="orgb8da690">🔌 The Circuit</h2>
-<div class="outline-text-2" id="text-orgb8da690">
+<div id="outline-container-org107f38f" class="outline-2">
+<h2 id="org107f38f">🔌 The Circuit</h2>
+<div class="outline-text-2" id="text-org107f38f">
 <p>
 Here is the circuit setup I started with. 
 </p>
 
 
-<div id="org4e1cfb5" class="figure">
+<div id="org0966bb4" class="figure">
 <p><img src="./img/circuit-diagram-temp-sensor.png" alt="circuit-diagram-temp-sensor.png">
 </p>
 </div>
@@ -56,9 +56,9 @@ The 7-segment display is not really necessary. As I am publishing temperature to
 </div>
 </div>
 
-<div id="outline-container-org8899e80" class="outline-2">
-<h2 id="org8899e80">🕸 The Network</h2>
-<div class="outline-text-2" id="text-org8899e80">
+<div id="outline-container-org432dc36" class="outline-2">
+<h2 id="org432dc36">🕸 The Network</h2>
+<div class="outline-text-2" id="text-org432dc36">
 <p>
 First, we will configure the wifi so that <code>wemos</code> can connect to our home wifi network. We include following header files and configuration and initialize <code>wifi</code> and <code>pubsub</code> client. The <code>pubsub</code> client will read and publish messages to the MQTT server.
 </p>
@@ -128,9 +128,9 @@ And finally a function to reconnect in case of disconnection.
 </div>
 
 
-<div id="outline-container-org66d329e" class="outline-2">
-<h2 id="org66d329e">🌡 The Sensor</h2>
-<div class="outline-text-2" id="text-org66d329e">
+<div id="outline-container-orge159de2" class="outline-2">
+<h2 id="orge159de2">🌡 The Sensor</h2>
+<div class="outline-text-2" id="text-orge159de2">
 <p>
 The <code>DHT22</code> sensor is quite straight forward. I am using this <a href="https://github.com/adafruit/DHT-sensor-library">DHT Sensor Library</a> in the project to read sensor data. We need following things to setup.
 </p>
@@ -169,9 +169,9 @@ client.publish<span class="org-rainbow-delimiters-depth-1">(</span><span class="
 </div>
 
 
-<div id="outline-container-orgf99f147" class="outline-2">
-<h2 id="orgf99f147">📺 The Display</h2>
-<div class="outline-text-2" id="text-orgf99f147">
+<div id="outline-container-org4310458" class="outline-2">
+<h2 id="org4310458">📺 The Display</h2>
+<div class="outline-text-2" id="text-org4310458">
 <p>
 The 7 segment display module is very nice and efficient way to display numerical data. As long as it fits the display format. I am using <a href="https://github.com/avishorp/TM1637">TM1637 Display</a> library. This 
 </p>
@@ -211,9 +211,9 @@ display.setSegments<span class="org-rainbow-delimiters-depth-1">(</span>PER_C, 2
 </div>
 </div>
 
-<div id="outline-container-org3ce5dd3" class="outline-2">
-<h2 id="org3ce5dd3">🌯 The Wrap-up</h2>
-<div class="outline-text-2" id="text-org3ce5dd3">
+<div id="outline-container-org59e97d8" class="outline-2">
+<h2 id="org59e97d8">🌯 The Wrap-up</h2>
+<div class="outline-text-2" id="text-org59e97d8">
 <p>
 That is the complete setup of a wireless temperature and humidity sensor. For the future scope, I would like to build automations around this, controlling thermostat. 
 </p>
