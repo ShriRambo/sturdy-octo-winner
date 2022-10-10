@@ -17,6 +17,6 @@
 + [[./a-mini-panic.org][A Mini Panic]]
 + [[./esp8266-usb-fan-controller.org][ESP8266 USB fan controller]]
 + [[./esp8266-temperature-sensor.org][ESP8266 temperature sensor]]
-
++ [[./git-worktree.org][Git worktree]]
 
 #+INCLUDE: ./setup/footer.setup.org
