@@ -1,0 +1,76 @@
+#+TITLE: Git Worktree
+#+SUB: An alternative way to work with multiple branches at the same time.
+#+DATE: [2022-10-10 zo]
+#+AUTHOR: shrirambo
+#+OPTIONS: tex:t toc:nil
+#+INCLUDE: ./setup/theme.setup.org
+#+TAGS: blog til
+------
+
+* 🐎 Motivation
+
+Most of the time when I am working a project, version controlled by git, I am working on a single branch. Implementing single feature or solving a single bug. But at times, I have to make a quick fix in another branch or just test the commit made by somebody else. Usually, if I have uncommitted changes in my current branch, I would use [[https://git-scm.com/docs/git-stash][git-stash]]. I would first =git stash push,= do the magic I want to do, and then =git stash pop=. But this can be inefficient and still only allows me to work on a single branch at a time. And I am always scared of using it wrong and losing all the changes. 
+
+[[https://git-scm.com/docs/git-worktree][Git-worktree]] is a very nice feature of git that allows to have multiple worktree at the same time. Of course, all the worktrees has to be in different folder, but they are connected to a single repository. By default, worktree is the branch you are working on. So, when master branch is checked out, the folder structure looks something like this:
+
+#+BEGIN_EXAMPLE
+.
+├── .git
+├── project-files-on-master
+#+END_EXAMPLE
+
+With =git-worktree=, I can open another branch for temporary work in another folder. Something like this:
+
+#+BEGIN_EXAMPLE
+.
+├── .git
+├── master
+├── ../develop
+│       ├── project-files-on-develop
+#+END_EXAMPLE
+
+* 🎯 Commands and Usage 
+
+Following is the list of commands (verbatim from [[https://git-scm.com/docs/git-worktree][git-scm.com]]) related to =git-worktree=.
+
+#+BEGIN_SRC bash
+git worktree add [-f] [--detach] [--checkout] [--lock [--reason <string>]] [-b <new-branch>] <path> [<commit-ish>]
+git worktree list [-v | --porcelain [-z]]
+git worktree lock [--reason <string>] <worktree>
+git worktree move <worktree> <new-path>
+git worktree prune [-n] [-v] [--expire <expire>]
+git worktree remove [-f] <worktree>
+git worktree repair [<path>…​]
+git worktree unlock <worktree>
+#+END_SRC
+
+The command =git worktree add ../develop= adds a worktreee at =../develop= and checks out develop branch. If develop branch does not exist, it creates one for us. Easy peasy. I can specify the branch name with =-b branch-name= to create a new branch as well. For the existing branch or any other commit apart from =HEAD,= I can use the  =<commit-ish>= argument that can refer to a branch name, commit, or distance from =HEAD=. I will not write here in details how to use all of the  =git-worktree= commands. Although, I will write a few use cases for it.
+
+** Quick fix workflow
+
+To make a quick fix branch without having to stop working on the other branch.
+
+#+BEGIN_SRC shell
+git worktree add ../quickfix
+cd ../quickfix
+do the magic
+git commit -m "The magic has been done"
+git worktree remove quickfix
+#+END_SRC
+
+** Throwaway worktree
+
+To get a clean throwaway worktree, use the =--detach= flag. This worktree is not related to any branch and the changes cannot be committed anywhere. 
+
+#+BEGIN_SRC shell
+git worktree add --detach ../throwaway develop
+cd ../throwayay
+do some experiments
+git worktree remove throwaway
+#+END_SRC
+
+* Conclusion
+
+=Git-worktree= is definitely a cool feature of git and can be integrated in the work-flow nicely. Specially for some use cases. Does this mean that =git-stash= is redundant? May be not. In some cases, =git-stash= can also be useful.
+
+#+INCLUDE: ./setup/footer.setup.org
