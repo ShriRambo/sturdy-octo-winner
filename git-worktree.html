@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git Worktree</title>
+<meta name="generator" content="Org mode">
+<link rel="stylesheet" href=" ./css/code.css" />
+<link rel="stylesheet" href="./css/simple.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<div id="content">
+<h1 class="title">Git Worktree</h1>
+<hr>
+
+<div id="outline-container-orgfd81ceb" class="outline-2">
+<h2 id="orgfd81ceb">🐎 Motivation</h2>
+<div class="outline-text-2" id="text-orgfd81ceb">
+<p>
+Most of the time when I am working a project, version controlled by git, I am working on a single branch. Implementing single feature or solving a single bug. But at times, I have to make a quick fix in another branch or just test the commit made by somebody else. Usually, if I have uncommitted changes in my current branch, I would use <a href="https://git-scm.com/docs/git-stash">git-stash</a>. I would first <code>git stash push,</code> do the magic I want to do, and then <code>git stash pop</code>. But this can be inefficient and still only allows me to work on a single branch at a time. And I am always scared of using it wrong and losing all the changes. 
+</p>
+
+<p>
+<a href="https://git-scm.com/docs/git-worktree">Git-worktree</a> is a very nice feature of git that allows to have multiple worktree at the same time. Of course, all the worktrees has to be in different folder, but they are connected to a single repository. By default, worktree is the branch you are working on. So, when master branch is checked out, the folder structure looks something like this:
+</p>
+
+<pre class="example">
+.
+├── .git
+├── project-files-on-master
+</pre>
+
+<p>
+With <code>git-worktree</code>, I can open another branch for temporary work in another folder. Something like this:
+</p>
+
+<pre class="example">
+.
+├── .git
+├── master
+├── ../develop
+│       ├── project-files-on-develop
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgad32888" class="outline-2">
+<h2 id="orgad32888">🎯 Commands and Usage</h2>
+<div class="outline-text-2" id="text-orgad32888">
+<p>
+Following is the list of commands (verbatim from <a href="https://git-scm.com/docs/git-worktree">git-scm.com</a>) related to <code>git-worktree</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">git worktree add <span class="org-rainbow-delimiters-depth-1">[</span>-f<span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-rainbow-delimiters-depth-1">[</span>--detach<span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-rainbow-delimiters-depth-1">[</span>--checkout<span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-rainbow-delimiters-depth-1">[</span>--lock <span class="org-rainbow-delimiters-depth-2">[</span>--reason &lt;string&gt;<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-rainbow-delimiters-depth-1">[</span>-b &lt;new-branch&gt;<span class="org-rainbow-delimiters-depth-1">]</span> &lt;path&gt; <span class="org-rainbow-delimiters-depth-1">[</span>&lt;commit-ish&gt;<span class="org-rainbow-delimiters-depth-1">]</span>
+git worktree list <span class="org-rainbow-delimiters-depth-1">[</span>-v | --porcelain <span class="org-rainbow-delimiters-depth-2">[</span>-z<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">]</span>
+git worktree lock <span class="org-rainbow-delimiters-depth-1">[</span>--reason &lt;string&gt;<span class="org-rainbow-delimiters-depth-1">]</span> &lt;worktree&gt;
+git worktree move &lt;worktree&gt; &lt;new-path&gt;
+git worktree prune <span class="org-rainbow-delimiters-depth-1">[</span>-n<span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-rainbow-delimiters-depth-1">[</span>-v<span class="org-rainbow-delimiters-depth-1">]</span> <span class="org-rainbow-delimiters-depth-1">[</span>--expire &lt;expire&gt;<span class="org-rainbow-delimiters-depth-1">]</span>
+git worktree remove <span class="org-rainbow-delimiters-depth-1">[</span>-f<span class="org-rainbow-delimiters-depth-1">]</span> &lt;worktree&gt;
+git worktree repair <span class="org-rainbow-delimiters-depth-1">[</span>&lt;path&gt;&#8230;&#8203;<span class="org-rainbow-delimiters-depth-1">]</span>
+git worktree unlock &lt;worktree&gt;
+</pre>
+</div>
+
+<p>
+The command <code>git worktree add ../develop</code> adds a worktreee at <code>../develop</code> and checks out develop branch. If develop branch does not exist, it creates one for us. Easy peasy. I can specify the branch name with <code>-b branch-name</code> to create a new branch as well. For the existing branch or any other commit apart from <code>HEAD,</code> I can use the  <code>&lt;commit-ish&gt;</code> argument that can refer to a branch name, commit, or distance from <code>HEAD</code>. I will not write here in details how to use all of the  <code>git-worktree</code> commands. Although, I will write a few use cases for it.
+</p>
+</div>
+
+<div id="outline-container-org11c9c37" class="outline-3">
+<h3 id="org11c9c37">Quick fix workflow</h3>
+<div class="outline-text-3" id="text-org11c9c37">
+<p>
+To make a quick fix branch without having to stop working on the other branch.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">git worktree add ../quickfix
+<span class="org-builtin">cd</span> ../quickfix
+<span class="org-keyword">do</span> the magic
+git commit -m <span class="org-string">"The magic has been done"</span>
+git worktree remove quickfix
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgccc6e2d" class="outline-3">
+<h3 id="orgccc6e2d">Throwaway worktree</h3>
+<div class="outline-text-3" id="text-orgccc6e2d">
+<p>
+To get a clean throwaway worktree, use the <code>--detach</code> flag. This worktree is not related to any branch and the changes cannot be committed anywhere. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">git worktree add --detach ../throwaway develop
+<span class="org-builtin">cd</span> ../throwayay
+<span class="org-keyword">do</span> some experiments
+git worktree remove throwaway
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7c6c1b0" class="outline-2">
+<h2 id="org7c6c1b0">Conclusion</h2>
+<div class="outline-text-2" id="text-org7c6c1b0">
+<p>
+<code>Git-worktree</code> is definitely a cool feature of git and can be integrated in the work-flow nicely. Specially for some use cases. Does this mean that <code>git-stash</code> is redundant? May be not. In some cases, <code>git-stash</code> can also be useful.
+</p>
+
+<hr>
+<script src="https://giscus.app/client.js" 
+  data-repo="ShriRambo/giscus-comments"
+  data-repo-id="R_kgDOG1mtrQ"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOG1mtrc4CBJNW" 
+  data-mapping="title" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top" 
+  data-theme="dark" 
+  data-lang="en" 
+  crossorigin="anonymous" 
+  async> </script>
+<hr>
+<p style="text-align:center">
+Made with ❤️ and Emacs (Org-mode)
+</p>
+<div align=center>
+  <a href="#">
+    <i class="fa fa-home fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href="https://www.instagram.com/shrirambo/">
+    <i class="fa fa-instagram fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href="https://github.com/shrirambo">
+    <i class="fa fa-github fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href='https://www.linkedin.com/in/shriram-ashirgade/'>
+    <i class="fa fa-linkedin-square fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href='#content'>
+    <i class="fa fa-hand-o-up  fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"></p>
+</div>
+</body>
+</html>

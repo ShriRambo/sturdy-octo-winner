@@ -534,6 +534,7 @@ pre {
     padding: 8pt;
     overflow: auto;
     margin: 1.2em;
+    line-height: 110%;
 }
 pre.src {
     position: relative;
