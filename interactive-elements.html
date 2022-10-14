@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interactive Webpages with Org-mode</title>
+<meta name="generator" content="Org mode">
+<link rel="stylesheet" href=" ./css/code.css" />
+<link rel="stylesheet" href="./css/simple.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<div id="content">
+<h1 class="title">Interactive Webpages with Org-mode</h1>
+<hr>
+
+<p>
+With the current setup, I can write and publish static html pages using Emacs and Org-mode. I can also write literate pages explaining code which can run while editing the org file in emacs. But now I want more. I want to make literate and interactive html pages. Interactive in a sense that I can see, edit and run javascript code in the browser on the click of a button, explain the html, css, js involved in making the the page itself. This page is all about experiments and ideas on how I can achieve this goal. 
+</p>
+
+<div id="outline-container-org59b3f43" class="outline-2">
+<h2 id="org59b3f43">🐑 Raw html export</h2>
+<div class="outline-text-2" id="text-org59b3f43">
+<p>
+Let's start with basic elements. Like button, forms, input fields. Adding raw html text in org-mode file is done by using <code>#+BEGIN_EXPORT html ... #+END_EXPORT</code> block. Everything in this block will be exported as raw html. Here, we can write all the elements which are not directly exported from org-mode tags. Adding following in an export block will create a button in html export and on clicking it, we will see an alert on top.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html" id="org70eb9fd">&lt;<span class="org-function-name">button</span> <span class="org-variable-name">onclick</span>=<span class="org-string">"onButt()"</span>&gt; This is a button &lt;/<span class="org-function-name">button</span>&gt;
+&lt;<span class="org-function-name">script</span> <span class="org-variable-name">type</span>=<span class="org-string">"text/javascript"</span>&gt;
+function onButt(){
+    alert("Button pressed");    
+}
+&lt;/<span class="org-function-name">script</span>&gt;
+</pre>
+</div>
+<button onclick="onButt()"> This is a button </button>
+<script type="text/javascript">
+function onButt(){
+    alert("Button pressed");    
+}
+</script>
+
+
+<p>
+On top of these <code>BEGIN_EXPORT</code> block, we can also add <code>#+HTML:</code> which will add the rest of the line as raw html, and use <code>@@html: ... @@</code> to add inline html. In this way, I can add raw html which gets rendered in the webpage.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0f51350" class="outline-2">
+<h2 id="org0f51350">🐙 More efficient export</h2>
+<div class="outline-text-2" id="text-org0f51350">
+<p>
+With these export blocks, I can now add whatever html literally into the exported webpage. But, there are few inefficiencies in this method.
+</p>
+
+<dl class="org-dl">
+<dt>All the blocks are <code>html</code> blocks</dt><dd>That means, when I am editing these export blocks in emacs org-mode, they will be edited in html mode. Even if I am writing javascript, I will be writing it in html mode inside script tags. Same goes with css in style tags. Because of this, I cannot leverage everything that <code>javascript-mode</code> and <code>css-mode</code> has to offer.</dd>
+<dt>Single use export blocks</dt><dd>One single export block will add html only once in the specific place. In case I want to repeat the html element at multiple places in the web-page I will have to write/ copy paste the block everywhere.</dd>
+<dt>Redundancy for literate and literal source</dt><dd>Say I want to add a code block showing the javascript code I implemented. And at the same time, I want to add the same code literally in source block. With current setup, I have to add a javascript source block for literate code  and an export html block for literal code. Having to maintain two copies of same code snippet.</dd>
+</dl>
+
+<p>
+To solve this issue, I came up with a solution. An <code>emacs-lisp</code> source block with header arguments <code>:results html</code>, which will wrap results in html export block. It also has an input argument <code>:var blk=""</code> which refers to the name of src block to export. I have named this src block as <code>raw_export</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="orgada1eff"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span>
+    <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>lan <span class="org-rainbow-delimiters-depth-4">(</span>nth 0 <span class="org-rainbow-delimiters-depth-5">(</span>org-babel-lob--src-info blk<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-comment-delimiter">;</span><span class="org-comment">src block language</span>
+     <span class="org-rainbow-delimiters-depth-3">(</span>bod <span class="org-rainbow-delimiters-depth-4">(</span>cadr <span class="org-rainbow-delimiters-depth-5">(</span>org-babel-lob--src-info blk<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-comment-delimiter">;</span><span class="org-comment">src block body</span>
+
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>string= lan <span class="org-string">"html"</span><span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-comment-delimiter">; </span><span class="org-comment">export html verbatim</span>
+      bod
+    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-4">(</span>string= lan <span class="org-string">"js"</span><span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-comment-delimiter">; </span><span class="org-comment">export js wrapped in script tag</span>
+        <span class="org-rainbow-delimiters-depth-4">(</span>concat <span class="org-string">"&lt;script type=\"text/javascript\"&gt;\n"</span> bod <span class="org-string">"\n"</span> <span class="org-string">"&lt;/script&gt;"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+      <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-5">(</span>string= lan <span class="org-string">"css"</span><span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-comment-delimiter">; </span><span class="org-comment">export css wrapped in style tag</span>
+          <span class="org-rainbow-delimiters-depth-5">(</span>concat <span class="org-string">"&lt;style&gt;\n"</span> bod <span class="org-string">"\n"</span> <span class="org-string">"&lt;/style&gt;"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+This function checks the language of src block. If it is html, it returns the body as is. If it is javascript, it wraps the body in <code>&lt;script&gt;</code> tag. And if it is stylesheet, it wraps it in <code>&lt;style&gt;</code> tag. Now, I can just write html, css, javascript in normal src block. Which will export the code. And to export this literally, all I have to do is just call the above function by passing the name of src block. In this case, I will have to pass <a href="#org70eb9fd">test-button</a>, which is the name of html src block.
+</p>
+
+<pre class="example">
+#+CALL: raw_export("test-button")
+</pre>
+
+<p>
+The results of this call will be exported literally. This solves all of the issues I mentioned earlier. Now, I can just write html in html src block, javascript in javascript src block and css in css src block. If I want multiple instances of same literal export, I can just call the function multiple times in the document while having single src like this:
+</p>
+
+<button onclick="onButt()"> This is a button </button>
+<script type="text/javascript">
+function onButt(){
+    alert("Button pressed");    
+}
+</script>
+
+<button onclick="onButt()"> This is a button </button>
+<script type="text/javascript">
+function onButt(){
+    alert("Button pressed");    
+}
+</script>
+
+<button onclick="onButt()"> This is a button </button>
+<script type="text/javascript">
+function onButt(){
+    alert("Button pressed");    
+}
+</script>
+
+<p>
+And finally, as src blocks can also be exported as code, I can have single block which can be exported in literate and literal way. Cool!!! Note: For function call to work, <code>org-export-use-babel</code> must be set to <code>t</code>. This will allow the org html exporter to run src blocks if needed. 
+</p>
+
+<p>
+The next thing I would like to do is to leverage <code>noweb</code> for templating web elements. But that will be something for future. 
+</p>
+
+
+<hr>
+<script src="https://giscus.app/client.js" 
+  data-repo="ShriRambo/giscus-comments"
+  data-repo-id="R_kgDOG1mtrQ"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOG1mtrc4CBJNW" 
+  data-mapping="title" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top" 
+  data-theme="dark" 
+  data-lang="en" 
+  crossorigin="anonymous" 
+  async> </script>
+<hr>
+<p style="text-align:center">
+Made with ❤️ and Emacs (Org-mode)
+</p>
+<div align=center>
+  <a href="#">
+    <i class="fa fa-home fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href="https://www.instagram.com/shrirambo/">
+    <i class="fa fa-instagram fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href="https://github.com/shrirambo">
+    <i class="fa fa-github fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href='https://www.linkedin.com/in/shriram-ashirgade/'>
+    <i class="fa fa-linkedin-square fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href='https://github.com/ShriRambo/sturdy-octo-winner/tree/master/content'>
+    <i class="fa fa-code  fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+  <a href='#content'>
+    <i class="fa fa-hand-o-up  fa-lg link-icon" aria-hidden="true"></i>
+  </a>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"></p>
+</div>
+</body>
+</html>
