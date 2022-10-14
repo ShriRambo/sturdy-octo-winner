@@ -16,6 +16,9 @@ Made with ❤️ and Emacs (Org-mode)
   <a href='https://www.linkedin.com/in/shriram-ashirgade/'>
     <i class="fa fa-linkedin-square fa-lg link-icon" aria-hidden="true"></i>
   </a>
+  <a href='https://github.com/ShriRambo/sturdy-octo-winner/tree/master/content'>
+    <i class="fa fa-code  fa-lg link-icon" aria-hidden="true"></i>
+  </a>
   <a href='#content'>
     <i class="fa fa-hand-o-up  fa-lg link-icon" aria-hidden="true"></i>
   </a>

@@ -1,0 +1,69 @@
+#+TITLE: Interactive Webpages with Org-mode
+#+DATE: [2022-10-14 vr]
+#+AUTHOR: shrirambo
+#+OPTIONS: tex:t toc:nil
+#+INCLUDE: ./setup/theme.setup.org
+------
+
+With the current setup, I can write and publish static html pages using Emacs and Org-mode. I can also write literate pages explaining code which can run while editing the org file in emacs. But now I want more. I want to make literate and interactive html pages. Interactive in a sense that I can see, edit and run javascript code in the browser on the click of a button, explain the html, css, js involved in making the the page itself. This page is all about experiments and ideas on how I can achieve this goal. 
+
+* 🐑 Raw html export
+
+Let's start with basic elements. Like button, forms, input fields. Adding raw html text in org-mode file is done by using ~#+BEGIN_EXPORT html ... #+END_EXPORT~ block. Everything in this block will be exported as raw html. Here, we can write all the elements which are not directly exported from org-mode tags. Adding following in an export block will create a button in html export and on clicking it, we will see an alert on top.
+
+#+NAME: test-button
+#+BEGIN_SRC html
+<button onclick="onButt()"> This is a button </button>
+<script type="text/javascript">
+function onButt(){
+    alert("Button pressed");    
+}
+</script>
+#+END_SRC
+#+CALL: raw_export("test-button")
+
+
+On top of these ~BEGIN_EXPORT~ block, we can also add ~#+HTML:~ which will add the rest of the line as raw html, and use ~@@html: ... @@~ to add inline html. In this way, I can add raw html which gets rendered in the webpage.
+
+* 🐙 More efficient export
+
+With these export blocks, I can now add whatever html literally into the exported webpage. But, there are few inefficiencies in this method.
+
++ All the blocks are =html= blocks :: That means, when I am editing these export blocks in emacs org-mode, they will be edited in html mode. Even if I am writing javascript, I will be writing it in html mode inside script tags. Same goes with css in style tags. Because of this, I cannot leverage everything that =javascript-mode= and =css-mode= has to offer.
++ Single use export blocks :: One single export block will add html only once in the specific place. In case I want to repeat the html element at multiple places in the web-page I will have to write/ copy paste the block everywhere. 
++ Redundancy for literate and literal source :: Say I want to add a code block showing the javascript code I implemented. And at the same time, I want to add the same code literally in source block. With current setup, I have to add a javascript source block for literate code  and an export html block for literal code. Having to maintain two copies of same code snippet.
+
+To solve this issue, I came up with a solution. An ~emacs-lisp~ source block with header arguments ~:results html~, which will wrap results in html export block. It also has an input argument ~:var blk=""~ which refers to the name of src block to export. I have named this src block as ~raw_export~.
+
+#+NAME: raw_export
+#+BEGIN_SRC emacs-lisp :exports code :results html :var blk=""
+(let
+    ((lan (nth 0 (org-babel-lob--src-info blk) )) ;src block language
+     (bod (cadr (org-babel-lob--src-info blk) ))) ;src block body
+
+  (if (string= lan "html") ; export html verbatim
+      bod
+    (if (string= lan "js") ; export js wrapped in script tag
+	(concat "<script type=\"text/javascript\">\n" bod "\n" "</script>")
+      (if (string= lan "css") ; export css wrapped in style tag
+	  (concat "<style>\n" bod "\n" "</style>")))))
+#+END_SRC
+
+This function checks the language of src block. If it is html, it returns the body as is. If it is javascript, it wraps the body in ~<script>~ tag. And if it is stylesheet, it wraps it in ~<style>~ tag. Now, I can just write html, css, javascript in normal src block. Which will export the code. And to export this literally, all I have to do is just call the above function by passing the name of src block. In this case, I will have to pass [[test-button][test-button]], which is the name of html src block.
+
+#+BEGIN_EXAMPLE
+#+CALL: raw_export("test-button")
+#+END_EXAMPLE
+
+The results of this call will be exported literally. This solves all of the issues I mentioned earlier. Now, I can just write html in html src block, javascript in javascript src block and css in css src block. If I want multiple instances of same literal export, I can just call the function multiple times in the document while having single src like this:
+
+#+CALL: raw_export("test-button")
+#+CALL: raw_export("test-button")
+#+CALL: raw_export("test-button")
+
+ And finally, as src blocks can also be exported as code, I can have single block which can be exported in literate and literal way. Cool!!! Note: For function call to work, ~org-export-use-babel~ must be set to ~t~. This will allow the org html exporter to run src blocks if needed. 
+
+The next thing I would like to do is to leverage ~noweb~ for templating web elements. But that will be something for future. 
+
+
+#+INCLUDE: ./setup/footer.setup.org
