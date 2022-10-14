@@ -18,5 +18,6 @@
 + [[./esp8266-usb-fan-controller.org][ESP8266 USB fan controller]]
 + [[./esp8266-temperature-sensor.org][ESP8266 temperature sensor]]
 + [[./git-worktree.org][Git worktree]]
++ [[file:interactive-elements.org][Interactive Webpage with Org-mode]]
 
 #+INCLUDE: ./setup/footer.setup.org
