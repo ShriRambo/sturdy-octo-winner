@@ -167,13 +167,16 @@ button,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
-  border: none;
-  border-radius: 5px;
-  background: var(--accent);
+  border:  5px solid black;
+  border-radius: 8px;
+  box-shadow: 10px 10px 5px #000,
+	      inset 10px 10px 0px var(--accent);
+  background: var(--accent-bg);
   font-size: 1rem;
-  color: var(--bg);
+  color: var(--text);
   padding: 0.7rem 0.9rem;
   margin: 0.5rem 0;
+  transition: all 0.2s ease;
 }
 
 button[disabled],
@@ -215,8 +218,10 @@ input[type="reset"]:focus,
 input[type="reset"]:enabled:hover,
 input[type="button"]:focus,
 input[type="button"]:enabled:hover {
-  filter: brightness(1.4);
-  cursor: pointer;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px #000,
+		inset 10em 10em 0px var(--accent);
+    color:var(--bg)
 }
 
 /* Format navigation */
