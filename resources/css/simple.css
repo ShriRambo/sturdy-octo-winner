@@ -220,7 +220,7 @@ input[type="button"]:focus,
 input[type="button"]:enabled:hover {
     cursor: pointer;
     box-shadow: 2px 2px 5px #000,
-		inset 10em 10em 0px var(--accent);
+		inset 9em 3em 0px var(--accent);
     color:var(--bg)
 }
 

@@ -60,10 +60,12 @@ The results of this call will be exported literally. This solves all of the issu
 #+CALL: raw_export("test-button")
 #+CALL: raw_export("test-button")
 #+CALL: raw_export("test-button")
+#+CALL: raw_export("test-button")
 
  And finally, as src blocks can also be exported as code, I can have single block which can be exported in literate and literal way. Cool!!! Note: For function call to work, ~org-export-use-babel~ must be set to ~t~. This will allow the org html exporter to run src blocks if needed. 
 
-The next thing I would like to do is to leverage ~noweb~ for templating web elements. But that will be something for future. 
+You would say, interactivity means more than just a button. But the button is just an example. The main idea is that with emacs org-mode, we can do anything we want. The next thing I would like to do is to leverage ~noweb~ for templating web elements. But that will be something for future. 
 
+One of my hobbies is computational art with =p5.js=, and my final goal here is to setup a workflow where I can publish my =p5.js= sketches as an interactive and literate blog explaining how I did it. Hope I can find time and motivation to make blog posts out of my =p5.js= gallery. 
 
 #+INCLUDE: ./setup/footer.setup.org
