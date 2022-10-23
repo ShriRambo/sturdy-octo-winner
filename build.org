@@ -64,8 +64,23 @@ For nicer imports of packages
   (not (member lang '("emacs-lisp" ))))
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 #+END_SRC
+* Custom Backend 
+** Markup alist
+#+BEGIN_SRC emacs-lisp :tangle ./build.el
+(assq-delete-all 'verbatim org-html-text-markup-alist)
+(add-to-list 'org-html-text-markup-alist
+	     '(verbatim . "<mark>%s</mark>"))
+#+END_SRC
+
+** TODO Derived backend
+#+BEGIN_SRC emacs-lisp
+(org-export-define-derived-backend 'shrirambo-site-html 'html
+  :translate-alist '((headline . my-latex-headline-translator)
+		     (template . my-latex-template)))
+#+END_SRC
 
 
+* Publish
 ** Customize HTML output
 #+BEGIN_SRC emacs-lisp :tangle ./build.el
   ;; Customize the HTML output
