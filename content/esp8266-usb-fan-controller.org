@@ -10,7 +10,7 @@ I have an old laptop repurposed as a home server, which I use to stream media, b
 + [[https://components101.com/switches/5v-single-channel-relay-module-pinout-features-applications-working-datasheet][Relay switch module]]
 + USB fan
 + [[https://www.smartmontools.org][Smartmontools]] package to monitor S.M.A.R.T. stats of hdd
-+ [[https://www.wemos.cc/en/latest/d1/d1_mini.html][Wemos D1 Mini]] (=ESP8266= based board)
++ [[https://www.wemos.cc/en/latest/d1/d1_mini.html][Wemos D1 Mini]] (~ESP8266~ based board)
 + MQTT broker (like [[https://mosquitto.org][mosquitto]])
 + [[https://components101.com/displays/tm1637-grove-4-digit-display-module][TM1677 7-segment display module]] 
 

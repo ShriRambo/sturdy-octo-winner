@@ -9,7 +9,7 @@
 * 🧭 The Problem
 The aim is to create a sensor that can show temperature and humidity in the different rooms of my house. This information then I can use to do some home automations like open windows, turn up heater, or just to prepare my self the condition at home 🥶 🥵
 
-+ [[https://www.wemos.cc/en/latest/d1/d1_mini.html][Wemos D1 Mini]] (=ESP8266= based board) 
++ [[https://www.wemos.cc/en/latest/d1/d1_mini.html][Wemos D1 Mini]] (~ESP8266~ based board) 
 + [[https://components101.com/sensors/dht22-pinout-specs-datasheet][DHT22]] temperature and humidity sensor
 + MQTT broker (like [[https://mosquitto.org][mosquitto]])
 + [[https://components101.com/displays/tm1637-grove-4-digit-display-module][TM1677 7-segment display module]] 
@@ -26,7 +26,7 @@ As always, I am using USB cable to power the circuit board. I think this is the 
 The 7-segment display is not really necessary. As I am publishing temperature to MQTT and I can just monitor from some app like Home Assistant. But I wanted to have both ways to checking temperature, from the display and from my phone as well. 
 
 * 🕸 The Network
-First, we will configure the wifi so that =wemos= can connect to our home wifi network. We include following header files and configuration and initialize =wifi= and =pubsub= client. The =pubsub= client will read and publish messages to the MQTT server.
+First, we will configure the wifi so that ~wemos~ can connect to our home wifi network. We include following header files and configuration and initialize ~wifi~ and ~pubsub~ client. The ~pubsub~ client will read and publish messages to the MQTT server.
 #+BEGIN_SRC cpp
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
@@ -82,7 +82,7 @@ void reconnect(){
 
 
 * 🌡 The Sensor
-The =DHT22= sensor is quite straight forward. I am using this [[https://github.com/adafruit/DHT-sensor-library][DHT Sensor Library]] in the project to read sensor data. We need following things to setup.
+The ~DHT22~ sensor is quite straight forward. I am using this [[https://github.com/adafruit/DHT-sensor-library][DHT Sensor Library]] in the project to read sensor data. We need following things to setup.
 
 #+BEGIN_SRC cpp
 #include "DHT.h"
@@ -91,7 +91,7 @@ The =DHT22= sensor is quite straight forward. I am using this [[https://github.c
 DHT dht(DHTPIN, DHTTYPE);
 #+END_SRC
 
-Methods from =DHT= can then be used to get the temperature and humidity data. 
+Methods from ~DHT~ can then be used to get the temperature and humidity data. 
 #+BEGIN_SRC cpp
 float hu  = dht.readHumidity(); // In Percentage
 float tc  = dht.readTemperature(); // Temperature as Celsius (default)
@@ -100,7 +100,7 @@ float hif = dht.computeHeatIndex(f, h);  // Heat index in Fahrenheit (the defaul
 float hic = dht.computeHeatIndex(t, h, false);  // Heat index in Celsius (isFahreheit = false)
 #+END_SRC
 
-In case if reading sensor fails, the value set will be =nan=. So, remember to check this to detect failure before publishing message. I am also publishing these measurements to the mqtt broker with =PubSubClient.h= library.
+In case if reading sensor fails, the value set will be ~nan~. So, remember to check this to detect failure before publishing message. I am also publishing these measurements to the mqtt broker with ~PubSubClient.h~ library.
 
 #+BEGIN_SRC cpp
 client.publish("home/temperature", String(tc).c_str());
@@ -131,7 +131,7 @@ const uint8_t PER_C[] = { SEG_A | SEG_B | SEG_E | SEG_F | SEG_G, // P
                         };
 #+END_SRC
 
-The =display= module has methods to show digits. 
+The ~display~ module has methods to show digits. 
 #+BEGIN_SRC cpp
 display.clear();
 // For temperature
