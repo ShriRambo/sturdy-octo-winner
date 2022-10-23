@@ -16,12 +16,12 @@
 <hr>
 
 <p>
-I have all of my publishing configuration witten as a in <a href="./publish-settings.html">build.org</a> file and the shell commands in <code>build.sh</code>. Moreover, I have made <code>build.sh</code> an executable file. Running this file will build the project and make all of the html files in <code>./content</code> folder. I would like to automate the publishing process so that, when I write a page in org mode and commit the changes, it gets published automatically. For that, I am using git hooks.
+I have all of my publishing configuration witten as a in <a href="./publish-settings.html">build.org</a> file and the shell commands in <mark>build.sh</mark>. Moreover, I have made <mark>build.sh</mark> an executable file. Running this file will build the project and make all of the html files in <mark>./content</mark> folder. I would like to automate the publishing process so that, when I write a page in org mode and commit the changes, it gets published automatically. For that, I am using git hooks.
 </p>
 
-<div id="outline-container-orge5d114f" class="outline-2">
-<h2 id="orge5d114f">Git hooks</h2>
-<div class="outline-text-2" id="text-orge5d114f">
+<div id="outline-container-org02fedb7" class="outline-2">
+<h2 id="org02fedb7">Git hooks</h2>
+<div class="outline-text-2" id="text-org02fedb7">
 <p>
 In git scm, there is a way to run custom script which are triggred by specific actions. That is called <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">Git Hooks</a>. Some of the common hooks are
 </p>
@@ -36,7 +36,7 @@ In git scm, there is a way to run custom script which are triggred by specific a
 </ul>
 
 <p>
-Hooks are stored in <code>.git/hooks/</code> folder of the repositore. To "install" a hook, I just have to write a script, make it executable, and save in hooks dir with appropriate name. The coolest thing is, these scripts doesn't have to be shell script. It can be python, perl, or any other script. It just have to be executable with a shebang on top. I can make these scripts as complicated as I want. Some of them even get inputs which can be used in the scrpt.
+Hooks are stored in <mark>.git/hooks/</mark> folder of the repositore. To "install" a hook, I just have to write a script, make it executable, and save in hooks dir with appropriate name. The coolest thing is, these scripts doesn't have to be shell script. It can be python, perl, or any other script. It just have to be executable with a shebang on top. I can make these scripts as complicated as I want. Some of them even get inputs which can be used in the scrpt.
 </p>
 
 <p>
@@ -46,20 +46,20 @@ Note: Hooks always run in the repository root.
 </div>
 
 
-<div id="outline-container-org17c0593" class="outline-2">
-<h2 id="org17c0593">Hooks under (version) control?</h2>
-<div class="outline-text-2" id="text-org17c0593">
+<div id="outline-container-org6f8a20a" class="outline-2">
+<h2 id="org6f8a20a">Hooks under (version) control?</h2>
+<div class="outline-text-2" id="text-org6f8a20a">
 <p>
-The hooks in <code>.git/hooks/</code> folder are local. They are not pushed to the remote and they are not pulled from a remote. What I can do is keep the script in working directory and copy to the hooks folder. Although, it would be better to create symlink in hooks folder, then I do not have to copy it evrytime it is changed. 
+The hooks in <mark>.git/hooks/</mark> folder are local. They are not pushed to the remote and they are not pulled from a remote. What I can do is keep the script in working directory and copy to the hooks folder. Although, it would be better to create symlink in hooks folder, then I do not have to copy it evrytime it is changed. 
 </p>
 </div>
 </div>
 
-<div id="outline-container-org1239986" class="outline-2">
-<h2 id="org1239986">My setup</h2>
-<div class="outline-text-2" id="text-org1239986">
+<div id="outline-container-orgeda2af0" class="outline-2">
+<h2 id="orgeda2af0">My setup</h2>
+<div class="outline-text-2" id="text-orgeda2af0">
 <p>
-In my working directory, I have created a <code>hooks</code> folder which contains all the scripts I would like to use hooks. And then use symlink. I have a bash script with following contents:
+In my working directory, I have created a <mark>hooks</mark> folder which contains all the scripts I would like to use hooks. And then use symlink. I have a bash script with following contents:
 </p>
 
 <div class="org-src-container">
@@ -69,11 +69,11 @@ bash build.sh
 </div>
 
 <p>
-This script is basically running my main build script as a hook. I could have just used <code>build.sh</code> as hook, but I did not think about it at the time. Moreover, I can add other stuff to the hook which I do not want in my build script.
+This script is basically running my main build script as a hook. I could have just used <mark>build.sh</mark> as hook, but I did not think about it at the time. Moreover, I can add other stuff to the hook which I do not want in my build script.
 </p>
 
 <p>
-I then linked this script to <code>./git/hooks/pre-commit</code>. So now, whenever I try to commit, my project is built before changes are commited. I am planning to add some checks in the hook so that if something goes wrong, the commit gets rejected.
+I then linked this script to <mark>./git/hooks/pre-commit</mark>. So now, whenever I try to commit, my project is built before changes are commited. I am planning to add some checks in the hook so that if something goes wrong, the commit gets rejected.
 </p>
 
 <hr>

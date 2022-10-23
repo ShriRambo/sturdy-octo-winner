@@ -14,6 +14,7 @@
     --accent: #81a2be;
     --code: #b5bd68;
     --preformatted: #ccc;
+    --marked: #ffdd33;
     --disabled: #111;
 }
 /* Add a bit of transparancy so light media isn't so glaring in dark mode */
@@ -428,9 +429,11 @@ hr {
 }
 
 mark {
-  padding: 2px 5px;
-  border-radius: 4px;
-  background: var(--marked);
+    background: var(--marked);
+    border-radius: 0.8em 0.3em;
+    padding: 0.1em 0.3em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
 }
 
 main img,
