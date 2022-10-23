@@ -17,9 +17,9 @@
 Here lies some general things, big and small (although mostly small) that I learned while making my website.
 </p>
 
-<div id="outline-container-orgea2f380" class="outline-2">
-<h2 id="orgea2f380">The root dir</h2>
-<div class="outline-text-2" id="text-orgea2f380">
+<div id="outline-container-org17cb85b" class="outline-2">
+<h2 id="org17cb85b">The root dir</h2>
+<div class="outline-text-2" id="text-org17cb85b">
 <p>
 When hosting a website, we can add links (e.g. links to some css or jacascript files) in the header. The path used can be relative to the document. This becomes a trouble when the html pages are in complicated directory structure.
 </p>
@@ -36,28 +36,28 @@ When hosting a website, we can add links (e.g. links to some css or jacascript f
 </pre>
 
 <p>
-In the above tree structure, <mark>page1.html</mark> will can have relative path for stylesheet as <mark>./css/style.css</mark>, while <mark>page2.html</mark> will have <mark>./../css/style.css</mark> and <mark>page3.html</mark> will have <mark>./../../css/style.css</mark>. Then it is easier to put absolute path <mark>~/abs/path/to/project/css/style.css</mark> and this stays constant in all of the html files. 
+In the above tree structure, <code>page1.html</code> will can have relative path for stylesheet as <code>./css/style.css</code>, while <code>page2.html</code> will have <code>./../css/style.css</code> and <code>page3.html</code> will have <code>./../../css/style.css</code>. Then it is easier to put absolute path <code>~/abs/path/to/project/css/style.css</code> and this stays constant in all of the html files. 
 </p>
 
 <p>
-The root dir for http server is the folder where it is started. If the web server is started in the <mark>project</mark> directory, each html can hace <mark>/css/style.css</mark> as the path to stylesheet. Now, our life is much simpler than it was. 
+The root dir for http server is the folder where it is started. If the web server is started in the <code>project</code> directory, each html can hace <code>/css/style.css</code> as the path to stylesheet. Now, our life is much simpler than it was. 
 </p>
 </div>
 
-<div id="outline-container-orga78eb11" class="outline-3">
-<h3 id="orga78eb11">Github pages caveat</h3>
-<div class="outline-text-3" id="text-orga78eb11">
+<div id="outline-container-orgd618e61" class="outline-3">
+<h3 id="orgd618e61">Github pages caveat</h3>
+<div class="outline-text-3" id="text-orgd618e61">
 <p>
-On github, we can host static html sites. The root dir for the http server hosting our site is <mark>[username].github.io</mark>. If we have another repo called <mark>blog-post</mark> with github pages enabled, then all the content of this repo will be added to <mark>root/blog-post</mark> i.e. <mark>[username].github.io/blogpost</mark>. The html file (say <mark>page1.html</mark> which in in working dir of blog-post repo), which has <mark>/css/style.css/</mark> in its head will look for the css file in <mark>[username].github.io/css/style.css</mark>. Therefore, if the html page repo is not  <mark>[username].github.io</mark>, then it will no be able to load resources. So we can either keep our resources in <mark>[username].github.io</mark> repo or keep the resources path absolute according to where the http server is hosted.
+On github, we can host static html sites. The root dir for the http server hosting our site is <code>[username].github.io</code>. If we have another repo called <code>blog-post</code> with github pages enabled, then all the content of this repo will be added to <code>root/blog-post</code> i.e. <code>[username].github.io/blogpost</code>. The html file (say <code>page1.html</code> which in in working dir of blog-post repo), which has <code>/css/style.css/</code> in its head will look for the css file in <code>[username].github.io/css/style.css</code>. Therefore, if the html page repo is not  <code>[username].github.io</code>, then it will no be able to load resources. So we can either keep our resources in <code>[username].github.io</code> repo or keep the resources path absolute according to where the http server is hosted.
 </p>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org1c06420" class="outline-2">
-<h2 id="org1c06420"></h2>
-<div class="outline-text-2" id="text-org1c06420">
+<div id="outline-container-orgaa6493c" class="outline-2">
+<h2 id="orgaa6493c"></h2>
+<div class="outline-text-2" id="text-orgaa6493c">
 <hr>
 <script src="https://giscus.app/client.js" 
   data-repo="ShriRambo/giscus-comments"

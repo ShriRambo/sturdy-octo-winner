@@ -15,11 +15,11 @@
 <h1 class="title">Git Worktree</h1>
 <hr>
 
-<div id="outline-container-org6da5d88" class="outline-2">
-<h2 id="org6da5d88">🐎 Motivation</h2>
-<div class="outline-text-2" id="text-org6da5d88">
+<div id="outline-container-orgc8533f4" class="outline-2">
+<h2 id="orgc8533f4">🐎 Motivation</h2>
+<div class="outline-text-2" id="text-orgc8533f4">
 <p>
-Most of the time when I am working a project, version controlled by git, I am working on a single branch. Implementing single feature or solving a single bug. But at times, I have to make a quick fix in another branch or just test the commit made by somebody else. Usually, if I have uncommitted changes in my current branch, I would use <a href="https://git-scm.com/docs/git-stash">git-stash</a>. I would first <mark>git stash push,</mark> do the magic I want to do, and then <mark>git stash pop</mark>. But this can be inefficient and still only allows me to work on a single branch at a time. And I am always scared of using it wrong and losing all the changes. 
+Most of the time when I am working a project, version controlled by git, I am working on a single branch. Implementing single feature or solving a single bug. But at times, I have to make a quick fix in another branch or just test the commit made by somebody else. Usually, if I have uncommitted changes in my current branch, I would use <a href="https://git-scm.com/docs/git-stash">git-stash</a>. I would first <code>git stash push</code>, do the magic I want to do, and then <code>git stash pop</code>. But this can be inefficient and still only allows me to work on a single branch at a time. And I am always scared of using it wrong and losing all the changes. 
 </p>
 
 <p>
@@ -33,7 +33,7 @@ Most of the time when I am working a project, version controlled by git, I am wo
 </pre>
 
 <p>
-With <mark>git-worktree</mark>, I can open another branch for temporary work in another folder. Something like this:
+With <code>git-worktree</code>, I can open another branch for temporary work in another folder. Something like this:
 </p>
 
 <pre class="example">
@@ -46,11 +46,11 @@ With <mark>git-worktree</mark>, I can open another branch for temporary work in 
 </div>
 </div>
 
-<div id="outline-container-orgcb53dbf" class="outline-2">
-<h2 id="orgcb53dbf">🎯 Commands and Usage</h2>
-<div class="outline-text-2" id="text-orgcb53dbf">
+<div id="outline-container-orgf9ce0fc" class="outline-2">
+<h2 id="orgf9ce0fc">🎯 Commands and Usage</h2>
+<div class="outline-text-2" id="text-orgf9ce0fc">
 <p>
-Following is the list of commands (verbatim from <a href="https://git-scm.com/docs/git-worktree">git-scm.com</a>) related to <mark>git-worktree</mark>.
+Following is the list of commands (verbatim from <a href="https://git-scm.com/docs/git-worktree">git-scm.com</a>) related to <code>git-worktree</code>.
 </p>
 
 <div class="org-src-container">
@@ -66,13 +66,13 @@ git worktree unlock &lt;worktree&gt;
 </div>
 
 <p>
-The command <mark>git worktree add ../develop</mark> adds a worktreee at <mark>../develop</mark> and checks out develop branch. If develop branch does not exist, it creates one for us. Easy peasy. I can specify the branch name with <mark>-b branch-name</mark> to create a new branch as well. For the existing branch or any other commit apart from <mark>HEAD,</mark> I can use the  <mark>&lt;commit-ish&gt;</mark> argument that can refer to a branch name, commit, or distance from <mark>HEAD</mark>. I will not write here in details how to use all of the  <mark>git-worktree</mark> commands. Although, I will write a few use cases for it.
+The command <code>git worktree add ../develop</code> adds a worktreee at <code>../develop</code> and checks out develop branch. If develop branch does not exist, it creates one for us. Easy peasy. I can specify the branch name with <code>-b branch-name</code> to create a new branch as well. For the existing branch or any other commit apart from <code>HEAD</code>, I can use the  <code>&lt;commit-ish&gt;</code> argument that can refer to a branch name, commit, or distance from <code>HEAD</code>. I will not write here in details how to use all of the  <code>git-worktree</code> commands. Although, I will write a few use cases for it.
 </p>
 </div>
 
-<div id="outline-container-org047205f" class="outline-3">
-<h3 id="org047205f">Quick fix workflow</h3>
-<div class="outline-text-3" id="text-org047205f">
+<div id="outline-container-orgfaccf0d" class="outline-3">
+<h3 id="orgfaccf0d">Quick fix workflow</h3>
+<div class="outline-text-3" id="text-orgfaccf0d">
 <p>
 To make a quick fix branch without having to stop working on the other branch.
 </p>
@@ -88,11 +88,11 @@ git worktree remove quickfix
 </div>
 </div>
 
-<div id="outline-container-orgcd56769" class="outline-3">
-<h3 id="orgcd56769">Throwaway worktree</h3>
-<div class="outline-text-3" id="text-orgcd56769">
+<div id="outline-container-org7da92dc" class="outline-3">
+<h3 id="org7da92dc">Throwaway worktree</h3>
+<div class="outline-text-3" id="text-org7da92dc">
 <p>
-To get a clean throwaway worktree, use the <mark>--detach</mark> flag. This worktree is not related to any branch and the changes cannot be committed anywhere. 
+To get a clean throwaway worktree, use the <code>--detach</code> flag. This worktree is not related to any branch and the changes cannot be committed anywhere. 
 </p>
 
 <div class="org-src-container">
@@ -106,11 +106,11 @@ git worktree remove throwaway
 </div>
 </div>
 
-<div id="outline-container-orgb36b35d" class="outline-2">
-<h2 id="orgb36b35d">Conclusion</h2>
-<div class="outline-text-2" id="text-orgb36b35d">
+<div id="outline-container-org51a842e" class="outline-2">
+<h2 id="org51a842e">Conclusion</h2>
+<div class="outline-text-2" id="text-org51a842e">
 <p>
-<mark>Git-worktree</mark> is definitely a cool feature of git and can be integrated in the work-flow nicely. Specially for some use cases. Does this mean that <mark>git-stash</mark> is redundant? May be not. In some cases, <mark>git-stash</mark> can also be useful.
+<code>Git-worktree</code> is definitely a cool feature of git and can be integrated in the work-flow nicely. Specially for some use cases. Does this mean that <code>git-stash</code> is redundant? May be not. In some cases, <code>git-stash</code> can also be useful.
 </p>
 
 <hr>
