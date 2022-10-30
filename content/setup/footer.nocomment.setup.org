@@ -4,23 +4,23 @@
 Made with ❤️ and Emacs (Org-mode)
 </p>
 <div align=center>
-  <a href="#">
-    <i class="fa fa-home fa-lg link-icon" aria-hidden="true"></i>
+  <a href="#" class='link-icon'>
+    <i class="fa fa-home fa-lg" aria-hidden="true"></i>
   </a>
-  <a href="https://www.instagram.com/shrirambo/">
-    <i class="fa fa-instagram fa-lg link-icon" aria-hidden="true"></i>
+  <a href="https://www.instagram.com/shrirambo/" class='link-icon'>
+    <i class="fa fa-instagram fa-lg" aria-hidden="true"></i>
   </a>
-  <a href="https://github.com/shrirambo">
-    <i class="fa fa-github fa-lg link-icon" aria-hidden="true"></i>
+  <a href="https://github.com/shrirambo" class='link-icon'>
+    <i class="fa fa-github fa-lg" aria-hidden="true"></i>
   </a>
-  <a href='https://www.linkedin.com/in/shriram-ashirgade/'>
-    <i class="fa fa-linkedin-square fa-lg link-icon" aria-hidden="true"></i>
+  <a href='https://www.linkedin.com/in/shriram-ashirgade/' class='link-icon'>
+    <i class="fa fa-linkedin-square fa-lg" aria-hidden="true"></i>
   </a>
-  <a href='https://github.com/ShriRambo/sturdy-octo-winner/tree/master/content'>
-    <i class="fa fa-code  fa-lg link-icon" aria-hidden="true"></i>
+  <a href='https://github.com/ShriRambo/sturdy-octo-winner/tree/master/content' class='link-icon'>
+    <i class="fa fa-code  fa-lg" aria-hidden="true"></i>
   </a>
-  <a href='#content'>
-    <i class="fa fa-hand-o-up  fa-lg link-icon" aria-hidden="true"></i>
+  <a href='#content' class='link-icon'>
+    <i class="fa fa-hand-o-up  fa-lg" aria-hidden="true"></i>
   </a>
 </div>
 #+END_EXPORT
