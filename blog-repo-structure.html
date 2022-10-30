@@ -19,9 +19,9 @@
 In this note, I am explaining the structure of the repository I use to write notes and how everythong is set up. The blog is under version control with git which makes it easier to track all the changes and setup automations which will update the webserver with newly written content. The repo contains two branches, master and publish. Master tracks all the resources needed to build the website and publish contains the final product ready to host on a web server. 
 </p>
 
-<div id="outline-container-orgb294f2c" class="outline-2">
-<h2 id="orgb294f2c">The Master Branch</h2>
-<div class="outline-text-2" id="text-orgb294f2c">
+<div id="outline-container-org6cf3cbc" class="outline-2">
+<h2 id="org6cf3cbc">The Master Branch</h2>
+<div class="outline-text-2" id="text-org6cf3cbc">
 <p>
 This is the main branch of the project. The <a href="./publish-settings.html">build.org</a> contins all the publishing settings for the project. It only tracks the resources required, i.e .org, .css, .js files, and not the actual published html filed. The folder <code>public</code> is not tracked by this branch. Running <code>build.sh</code> publishes the project in this folder. All the notes which are needed to be published are kept in <code>content</code> folder. The folder <code>public/setup</code> contains org files with common settigs for all the other files. These org files are not published.  The folder <code>resources</code> contains all the shared css and js files. The <code>hooks</code> folder contains all of the automation scripts.
 </p>
@@ -57,9 +57,9 @@ root                             # Master branch worktree
 </div>
 
 
-<div id="outline-container-org5009e59" class="outline-2">
-<h2 id="org5009e59">The Publish Branch</h2>
-<div class="outline-text-2" id="text-org5009e59">
+<div id="outline-container-org5aae102" class="outline-2">
+<h2 id="org5aae102">The Publish Branch</h2>
+<div class="outline-text-2" id="text-org5aae102">
 <p>
 This branch is the root of webserver. The worktree of this branch has all the contents of <code>public</code> folder obtained by building the project. As the web server do not need org files, only required files are tracked by this branch. In my case, I am using this branch to host static webpages with github pages. 
 </p>
@@ -76,9 +76,9 @@ root                      # Publish branch worktree
 </div>
 </div>
 
-<div id="outline-container-orge05e58c" class="outline-2">
-<h2 id="orge05e58c">Publishing Steps</h2>
-<div class="outline-text-2" id="text-orge05e58c">
+<div id="outline-container-org7ec4bf4" class="outline-2">
+<h2 id="org7ec4bf4">Publishing Steps</h2>
+<div class="outline-text-2" id="text-org7ec4bf4">
 <p>
 Everytime I write a page or make changes to the project, I run the following steps.
 </p>
@@ -116,23 +116,23 @@ I am planning to create a post-commit hook which will automate the execution of 
 Made with ❤️ and Emacs (Org-mode)
 </p>
 <div align=center>
-  <a href="#">
-    <i class="fa fa-home fa-lg link-icon" aria-hidden="true"></i>
+  <a href="#" class='link-icon'>
+    <i class="fa fa-home fa-lg" aria-hidden="true"></i>
   </a>
-  <a href="https://www.instagram.com/shrirambo/">
-    <i class="fa fa-instagram fa-lg link-icon" aria-hidden="true"></i>
+  <a href="https://www.instagram.com/shrirambo/" class='link-icon'>
+    <i class="fa fa-instagram fa-lg" aria-hidden="true"></i>
   </a>
-  <a href="https://github.com/shrirambo">
-    <i class="fa fa-github fa-lg link-icon" aria-hidden="true"></i>
+  <a href="https://github.com/shrirambo" class='link-icon'>
+    <i class="fa fa-github fa-lg" aria-hidden="true"></i>
   </a>
-  <a href='https://www.linkedin.com/in/shriram-ashirgade/'>
-    <i class="fa fa-linkedin-square fa-lg link-icon" aria-hidden="true"></i>
+  <a href='https://www.linkedin.com/in/shriram-ashirgade/' class='link-icon'>
+    <i class="fa fa-linkedin-square fa-lg" aria-hidden="true"></i>
   </a>
-  <a href='https://github.com/ShriRambo/sturdy-octo-winner/tree/master/content'>
-    <i class="fa fa-code  fa-lg link-icon" aria-hidden="true"></i>
+  <a href='https://github.com/ShriRambo/sturdy-octo-winner/tree/master/content' class='link-icon'>
+    <i class="fa fa-code  fa-lg" aria-hidden="true"></i>
   </a>
-  <a href='#content'>
-    <i class="fa fa-hand-o-up  fa-lg link-icon" aria-hidden="true"></i>
+  <a href='#content' class='link-icon'>
+    <i class="fa fa-hand-o-up  fa-lg" aria-hidden="true"></i>
   </a>
 </div>
 </div>

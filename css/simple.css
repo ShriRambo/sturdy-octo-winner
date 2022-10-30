@@ -134,6 +134,15 @@ h3 {
   line-height: 1.1;
 }
 
+/* Clickable link*/
+h2, h3, h4, h5, h6{
+    cursor: pointer
+}
+
+h2:hover::after, h3:hover::after, h4:hover::after, h5:hover::after {
+    content: "  🔗";
+}
+
 /* Reduce header size on mobile */
 @media only screen and (max-width: 720px) {
   h1 {
@@ -154,14 +163,6 @@ h3 {
 }
 
 /* Format links & buttons */
-a,
-a:visited {
-  color: var(--accent);
-}
-
-a:hover {
-  text-decoration: none;
-}
 
 button,
 [role="button"],
@@ -514,26 +515,40 @@ p {
    text-align: justify
 }
 
-.link-icon {
-    transition: transform .2s; /* Animation */
-    margin: 3px;
-}
 
-.link-icon:hover{
-    transform: scale(1.5);
-}
-
-
-
-a {
+a, a:visited {
     /*color: inherit;*/
     background-color: inherit;
     font: inherit;
     text-decoration: inherit;
+    color: var(--accent);
 }
 a:hover {
     text-decoration: underline;
 }
+
+h2 > a, h2 > a:visited,
+h3 > a, h3 > a:visited,
+h4 > a, h4 > a:visited,
+h5 > a, h5 > a:visited,
+h6 > a, h6 > a:visited{
+    color: var(--text);
+}
+
+
+a.link-icon {
+    margin: 3px;
+    text-decoration: none
+}
+
+a.link-icon > i {
+    transition: transform .2s; /* Animation */
+}
+
+a.link-icon > i:hover{
+    transform: scale(1.5);
+}
+
 
 
 pre {
