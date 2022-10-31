@@ -139,7 +139,7 @@ h2, h3, h4, h5, h6{
     cursor: pointer
 }
 
-h2:hover::after, h3:hover::after, h4:hover::after, h5:hover::after {
+h2:hover::after, h3:hover::after, h4:hover::after, h5:hover::after, h6:hover::after {
     content: "  🔗";
 }
 
@@ -527,12 +527,13 @@ a:hover {
     text-decoration: underline;
 }
 
-h2 > a, h2 > a:visited,
-h3 > a, h3 > a:visited,
-h4 > a, h4 > a:visited,
-h5 > a, h5 > a:visited,
-h6 > a, h6 > a:visited{
+h2 > a, h2 > a:visited, h2 > a:hover,
+h3 > a, h3 > a:visited, h3 > a:hover,
+h4 > a, h4 > a:visited, h4 > a:hover,
+h5 > a, h5 > a:visited, h5 > a:hover,
+h6 > a, h6 > a:visited, h6 > a:hover{
     color: var(--text);
+    text-decoration: none;
 }
 
 

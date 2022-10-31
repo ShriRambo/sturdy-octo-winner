@@ -93,7 +93,7 @@ For nicer imports of packages
         org-html-doctype "html5"
         org-html-html5-fancy nil
         org-html-head "<link rel=\"stylesheet\" href=\"/css/simple.css\" />"
-	    org-html-self-link-headlines t
+	org-html-self-link-headlines t
 	)
 #+END_SRC
 ** Publishing project properties
