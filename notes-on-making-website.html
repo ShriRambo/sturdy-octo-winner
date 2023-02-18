@@ -17,9 +17,9 @@
 Here lies some general things, big and small (although mostly small) that I learned while making my website.
 </p>
 
-<div id="outline-container-org002781c" class="outline-2">
-<h2 id="org002781c"><a href="#org002781c">The root dir</a></h2>
-<div class="outline-text-2" id="text-org002781c">
+<div id="outline-container-org77c414a" class="outline-2">
+<h2 id="org77c414a"><a href="#org77c414a">The root dir</a></h2>
+<div class="outline-text-2" id="text-org77c414a">
 <p>
 When hosting a website, we can add links (e.g. links to some css or jacascript files) in the header. The path used can be relative to the document. This becomes a trouble when the html pages are in complicated directory structure.
 </p>
@@ -44,9 +44,9 @@ The root dir for http server is the folder where it is started. If the web serve
 </p>
 </div>
 
-<div id="outline-container-orgfadb858" class="outline-3">
-<h3 id="orgfadb858"><a href="#orgfadb858">Github pages caveat</a></h3>
-<div class="outline-text-3" id="text-orgfadb858">
+<div id="outline-container-orgb95f843" class="outline-3">
+<h3 id="orgb95f843"><a href="#orgb95f843">Github pages caveat</a></h3>
+<div class="outline-text-3" id="text-orgb95f843">
 <p>
 On github, we can host static html sites. The root dir for the http server hosting our site is <code>[username].github.io</code>. If we have another repo called <code>blog-post</code> with github pages enabled, then all the content of this repo will be added to <code>root/blog-post</code> i.e. <code>[username].github.io/blogpost</code>. The html file (say <code>page1.html</code> which in in working dir of blog-post repo), which has <code>/css/style.css/</code> in its head will look for the css file in <code>[username].github.io/css/style.css</code>. Therefore, if the html page repo is not  <code>[username].github.io</code>, then it will no be able to load resources. So we can either keep our resources in <code>[username].github.io</code> repo or keep the resources path absolute according to where the http server is hosted.
 </p>
@@ -55,9 +55,9 @@ On github, we can host static html sites. The root dir for the http server hosti
 </div>
 
 
-<div id="outline-container-org9db803a" class="outline-2">
-<h2 id="org9db803a"><a href="#org9db803a"></a></h2>
-<div class="outline-text-2" id="text-org9db803a">
+<div id="outline-container-org6979066" class="outline-2">
+<h2 id="org6979066"><a href="#org6979066"></a></h2>
+<div class="outline-text-2" id="text-org6979066">
 <hr>
 <script src="https://giscus.app/client.js" 
   data-repo="ShriRambo/giscus-comments"
@@ -88,6 +88,9 @@ Made with ❤️ and Emacs (Org-mode)
   </a>
   <a href='https://www.linkedin.com/in/shriram-ashirgade/' class='link-icon'>
     <i class="fa fa-linkedin-square fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='https://social.vivaldi.net/@shrirambo'>
+    <i class="fa fa-mastodon fa-lg" aria-hidden="true"></i>
   </a>
   <a href='https://github.com/ShriRambo/sturdy-octo-winner/tree/master/content' class='link-icon'>
     <i class="fa fa-code  fa-lg" aria-hidden="true"></i>
