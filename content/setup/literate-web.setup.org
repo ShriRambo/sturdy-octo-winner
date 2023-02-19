@@ -1,0 +1,22 @@
+#+NAME: literal-html
+#+begin_src emacs-lisp :exports results :results html :var blk=""
+(cadr (org-babel-lob--src-info blk) )
+#+end_src
+
+#+NAME: literal-js
+#+BEGIN_SRC emacs-lisp :exports results :results html :var blk=""
+(concat
+ "<script type=\"text/javascript\">\n"
+ (cadr (org-babel-lob--src-info blk))
+ "\n"
+ "</script>")
+#+end_src
+
+#+NAME: literal-css
+#+BEGIN_SRC emacs-lisp :exports results :results html :var blk=""
+(concat
+ "<style>\n"
+ (cadr (org-babel-lob--src-info blk))
+ "\n"
+ "</style>")
+#+end_src
