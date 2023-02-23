@@ -72,6 +72,28 @@ For nicer imports of packages
 	     '(verbatim . "<mark>%s</mark>"))
 #+END_SRC
 
+** Sitemap or Index page
+
+#+BEGIN_SRC emacs-lisp :tangle ./build.el
+(defun sr/org-publish-sitemap (title list)
+  "Generate sitemap as a string, having TITLE.
+LIST is an internal representation for the files to include, as
+returned by `org-list-to-lisp'."
+  (let ((filtered-list (cl-remove-if (lambda (x)
+                                       (and (sequencep x) (null (car x))))
+                                     list)))
+    (concat "#+TITLE: " title "\n"
+	    "#+OPTIONS: tex:t toc:nil\n"
+	    "#+INCLUDE: ./setup/theme.setup.org\n"
+            "#+META_TYPE: website\n"
+            "#+DESCRIPTION: Personal Blog of Shriram Ashirgade\n"
+            "\n#+ATTR_HTML: :class sitemap\n" ; TODO use org-list-to-subtree instead
+            (org-list-to-org filtered-list)
+	    "\n\n#+INCLUDE: ./setup/footer.setup.org"
+	    )))
+#+END_SRC
+
+
 ** TODO Derived backend
 #+BEGIN_SRC emacs-lisp
 (org-export-define-derived-backend 'shrirambo-site-html 'html
@@ -115,7 +137,14 @@ For nicer imports of packages
                :with-date nil
                :with-toc t                ;; Include a table of contents
                :section-numbers nil       ;; Don't include section numbers
-               :time-stamp-file nil)))    ;; Don't include time stamp in file
+               :time-stamp-file nil ;; Don't include time stamp in file
+	       :auto-sitemap t
+               :sitemap-filename "index.org"
+               :sitemap-style 'list
+	       :sitemap-title "Blog Posts"
+	       :sitemap-function  'sr/org-publish-sitemap  
+               :sitemap-sort-files 'anti-chronologically
+	       )))
 
 #+END_SRC
 
@@ -136,4 +165,3 @@ First line evaluates thin org file and creates a =build.el= file which contains 
 #+END_SRC
 ** TODO One step less
 Make emacs evaluate ~build.org~ itself, rahter than tangling ~build.el~ first. This will remove one step from the deployment.
-`
