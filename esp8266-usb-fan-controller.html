@@ -14,9 +14,9 @@
 <div id="content">
 <h1 class="title">USB-Fan Controller for Cooling External Hard-drive</h1>
 
-<div id="outline-container-orgbf7e6b7" class="outline-2">
-<h2 id="orgbf7e6b7"><a href="#orgbf7e6b7">The Problem</a></h2>
-<div class="outline-text-2" id="text-orgbf7e6b7">
+<div id="outline-container-orge161d4d" class="outline-2">
+<h2 id="orge161d4d"><a href="#orge161d4d">The Problem</a></h2>
+<div class="outline-text-2" id="text-orge161d4d">
 <p>
 I have an old laptop repurposed as a home server, which I use to stream media, backup, and a simple file server. As it is an old laptop, the storage capacity is not enough. So I just bought an external hard-drive to extend the capacity. I know, there are better ways to add storage capacity. But, I thought, this is very straightforward and cheap way to achieve the goal. Now, as the hdd is always connected to the server, it can get pretty hot when being used extensively. So I wanted to have a solution to cool the hdd whenever the temperature rises above a certain threshold. Simplest solution, a &euro;2 usb fan controlled by ESP8266 based microcontroller. Here is a list of all tools/packages/devices I used for this project
 </p>
@@ -33,14 +33,14 @@ I have an old laptop repurposed as a home server, which I use to stream media, b
 </div>
 
 
-<div id="outline-container-org9d38bd4" class="outline-2">
-<h2 id="org9d38bd4"><a href="#org9d38bd4">🎪 The Circuit</a></h2>
-<div class="outline-text-2" id="text-org9d38bd4">
+<div id="outline-container-org5fae70e" class="outline-2">
+<h2 id="org5fae70e"><a href="#org5fae70e">🎪 The Circuit</a></h2>
+<div class="outline-text-2" id="text-org5fae70e">
 <p>
 Here is the circuit setup I started with. 
 </p>
 
-<div id="org6d33c52" class="figure">
+<div id="orgcf0560f" class="figure">
 <p><img src="./img/circuit-diagram-fan-controller.png" alt="circuit-diagram-fan-controller.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Circuit Diagram</p>
@@ -52,9 +52,9 @@ The whole setup is powered be USB port of my laptop. The usb cable I used has a 
 </div>
 </div>
 
-<div id="outline-container-org3171036" class="outline-2">
-<h2 id="org3171036"><a href="#org3171036">👂🏾 The Sensor</a></h2>
-<div class="outline-text-2" id="text-org3171036">
+<div id="outline-container-org2dc4795" class="outline-2">
+<h2 id="org2dc4795"><a href="#org2dc4795">👂🏾 The Sensor</a></h2>
+<div class="outline-text-2" id="text-org2dc4795">
 <p>
 New hdds these days comes with a functionality to report the S.M.A.R.T. stats which gives information about the hard drive, which can be interpreted to evaluate hdds health and detect a failure before it happens. The linux tool called <code>smartmontools</code> lets us read this data and carry out some health check test on hdd. Here is the bash script I use to check the temperature of hdd and publish it to the mqtt server. Note: the flag <code>--nocheck=standby</code> is there to avoid polling of smart stats if the hdd is in standby or sleep mode. Otherwise, the disk will start spinning again when polled for this data. And we do not want to spin up the disk unnecessarily. The script is used in a cron job running every x minutes.
 </p>
@@ -81,9 +81,9 @@ Important note: The version of smartmontools I have only allows the output in pl
 </div>
 </div>
 
-<div id="outline-container-org5e2184b" class="outline-2">
-<h2 id="org5e2184b"><a href="#org5e2184b">🎮 The Controller</a></h2>
-<div class="outline-text-2" id="text-org5e2184b">
+<div id="outline-container-orgbdb0452" class="outline-2">
+<h2 id="orgbdb0452"><a href="#orgbdb0452">🎮 The Controller</a></h2>
+<div class="outline-text-2" id="text-orgbdb0452">
 <p>
 The logic for Wemos is written in <code>C++</code> in Arduino IDE, compiled and uploaded to the controller. 
 </p>
@@ -233,9 +233,9 @@ Putting it all together with setup and loop function.
 </div>
 
 
-<div id="outline-container-org98143e9" class="outline-2">
-<h2 id="org98143e9"><a href="#org98143e9">🌯 The Wrap-up</a></h2>
-<div class="outline-text-2" id="text-org98143e9">
+<div id="outline-container-org604a41c" class="outline-2">
+<h2 id="org604a41c"><a href="#org604a41c">🌯 The Wrap-up</a></h2>
+<div class="outline-text-2" id="text-org604a41c">
 <p>
 So, with this setup, I cool my external hdd when it gets too warm. And if the disk is in sleep mode, this does not spin it up again time to time. Although, there is one problem that I have noticed. If the fan is on and hdd goes to sleep, the fan will not shut off as there is no temperature measurement taken when in sleep. To tackle this, I want to implement a timer after which the fan will shut off automatically regardless the hdd status. And if it is still hot, the fan will start up again.
 </p>
