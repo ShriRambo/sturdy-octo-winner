@@ -17,9 +17,9 @@
 Here lies some general things, big and small (although mostly small) that I learned while making my website.
 </p>
 
-<div id="outline-container-orge9dfc7c" class="outline-2">
-<h2 id="orge9dfc7c"><a href="#orge9dfc7c">The root dir</a></h2>
-<div class="outline-text-2" id="text-orge9dfc7c">
+<div id="outline-container-orgc52b4e6" class="outline-2">
+<h2 id="orgc52b4e6"><a href="#orgc52b4e6">The root dir</a></h2>
+<div class="outline-text-2" id="text-orgc52b4e6">
 <p>
 When hosting a website, we can add links (e.g. links to some css or jacascript files) in the header. The path used can be relative to the document. This becomes a trouble when the html pages are in complicated directory structure.
 </p>
@@ -44,9 +44,9 @@ The root dir for http server is the folder where it is started. If the web serve
 </p>
 </div>
 
-<div id="outline-container-org54336b3" class="outline-3">
-<h3 id="org54336b3"><a href="#org54336b3">Github pages caveat</a></h3>
-<div class="outline-text-3" id="text-org54336b3">
+<div id="outline-container-org33594f2" class="outline-3">
+<h3 id="org33594f2"><a href="#org33594f2">Github pages caveat</a></h3>
+<div class="outline-text-3" id="text-org33594f2">
 <p>
 On github, we can host static html sites. The root dir for the http server hosting our site is <code>[username].github.io</code>. If we have another repo called <code>blog-post</code> with github pages enabled, then all the content of this repo will be added to <code>root/blog-post</code> i.e. <code>[username].github.io/blogpost</code>. The html file (say <code>page1.html</code> which in in working dir of blog-post repo), which has <code>/css/style.css/</code> in its head will look for the css file in <code>[username].github.io/css/style.css</code>. Therefore, if the html page repo is not  <code>[username].github.io</code>, then it will no be able to load resources. So we can either keep our resources in <code>[username].github.io</code> repo or keep the resources path absolute according to where the http server is hosted.
 </p>
@@ -55,9 +55,9 @@ On github, we can host static html sites. The root dir for the http server hosti
 </div>
 
 
-<div id="outline-container-orgd07c41f" class="outline-2">
-<h2 id="orgd07c41f"><a href="#orgd07c41f"></a></h2>
-<div class="outline-text-2" id="text-orgd07c41f">
+<div id="outline-container-org434f08f" class="outline-2">
+<h2 id="org434f08f"><a href="#org434f08f"></a></h2>
+<div class="outline-text-2" id="text-org434f08f">
 <hr>
 <script src="https://giscus.app/client.js" 
   data-repo="ShriRambo/giscus-comments"
