@@ -19,9 +19,9 @@
 I have all of my publishing configuration witten as a in <a href="./publish-settings.html">build.org</a> file and the shell commands in <code>build.sh</code>. Moreover, I have made <code>build.sh</code> an executable file. Running this file will build the project and make all of the html files in <code>./content</code> folder. I would like to automate the publishing process so that, when I write a page in org mode and commit the changes, it gets published automatically. For that, I am using git hooks.
 </p>
 
-<div id="outline-container-org5a273f1" class="outline-2">
-<h2 id="org5a273f1"><a href="#org5a273f1">Git hooks</a></h2>
-<div class="outline-text-2" id="text-org5a273f1">
+<div id="outline-container-org819d77c" class="outline-2">
+<h2 id="org819d77c"><a href="#org819d77c">Git hooks</a></h2>
+<div class="outline-text-2" id="text-org819d77c">
 <p>
 In git scm, there is a way to run custom script which are triggred by specific actions. That is called <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">Git Hooks</a>. Some of the common hooks are
 </p>
@@ -46,18 +46,18 @@ Note: Hooks always run in the repository root.
 </div>
 
 
-<div id="outline-container-org989df22" class="outline-2">
-<h2 id="org989df22"><a href="#org989df22">Hooks under (version) control?</a></h2>
-<div class="outline-text-2" id="text-org989df22">
+<div id="outline-container-org41189a9" class="outline-2">
+<h2 id="org41189a9"><a href="#org41189a9">Hooks under (version) control?</a></h2>
+<div class="outline-text-2" id="text-org41189a9">
 <p>
 The hooks in <code>.git/hooks/</code> folder are local. They are not pushed to the remote and they are not pulled from a remote. What I can do is keep the script in working directory and copy to the hooks folder. Although, it would be better to create symlink in hooks folder, then I do not have to copy it evrytime it is changed. 
 </p>
 </div>
 </div>
 
-<div id="outline-container-org990c447" class="outline-2">
-<h2 id="org990c447"><a href="#org990c447">My setup</a></h2>
-<div class="outline-text-2" id="text-org990c447">
+<div id="outline-container-org44b3997" class="outline-2">
+<h2 id="org44b3997"><a href="#org44b3997">My setup</a></h2>
+<div class="outline-text-2" id="text-org44b3997">
 <p>
 In my working directory, I have created a <mark>hooks</mark> folder which contains all the scripts I would like to use hooks. And then use symlink. I have a bash script with following contents:
 </p>
