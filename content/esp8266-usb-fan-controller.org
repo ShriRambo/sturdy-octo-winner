@@ -1,6 +1,6 @@
 #+TITLE: USB-Fan Controller for Cooling External Hard-drive
 #+AUTHOR: shrirambo
-#+DATE: 17th Sept, 2022
+#+DATE:  [2022-09-17]
 #+OPTIONS: tex:t toc:nil
 #+INCLUDE: ./setup/theme.setup.org
 

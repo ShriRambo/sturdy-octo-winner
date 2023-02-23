@@ -1,6 +1,6 @@
 #+TITLE: Home page 
 #+AUTHOR: Shriram Ashirgade
-#+DATE: 20th Feb, 2022
+#+DATE: [2022-02-20]
 #+OPTIONS: tex:t toc:nil
 #+INCLUDE: ./setup/theme.setup.org
 

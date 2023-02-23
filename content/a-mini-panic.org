@@ -1,6 +1,6 @@
 #+TITLE: A Mini Panic
 #+AUTHOR: shrirambo
-#+DATE: 5th of August, 2022
+#+DATE:  [2022-08-05]
 #+OPTIONS: tex:t toc:nil
 #+INCLUDE: ./setup/theme.setup.org
 ------

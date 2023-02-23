@@ -1,6 +1,6 @@
 #+TITLE: Temperature Measurement with ESP8266 and DST22
 #+AUTHOR: shrirambo
-#+DATE: 29th Sept, 2022
+#+DATE: [2022-09-29]
 #+OPTIONS: tex:t toc:nil
 #+INCLUDE: ./setup/theme.setup.org
 

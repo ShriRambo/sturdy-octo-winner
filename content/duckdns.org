@@ -1,6 +1,6 @@
 #+TITLE: DuckDNS: A Dynamic DNS Service
 #+AUTHOR: shrirambo
-#+DATE: 1st of July, 2022
+#+DATE: [2022-07-01]
 #+OPTIONS: tex:t toc:nil
 #+INCLUDE: ./setup/theme.setup.org
 ------

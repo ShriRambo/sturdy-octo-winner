@@ -1,6 +1,6 @@
 #+TITLE: Notes on making a website with Emacs and orgmode 
 #+AUTHOR: shrirambo
-#+DATE: 21th Feb, 2022
+#+DATE: [2022-02-21]
 #+OPTIONS: tex:t toc:nil
 #+INCLUDE: ./setup/theme.setup.org
 

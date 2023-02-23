@@ -1,5 +1,5 @@
 #+TITLE: Interactive Webpages with Org-mode
-#+DATE: [2022-10-14 vr]
+#+DATE: [2022-10-14]
 #+AUTHOR: shrirambo
 #+OPTIONS: tex:t toc:nil
 #+INCLUDE: ./setup/theme.setup.org

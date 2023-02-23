@@ -1,6 +1,6 @@
 #+TITLE: Web Blog Repository Structure
 #+AUTHOR: shrirambo
-#+DATE: 7th of March, 2022
+#+DATE: [2022-03-07]
 #+OPTIONS: tex:t toc:nil
 #+INCLUDE: ./setup/theme.setup.org
 ------
