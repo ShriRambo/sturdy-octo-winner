@@ -157,6 +157,10 @@ Function to retrieve template html
 	org-html-self-link-headlines t
 	org-html-container-element         "section"
 	org-publish-timestamp-directory "./.timestamps/"
+	org-html-divs '((preamble  "header" "top")
+                         (content   "main"   "content")
+                         (postamble "footer" "postamble"))
+
 	)
 #+END_SRC
 ** Publishing project properties
@@ -186,6 +190,7 @@ Function to retrieve template html
 	       :sitemap-function  'sr/org-publish-sitemap  
                :sitemap-sort-files 'anti-chronologically
 	       :sitemap-format-entry 'sr/org-publish-sitemap-entry
+	       :html-preamble-format (sa/get-template 'preamble)
 	       :html-postamble t
 	       :html-postamble-format (sa/get-template 'postamble)
 	       )))
