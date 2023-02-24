@@ -37,5 +37,3 @@ In my working directory, I have created a =hooks= folder which contains all the 
 This script is basically running my main build script as a hook. I could have just used ~build.sh~ as hook, but I did not think about it at the time. Moreover, I can add other stuff to the hook which I do not want in my build script.
 
 I then linked this script to ~./git/hooks/pre-commit~. So now, whenever I try to commit, my project is built before changes are commited. I am planning to add some checks in the hook so that if something goes wrong, the commit gets rejected.
-
-#+INCLUDE: ./setup/footer.setup.org

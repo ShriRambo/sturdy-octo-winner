@@ -6,7 +6,3 @@
 #+KEYWORDS: 
 #+OPTIONS: tex:t toc:nil
 ------
-
-
-
-#+INCLUDE: ./setup/footer.setup.org

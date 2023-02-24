@@ -177,6 +177,3 @@ void loop() {
 
 * 🌯 The Wrap-up
 So, with this setup, I cool my external hdd when it gets too warm. And if the disk is in sleep mode, this does not spin it up again time to time. Although, there is one problem that I have noticed. If the fan is on and hdd goes to sleep, the fan will not shut off as there is no temperature measurement taken when in sleep. To tackle this, I want to implement a timer after which the fan will shut off automatically regardless the hdd status. And if it is still hot, the fan will start up again.
-
-
-#+INCLUDE: ./setup/footer.setup.org

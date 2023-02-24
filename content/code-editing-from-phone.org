@@ -10,6 +10,3 @@ There might be some good editors that works with webdav or sftp server. But I co
 My main usecase is to write blogs/static web pages like this one in org mode. Which will be published on github pages. I will try to write my thoughts, informative notes as blogs, or any random things I wish to. 
 
 Let's see how long before I abandon this project. 👻
-
-
-#+INCLUDE: ./setup/footer.nocomment.setup.org

@@ -109,12 +109,10 @@ returned by `org-list-to-lisp'."
                                      list)))
     (concat "#+TITLE: " title "\n"
 	    "#+OPTIONS: tex:t toc:nil\n"
-	    "#+INCLUDE: ./setup/theme.setup.org\n"
             "#+META_TYPE: website\n"
             "#+DESCRIPTION: Personal Blog of Shriram Ashirgade\n"
             "\n#+ATTR_HTML: :class sitemap\n" 
             (org-list-to-org filtered-list)
-	    "\n\n#+INCLUDE: ./setup/footer.setup.org"
 	    )))
 #+END_SRC
 
@@ -127,6 +125,17 @@ The above piece of code was borrowed from [[https://writepermission.com][writepe
 		     (template . my-latex-template)))
 #+END_SRC
 
+** *ambles
+
+Function to retrieve template html
+
+#+BEGIN_SRC emacs-lisp :tangle ./build.el
+(defun sa/get-template (type)
+  "Return the content for the pre/postamble of TYPE."
+  `(("en" ,(with-temp-buffer
+             (insert-file-contents (expand-file-name (format "%s.html" type) "resources/templates/"))
+             (buffer-string)))))
+#+END_SRC
 
 * Publish
 ** Customize HTML output
@@ -177,6 +186,8 @@ The above piece of code was borrowed from [[https://writepermission.com][writepe
 	       :sitemap-function  'sr/org-publish-sitemap  
                :sitemap-sort-files 'anti-chronologically
 	       :sitemap-format-entry 'sr/org-publish-sitemap-entry
+	       :html-postamble t
+	       :html-postamble-format (sa/get-template 'postamble)
 	       )))
 
 #+END_SRC

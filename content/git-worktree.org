@@ -71,5 +71,3 @@ git worktree remove throwaway
 * Conclusion
 
 ~Git-worktree~ is definitely a cool feature of git and can be integrated in the work-flow nicely. Specially for some use cases. Does this mean that ~git-stash~ is redundant? May be not. In some cases, ~git-stash~ can also be useful.
-
-#+INCLUDE: ./setup/footer.setup.org

@@ -18,5 +18,3 @@ The added bonus is I can set custom URLs in AdGuard to redirect to other service
 
 Another cool feature of Tailscale Nameservers is Split DNS. With this feature, I can restrict every nameserver to resolve specific domains. So if I need to use a specific DNS server for a particular domain, I can restrict that nameserver.
 
-
-#+INCLUDE: ./setup/footer.setup.org

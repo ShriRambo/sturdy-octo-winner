@@ -64,4 +64,3 @@ Everytime I write a page or make changes to the project, I run the following ste
 
 I am planning to create a post-commit hook which will automate the execution of steps 2-6. [see [[./git-hook-publish-pipeline.org][git hooks]]].
 
-#+INCLUDE: ./setup/footer.setup.org

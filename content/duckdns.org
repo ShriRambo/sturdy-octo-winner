@@ -42,5 +42,3 @@ After setting an dynamic IP, I can expose all the services running on my home se
 
 * Some thing extra
 Say if I have purchased a domain name from a DNS provider who does not allow dynamic update of IP address, then I can just use a ~CNAME~ entry which will point to my duckdns domain which will always be up to date.
-
-#+INCLUDE: ./setup/footer.setup.org

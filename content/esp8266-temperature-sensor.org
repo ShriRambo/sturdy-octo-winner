@@ -143,6 +143,3 @@ display.setSegments(PER_C, 2, 2 );
 
 * 🌯 The Wrap-up
 That is the complete setup of a wireless temperature and humidity sensor. For the future scope, I would like to build automations around this, controlling thermostat. 
-
-
-#+INCLUDE: ./setup/footer.setup.org

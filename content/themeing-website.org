@@ -59,5 +59,3 @@ To get all the classes in the exported html, I used following javascript snippet
 #+END_SRC
 
 And that is how I styled my webpage 😎
-
-#+INCLUDE: ./setup/footer.setup.org

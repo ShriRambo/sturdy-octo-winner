@@ -25,8 +25,3 @@ The root dir for http server is the folder where it is started. If the web serve
 
 ** Github pages caveat
 On github, we can host static html sites. The root dir for the http server hosting our site is ~[username].github.io~. If we have another repo called ~blog-post~ with github pages enabled, then all the content of this repo will be added to ~root/blog-post~ i.e. ~[username].github.io/blogpost~. The html file (say ~page1.html~ which in in working dir of blog-post repo), which has ~/css/style.css/~ in its head will look for the css file in ~[username].github.io/css/style.css~. Therefore, if the html page repo is not  ~[username].github.io~, then it will no be able to load resources. So we can either keep our resources in ~[username].github.io~ repo or keep the resources path absolute according to where the http server is hosted.
-
-
-* 
-
-#+INCLUDE: ./setup/footer.setup.org

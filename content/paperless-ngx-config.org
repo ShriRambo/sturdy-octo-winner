@@ -1,5 +1,0 @@
-# Including source org file for emacs config
-#+INCLUDE: "https://raw.githubusercontent.com/ShriRambo/server-apps-docker-compose/main/paperless-ngx/setup.org"
-
-# Including footer
-#+INCLUDE: ./setup/footer.setup.org
