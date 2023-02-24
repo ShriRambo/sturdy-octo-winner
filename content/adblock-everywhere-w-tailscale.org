@@ -1,0 +1,22 @@
+#+TITLE: Blocking Ads Everywhere with AdGuard Home and Tailscale
+#+SUBTITLE: With the use of Tailscale's Nameservers feature
+#+DATE: [2023-02-24]
+#+AUTHOR: shrirambo
+#+DESCRIPTION: Using Tailscale's Nameserver feature to access self hosted AdGuard Home instance and use it as personal DNS server from anywhere in the world.
+#+KEYWORDS: tailscale, adguard, adblock, vpn, wireguard, dns, nameserver
+#+OPTIONS: tex:t toc:nil
+------
+
+
+Everyone in the homelab community is well informed with [[https://github.com/AdguardTeam/AdGuardHome#getting-started][AdGuard Home]] and uses it to block ads at the DNS level in their home network. It is a full-fledged DNS server in itself. Checkout my configuration [[./adguardhome-config.org][here]]. But with my configuration, I could only use AdGuard when on my home network. I wanted to use it from outside as well.
+
+I already use [[https://tailscale.com][Tailscale]] to connect to my server remotely. There's a neat feature in Tailscale, which lets me set up nameservers to be used by devices on my tailnet to resolve DNS queries. Here, I added a Global Nameserver whose IP corresponds to my AdGuard instance and set it to override local DNS. In that case, every device on my tailnet will be forced to use this as the primary DNS server, regardless of whatever the local settings are.
+
+So now I can, while keeping my Tailscale VPN on at all times, use self-hosted AdGuard as primary DNS and block all the Ads, no matter where I am. Neat.
+
+The added bonus is I can set custom URLs in AdGuard to redirect to other services running on my home server (without registering the domain). That way, I can access all my services with an easy-to-remember domain name.
+
+Another cool feature of Tailscale Nameservers is Split DNS. With this feature, I can restrict every nameserver to resolve specific domains. So if I need to use a specific DNS server for a particular domain, I can restrict that nameserver.
+
+
+#+INCLUDE: ./setup/footer.setup.org
