@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Webpage look and feel</title>
 <meta name="generator" content="Org mode">
-<link rel="stylesheet" href=" ./css/code.css" />
-<link rel="stylesheet" href="./css/simple.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
-<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+<link rel='stylesheet' href='./css/code.css' />
+<link rel='stylesheet' href='./css/simple.css' />
+<link rel='shortcut icon' href='./img/favicon.ico' type='image/x-icon' />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css' integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=' crossorigin='anonymous'>
 </head>
 <body>
 <div id="content">
@@ -18,9 +18,9 @@
 Writing notes in rich markup style i.e. org-mode is very cool thing. Emacs comes with functionality of exporting org files into html the way I want it. Default style of the published file is nice, but the better thing is I can control each and every aspect of the export. Here, I write my experience about themeing of the webpage export. 
 </p>
 
-<div id="outline-container-org3988d47" class="outline-2">
-<h2 id="org3988d47"><a href="#org3988d47">The custom styling</a></h2>
-<div class="outline-text-2" id="text-org3988d47">
+<section id="outline-container-org02f006b" class="outline-2">
+<h2 id="org02f006b"><a href="#org02f006b">The custom styling</a></h2>
+<div class="outline-text-2" id="text-org02f006b">
 <p>
 The default publishing settings might already be good. But the best part is, I can can customize each and every aspect of it. The way to do this is to set some of the org export variables. 
 </p>
@@ -33,12 +33,12 @@ The default publishing settings might already be good. But the best part is, I c
 Note: Remember to escape the special characters in the string assigned to this variable.
 </p>
 </div>
-</div>
+</section>
 
 
-<div id="outline-container-org4e0a4b7" class="outline-2">
-<h2 id="org4e0a4b7"><a href="#org4e0a4b7">Stylesheet</a></h2>
-<div class="outline-text-2" id="text-org4e0a4b7">
+<section id="outline-container-orge8ea1a5" class="outline-2">
+<h2 id="orge8ea1a5"><a href="#orge8ea1a5">Stylesheet</a></h2>
+<div class="outline-text-2" id="text-orge8ea1a5">
 <p>
 Now that I know how to add custom stylesheet and scripts in the exported html files, I want to "make" a custom stylesheet. I can go and write rules for each required tags and classes one by one. But I am not really a web designer. Some nice people, who are professional, have contributed to the open source community by making nice stylesheets which are free to use and modify. 
 </p>
@@ -60,11 +60,11 @@ All of these are kind of heavy as most of the styling are defined as classes and
 The upside of useing standard frameworks is that they are usually hosted on content delivery networks like CDNJS and JSDeliver. I can just inclide http link to the script. But the downside of using content delivery network is that the stylesheet cannot be customised. But I can just download <code>.css</code> files, modify it and add to my project.
 </p>
 </div>
-</div>
+</section>
 
-<div id="outline-container-org097d137" class="outline-2">
-<h2 id="org097d137"><a href="#org097d137">Custom modifications</a></h2>
-<div class="outline-text-2" id="text-org097d137">
+<section id="outline-container-org341f1ef" class="outline-2">
+<h2 id="org341f1ef"><a href="#org341f1ef">Custom modifications</a></h2>
+<div class="outline-text-2" id="text-org341f1ef">
 <p>
 Now that I have a basic stylesheet, I want to modify the way I want it. What I did is use some easily available tools and some hacky tricks to make it work.
 </p>
@@ -74,12 +74,12 @@ Now that I have a basic stylesheet, I want to modify the way I want it. What I d
 <dt><a href="https://darkreader.org">Dark reader</a></dt><dd>With this tool, I adjusted some settings of overall color feel. And when I arrived at a style I liked, I used above two tools to make the style sheet.</dd>
 </dl>
 </div>
-</div>
+</section>
 
 
-<div id="outline-container-org37b9fc5" class="outline-2">
-<h2 id="org37b9fc5"><a href="#org37b9fc5">Code highliting</a></h2>
-<div class="outline-text-2" id="text-org37b9fc5">
+<section id="outline-container-orgcf9af07" class="outline-2">
+<h2 id="orgcf9af07"><a href="#orgcf9af07">Code highliting</a></h2>
+<div class="outline-text-2" id="text-orgcf9af07">
 <p>
 The styling I did so far is only for normal html elements. The code blocks are exported to <code>pre</code> and <code>code</code> tags. But the code itself does not contain language specific highliting. To do that I use <mark>htmlize</mark> package and  set the variable <code>org-html-htmlize-output-type</code> to <code>inline</code>. This will export code with syntax highliting used by current emacs themes. Although the colors will be exported as inline css style. Theme change, code highliting change. 
 </p>
@@ -156,7 +156,7 @@ Made with ❤️ and Emacs (Org-mode)
   </a>
 </div>
 </div>
-</div>
+</section>
 </div>
 </body>
 </html>

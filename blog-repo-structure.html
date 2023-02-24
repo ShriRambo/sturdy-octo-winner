@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Web Blog Repository Structure</title>
 <meta name="generator" content="Org mode">
-<link rel="stylesheet" href=" ./css/code.css" />
-<link rel="stylesheet" href="./css/simple.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
-<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+<link rel='stylesheet' href='./css/code.css' />
+<link rel='stylesheet' href='./css/simple.css' />
+<link rel='shortcut icon' href='./img/favicon.ico' type='image/x-icon' />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css' integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=' crossorigin='anonymous'>
 </head>
 <body>
 <div id="content">
@@ -19,9 +19,9 @@
 In this note, I am explaining the structure of the repository I use to write notes and how everythong is set up. The blog is under version control with git which makes it easier to track all the changes and setup automations which will update the webserver with newly written content. The repo contains two branches, master and publish. Master tracks all the resources needed to build the website and publish contains the final product ready to host on a web server. 
 </p>
 
-<div id="outline-container-org7a8591c" class="outline-2">
-<h2 id="org7a8591c"><a href="#org7a8591c">The Master Branch</a></h2>
-<div class="outline-text-2" id="text-org7a8591c">
+<section id="outline-container-org58249da" class="outline-2">
+<h2 id="org58249da"><a href="#org58249da">The Master Branch</a></h2>
+<div class="outline-text-2" id="text-org58249da">
 <p>
 This is the main branch of the project. The <a href="./publish-settings.html">build.org</a> contins all the publishing settings for the project. It only tracks the resources required, i.e .org, .css, .js files, and not the actual published html filed. The folder <code>public</code> is not tracked by this branch. Running <code>build.sh</code> publishes the project in this folder. All the notes which are needed to be published are kept in <code>content</code> folder. The folder <code>public/setup</code> contains org files with common settigs for all the other files. These org files are not published.  The folder <code>resources</code> contains all the shared css and js files. The <code>hooks</code> folder contains all of the automation scripts.
 </p>
@@ -54,12 +54,12 @@ root                             # Master branch worktree
         └── alt-theme.css
 </pre>
 </div>
-</div>
+</section>
 
 
-<div id="outline-container-org26f17d2" class="outline-2">
-<h2 id="org26f17d2"><a href="#org26f17d2">The Publish Branch</a></h2>
-<div class="outline-text-2" id="text-org26f17d2">
+<section id="outline-container-org06e5629" class="outline-2">
+<h2 id="org06e5629"><a href="#org06e5629">The Publish Branch</a></h2>
+<div class="outline-text-2" id="text-org06e5629">
 <p>
 This branch is the root of webserver. The worktree of this branch has all the contents of <code>public</code> folder obtained by building the project. As the web server do not need org files, only required files are tracked by this branch. In my case, I am using this branch to host static webpages with github pages. 
 </p>
@@ -74,11 +74,11 @@ root                      # Publish branch worktree
  └── sitemap.html
 </pre>
 </div>
-</div>
+</section>
 
-<div id="outline-container-orgff1705f" class="outline-2">
-<h2 id="orgff1705f"><a href="#orgff1705f">Publishing Steps</a></h2>
-<div class="outline-text-2" id="text-orgff1705f">
+<section id="outline-container-orge150cc9" class="outline-2">
+<h2 id="orge150cc9"><a href="#orge150cc9">Publishing Steps</a></h2>
+<div class="outline-text-2" id="text-orge150cc9">
 <p>
 Everytime I write a page or make changes to the project, I run the following steps.
 </p>
@@ -139,7 +139,7 @@ Made with ❤️ and Emacs (Org-mode)
   </a>
 </div>
 </div>
-</div>
+</section>
 </div>
 </body>
 </html>

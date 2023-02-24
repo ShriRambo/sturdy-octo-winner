@@ -669,3 +669,21 @@ pre.src-nxml:before { content: 'XML'; }
      (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
 pre.src-conf:before { content: 'Configuration File'; }
 
+
+/* Sitemap */
+/*.sitemap li {
+  display: flex;
+  flex-direction: column;
+}*/
+
+.sitemap li a {
+  font-size: 1.25em;
+  margin: 0.7em 0 0.4em;
+  font-weight: bold;
+}
+
+/*
+.sitemap li i {
+  text-align: right;
+}
+*/
