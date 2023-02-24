@@ -2,7 +2,6 @@
 #+AUTHOR: shrirambo
 #+DATE: [2022-09-29]
 #+OPTIONS: tex:t toc:nil
-#+INCLUDE: ./setup/theme.setup.org
 
 =ESP8266= based circuit boards are great for projects that needs wireless communications. They have very low form factor and can accomplish a lot. Combined with sensors like =DHT22=, we can make a great temperature sensors. This is what I was trying to achieve with this project.
 

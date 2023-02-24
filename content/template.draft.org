@@ -5,7 +5,6 @@
 #+DESCRIPTION:
 #+KEYWORDS: 
 #+OPTIONS: tex:t toc:nil
-#+INCLUDE: ./setup/theme.setup.org
 ------
 
 

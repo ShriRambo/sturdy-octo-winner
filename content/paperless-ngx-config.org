@@ -1,5 +1,3 @@
-#+INCLUDE: ./setup/theme.setup.org
-
 # Including source org file for emacs config
 #+INCLUDE: "https://raw.githubusercontent.com/ShriRambo/server-apps-docker-compose/main/paperless-ngx/setup.org"
 

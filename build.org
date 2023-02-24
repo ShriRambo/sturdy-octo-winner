@@ -74,6 +74,31 @@ For nicer imports of packages
 
 ** Sitemap or Index page
 
+A function to format the publication date as a string which will be shown below the entry on index page.
+
+#+BEGIN_SRC emacs-lisp :tangle ./build.el
+(defun sr/format-date-subtitle (file project)
+  "Format publication date. Use (org-publish-find-property file :title project) to add other properties"
+  (capitalize (format-time-string "%B %d, %Y" (org-publish-find-date file project))))	
+#+END_SRC
+
+
+Now I need a function that will format the sitemap/index page entries in a specified way.
+
+#+BEGIN_SRC emacs-lisp :tangle ./build.el
+(defun sr/org-publish-sitemap-entry (entry style project)
+  "Format for sitemap ENTRY, as a string.
+ENTRY is a file name.  STYLE is the style of the sitemap.
+PROJECT is the current project."
+  (unless (equal entry "404.org")
+    (format "[[file:%s][%s]] \n /%s/"
+            entry
+            (org-publish-find-title entry project)
+            (sr/format-date-subtitle entry project))))
+#+END_SRC
+
+And finally, a function to generate ~sitemap.org~ file.
+
 #+BEGIN_SRC emacs-lisp :tangle ./build.el
 (defun sr/org-publish-sitemap (title list)
   "Generate sitemap as a string, having TITLE.
@@ -87,12 +112,13 @@ returned by `org-list-to-lisp'."
 	    "#+INCLUDE: ./setup/theme.setup.org\n"
             "#+META_TYPE: website\n"
             "#+DESCRIPTION: Personal Blog of Shriram Ashirgade\n"
-            "\n#+ATTR_HTML: :class sitemap\n" ; TODO use org-list-to-subtree instead
+            "\n#+ATTR_HTML: :class sitemap\n" 
             (org-list-to-org filtered-list)
 	    "\n\n#+INCLUDE: ./setup/footer.setup.org"
 	    )))
 #+END_SRC
 
+The above piece of code was borrowed from [[https://writepermission.com][writepermission.com]].
 
 ** TODO Derived backend
 #+BEGIN_SRC emacs-lisp
@@ -109,13 +135,19 @@ returned by `org-list-to-lisp'."
   (setq org-html-validation-link nil            ;; Don't show validation link
         org-html-head-include-scripts nil       ;; Use our own scripts
         org-html-head-include-default-style nil ;; Use our own styles
-        org-export-use-babel t                ;; Do not use babel to execute src blocks
+        org-export-use-babel t                ;; Do(not) use babel to execute src blocks
         org-html-htmlize-output-type 'css     ;; Instead of using inline css for each element
         org-export-with-todo-keywords nil       ;; Ignore TODO keywords
         org-html-doctype "html5"
         org-html-html5-fancy nil
-        org-html-head "<link rel=\"stylesheet\" href=\"/css/simple.css\" />"
+        org-html-head (concat
+		        "<link rel='stylesheet' href='./css/code.css' />\n"
+		       "<link rel='stylesheet' href='./css/simple.css' />\n"
+		       "<link rel='shortcut icon' href='./img/favicon.ico' type='image/x-icon' />\n"
+		       "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css' integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=' crossorigin='anonymous'>\n")
 	org-html-self-link-headlines t
+	org-html-container-element         "section"
+	org-publish-timestamp-directory "./.timestamps/"
 	)
 #+END_SRC
 ** Publishing project properties
@@ -144,6 +176,7 @@ returned by `org-list-to-lisp'."
 	       :sitemap-title "Blog Posts"
 	       :sitemap-function  'sr/org-publish-sitemap  
                :sitemap-sort-files 'anti-chronologically
+	       :sitemap-format-entry 'sr/org-publish-sitemap-entry
 	       )))
 
 #+END_SRC
@@ -155,7 +188,7 @@ returned by `org-list-to-lisp'."
   (message "Build complete!")
 #+END_SRC
 * Build
-First line evaluates thin org file and creates a =build.el= file which contains all the publishing configuration. The second line evaluates =build.el= file itself and publish the web pages. And the final line removes =build.el= file.
+First line evaluates thin org file and creates a ~build.el~ file which contains all the publishing configuration. The second line evaluates ~build.el~ file itself and publish the web pages. And the final line removes ~build.el~ file.
 
 #+BEGIN_SRC shell :tangle no
   #!/bin/bash

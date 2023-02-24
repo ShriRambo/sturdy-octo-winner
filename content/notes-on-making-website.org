@@ -2,7 +2,6 @@
 #+AUTHOR: shrirambo
 #+DATE: [2022-02-21]
 #+OPTIONS: tex:t toc:nil
-#+INCLUDE: ./setup/theme.setup.org
 
 Here lies some general things, big and small (although mostly small) that I learned while making my website.
 
