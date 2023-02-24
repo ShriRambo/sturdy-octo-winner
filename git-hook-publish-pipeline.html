@@ -19,9 +19,9 @@
 I have all of my publishing configuration witten as a in <a href="./publish-settings.html">build.org</a> file and the shell commands in <code>build.sh</code>. Moreover, I have made <code>build.sh</code> an executable file. Running this file will build the project and make all of the html files in <code>./content</code> folder. I would like to automate the publishing process so that, when I write a page in org mode and commit the changes, it gets published automatically. For that, I am using git hooks.
 </p>
 
-<section id="outline-container-orgda97059" class="outline-2">
-<h2 id="orgda97059"><a href="#orgda97059">Git hooks</a></h2>
-<div class="outline-text-2" id="text-orgda97059">
+<section id="outline-container-orgd4f870b" class="outline-2">
+<h2 id="orgd4f870b"><a href="#orgd4f870b">Git hooks</a></h2>
+<div class="outline-text-2" id="text-orgd4f870b">
 <p>
 In git scm, there is a way to run custom script which are triggred by specific actions. That is called <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">Git Hooks</a>. Some of the common hooks are
 </p>
@@ -46,18 +46,18 @@ Note: Hooks always run in the repository root.
 </section>
 
 
-<section id="outline-container-org345d6ea" class="outline-2">
-<h2 id="org345d6ea"><a href="#org345d6ea">Hooks under (version) control?</a></h2>
-<div class="outline-text-2" id="text-org345d6ea">
+<section id="outline-container-org12b5e92" class="outline-2">
+<h2 id="org12b5e92"><a href="#org12b5e92">Hooks under (version) control?</a></h2>
+<div class="outline-text-2" id="text-org12b5e92">
 <p>
 The hooks in <code>.git/hooks/</code> folder are local. They are not pushed to the remote and they are not pulled from a remote. What I can do is keep the script in working directory and copy to the hooks folder. Although, it would be better to create symlink in hooks folder, then I do not have to copy it evrytime it is changed. 
 </p>
 </div>
 </section>
 
-<section id="outline-container-orgb2f5dc8" class="outline-2">
-<h2 id="orgb2f5dc8"><a href="#orgb2f5dc8">My setup</a></h2>
-<div class="outline-text-2" id="text-orgb2f5dc8">
+<section id="outline-container-org939c462" class="outline-2">
+<h2 id="org939c462"><a href="#org939c462">My setup</a></h2>
+<div class="outline-text-2" id="text-org939c462">
 <p>
 In my working directory, I have created a <mark>hooks</mark> folder which contains all the scripts I would like to use hooks. And then use symlink. I have a bash script with following contents:
 </p>
@@ -75,8 +75,12 @@ This script is basically running my main build script as a hook. I could have ju
 <p>
 I then linked this script to <code>./git/hooks/pre-commit</code>. So now, whenever I try to commit, my project is built before changes are commited. I am planning to add some checks in the hook so that if something goes wrong, the commit gets rejected.
 </p>
-
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
 <hr>
+<section>
 <script src="https://giscus.app/client.js" 
   data-repo="ShriRambo/giscus-comments"
   data-repo-id="R_kgDOG1mtrQ"
@@ -90,8 +94,10 @@ I then linked this script to <code>./git/hooks/pre-commit</code>. So now, whenev
   data-lang="en" 
   crossorigin="anonymous" 
   async> </script>
+</section>
 <hr>
-<p style="text-align:center">
+<section>
+  <p style="text-align:center">
 Made with ❤️ and Emacs (Org-mode)
 </p>
 <div align=center>
@@ -118,7 +124,6 @@ Made with ❤️ and Emacs (Org-mode)
   </a>
 </div>
 </div>
-</section>
 </div>
 </body>
 </html>

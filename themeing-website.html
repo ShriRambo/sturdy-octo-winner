@@ -18,9 +18,9 @@
 Writing notes in rich markup style i.e. org-mode is very cool thing. Emacs comes with functionality of exporting org files into html the way I want it. Default style of the published file is nice, but the better thing is I can control each and every aspect of the export. Here, I write my experience about themeing of the webpage export. 
 </p>
 
-<section id="outline-container-org851d925" class="outline-2">
-<h2 id="org851d925"><a href="#org851d925">The custom styling</a></h2>
-<div class="outline-text-2" id="text-org851d925">
+<section id="outline-container-orgc00d319" class="outline-2">
+<h2 id="orgc00d319"><a href="#orgc00d319">The custom styling</a></h2>
+<div class="outline-text-2" id="text-orgc00d319">
 <p>
 The default publishing settings might already be good. But the best part is, I can can customize each and every aspect of it. The way to do this is to set some of the org export variables. 
 </p>
@@ -36,9 +36,9 @@ Note: Remember to escape the special characters in the string assigned to this v
 </section>
 
 
-<section id="outline-container-org6d9d191" class="outline-2">
-<h2 id="org6d9d191"><a href="#org6d9d191">Stylesheet</a></h2>
-<div class="outline-text-2" id="text-org6d9d191">
+<section id="outline-container-org904d72c" class="outline-2">
+<h2 id="org904d72c"><a href="#org904d72c">Stylesheet</a></h2>
+<div class="outline-text-2" id="text-org904d72c">
 <p>
 Now that I know how to add custom stylesheet and scripts in the exported html files, I want to "make" a custom stylesheet. I can go and write rules for each required tags and classes one by one. But I am not really a web designer. Some nice people, who are professional, have contributed to the open source community by making nice stylesheets which are free to use and modify. 
 </p>
@@ -62,9 +62,9 @@ The upside of useing standard frameworks is that they are usually hosted on cont
 </div>
 </section>
 
-<section id="outline-container-orgb026113" class="outline-2">
-<h2 id="orgb026113"><a href="#orgb026113">Custom modifications</a></h2>
-<div class="outline-text-2" id="text-orgb026113">
+<section id="outline-container-orgf3e13dd" class="outline-2">
+<h2 id="orgf3e13dd"><a href="#orgf3e13dd">Custom modifications</a></h2>
+<div class="outline-text-2" id="text-orgf3e13dd">
 <p>
 Now that I have a basic stylesheet, I want to modify the way I want it. What I did is use some easily available tools and some hacky tricks to make it work.
 </p>
@@ -77,9 +77,9 @@ Now that I have a basic stylesheet, I want to modify the way I want it. What I d
 </section>
 
 
-<section id="outline-container-org07ad8c2" class="outline-2">
-<h2 id="org07ad8c2"><a href="#org07ad8c2">Code highliting</a></h2>
-<div class="outline-text-2" id="text-org07ad8c2">
+<section id="outline-container-org9cd4033" class="outline-2">
+<h2 id="org9cd4033"><a href="#org9cd4033">Code highliting</a></h2>
+<div class="outline-text-2" id="text-org9cd4033">
 <p>
 The styling I did so far is only for normal html elements. The code blocks are exported to <code>pre</code> and <code>code</code> tags. But the code itself does not contain language specific highliting. To do that I use <mark>htmlize</mark> package and  set the variable <code>org-html-htmlize-output-type</code> to <code>inline</code>. This will export code with syntax highliting used by current emacs themes. Although the colors will be exported as inline css style. Theme change, code highliting change. 
 </p>
@@ -113,8 +113,12 @@ console.log<span class="org-rainbow-delimiters-depth-1">(</span>allClasses<span 
 <p>
 And that is how I styled my webpage 😎
 </p>
-
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
 <hr>
+<section>
 <script src="https://giscus.app/client.js" 
   data-repo="ShriRambo/giscus-comments"
   data-repo-id="R_kgDOG1mtrQ"
@@ -128,8 +132,10 @@ And that is how I styled my webpage 😎
   data-lang="en" 
   crossorigin="anonymous" 
   async> </script>
+</section>
 <hr>
-<p style="text-align:center">
+<section>
+  <p style="text-align:center">
 Made with ❤️ and Emacs (Org-mode)
 </p>
 <div align=center>
@@ -156,7 +162,6 @@ Made with ❤️ and Emacs (Org-mode)
   </a>
 </div>
 </div>
-</section>
 </div>
 </body>
 </html>

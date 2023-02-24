@@ -15,9 +15,9 @@
 <h1 class="title">Git Worktree</h1>
 <hr>
 
-<section id="outline-container-orgac32a41" class="outline-2">
-<h2 id="orgac32a41"><a href="#orgac32a41">🐎 Motivation</a></h2>
-<div class="outline-text-2" id="text-orgac32a41">
+<section id="outline-container-org6fd68d7" class="outline-2">
+<h2 id="org6fd68d7"><a href="#org6fd68d7">🐎 Motivation</a></h2>
+<div class="outline-text-2" id="text-org6fd68d7">
 <p>
 Most of the time when I am working a project, version controlled by git, I am working on a single branch. Implementing single feature or solving a single bug. But at times, I have to make a quick fix in another branch or just test the commit made by somebody else. Usually, if I have uncommitted changes in my current branch, I would use <a href="https://git-scm.com/docs/git-stash">git-stash</a>. I would first <code>git stash push</code>, do the magic I want to do, and then <code>git stash pop</code>. But this can be inefficient and still only allows me to work on a single branch at a time. And I am always scared of using it wrong and losing all the changes. 
 </p>
@@ -46,9 +46,9 @@ With <code>git-worktree</code>, I can open another branch for temporary work in 
 </div>
 </section>
 
-<section id="outline-container-orge501f8d" class="outline-2">
-<h2 id="orge501f8d"><a href="#orge501f8d">🎯 Commands and Usage</a></h2>
-<div class="outline-text-2" id="text-orge501f8d">
+<section id="outline-container-orge1a43ab" class="outline-2">
+<h2 id="orge1a43ab"><a href="#orge1a43ab">🎯 Commands and Usage</a></h2>
+<div class="outline-text-2" id="text-orge1a43ab">
 <p>
 Following is the list of commands (verbatim from <a href="https://git-scm.com/docs/git-worktree">git-scm.com</a>) related to <code>git-worktree</code>.
 </p>
@@ -70,9 +70,9 @@ The command <code>git worktree add ../develop</code> adds a worktreee at <code>.
 </p>
 </div>
 
-<div id="outline-container-org5ab5030" class="outline-3">
-<h3 id="org5ab5030"><a href="#org5ab5030">Quick fix workflow</a></h3>
-<div class="outline-text-3" id="text-org5ab5030">
+<div id="outline-container-org3aef3b1" class="outline-3">
+<h3 id="org3aef3b1"><a href="#org3aef3b1">Quick fix workflow</a></h3>
+<div class="outline-text-3" id="text-org3aef3b1">
 <p>
 To make a quick fix branch without having to stop working on the other branch.
 </p>
@@ -88,9 +88,9 @@ git worktree remove quickfix
 </div>
 </div>
 
-<div id="outline-container-org945bf25" class="outline-3">
-<h3 id="org945bf25"><a href="#org945bf25">Throwaway worktree</a></h3>
-<div class="outline-text-3" id="text-org945bf25">
+<div id="outline-container-org8c67b22" class="outline-3">
+<h3 id="org8c67b22"><a href="#org8c67b22">Throwaway worktree</a></h3>
+<div class="outline-text-3" id="text-org8c67b22">
 <p>
 To get a clean throwaway worktree, use the <code>--detach</code> flag. This worktree is not related to any branch and the changes cannot be committed anywhere. 
 </p>
@@ -106,14 +106,18 @@ git worktree remove throwaway
 </div>
 </section>
 
-<section id="outline-container-orgf4ebafd" class="outline-2">
-<h2 id="orgf4ebafd"><a href="#orgf4ebafd">Conclusion</a></h2>
-<div class="outline-text-2" id="text-orgf4ebafd">
+<section id="outline-container-org77d4e68" class="outline-2">
+<h2 id="org77d4e68"><a href="#org77d4e68">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org77d4e68">
 <p>
 <code>Git-worktree</code> is definitely a cool feature of git and can be integrated in the work-flow nicely. Specially for some use cases. Does this mean that <code>git-stash</code> is redundant? May be not. In some cases, <code>git-stash</code> can also be useful.
 </p>
-
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
 <hr>
+<section>
 <script src="https://giscus.app/client.js" 
   data-repo="ShriRambo/giscus-comments"
   data-repo-id="R_kgDOG1mtrQ"
@@ -127,8 +131,10 @@ git worktree remove throwaway
   data-lang="en" 
   crossorigin="anonymous" 
   async> </script>
+</section>
 <hr>
-<p style="text-align:center">
+<section>
+  <p style="text-align:center">
 Made with ❤️ and Emacs (Org-mode)
 </p>
 <div align=center>
@@ -155,7 +161,6 @@ Made with ❤️ and Emacs (Org-mode)
   </a>
 </div>
 </div>
-</section>
 </div>
 </body>
 </html>

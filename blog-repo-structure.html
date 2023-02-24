@@ -19,9 +19,9 @@
 In this note, I am explaining the structure of the repository I use to write notes and how everythong is set up. The blog is under version control with git which makes it easier to track all the changes and setup automations which will update the webserver with newly written content. The repo contains two branches, master and publish. Master tracks all the resources needed to build the website and publish contains the final product ready to host on a web server. 
 </p>
 
-<section id="outline-container-org273657b" class="outline-2">
-<h2 id="org273657b"><a href="#org273657b">The Master Branch</a></h2>
-<div class="outline-text-2" id="text-org273657b">
+<section id="outline-container-orgf93c2fa" class="outline-2">
+<h2 id="orgf93c2fa"><a href="#orgf93c2fa">The Master Branch</a></h2>
+<div class="outline-text-2" id="text-orgf93c2fa">
 <p>
 This is the main branch of the project. The <a href="./publish-settings.html">build.org</a> contins all the publishing settings for the project. It only tracks the resources required, i.e .org, .css, .js files, and not the actual published html filed. The folder <code>public</code> is not tracked by this branch. Running <code>build.sh</code> publishes the project in this folder. All the notes which are needed to be published are kept in <code>content</code> folder. The folder <code>public/setup</code> contains org files with common settigs for all the other files. These org files are not published.  The folder <code>resources</code> contains all the shared css and js files. The <code>hooks</code> folder contains all of the automation scripts.
 </p>
@@ -57,9 +57,9 @@ root                             # Master branch worktree
 </section>
 
 
-<section id="outline-container-org08ac3b8" class="outline-2">
-<h2 id="org08ac3b8"><a href="#org08ac3b8">The Publish Branch</a></h2>
-<div class="outline-text-2" id="text-org08ac3b8">
+<section id="outline-container-orgd2cb912" class="outline-2">
+<h2 id="orgd2cb912"><a href="#orgd2cb912">The Publish Branch</a></h2>
+<div class="outline-text-2" id="text-orgd2cb912">
 <p>
 This branch is the root of webserver. The worktree of this branch has all the contents of <code>public</code> folder obtained by building the project. As the web server do not need org files, only required files are tracked by this branch. In my case, I am using this branch to host static webpages with github pages. 
 </p>
@@ -76,9 +76,9 @@ root                      # Publish branch worktree
 </div>
 </section>
 
-<section id="outline-container-orgf665edd" class="outline-2">
-<h2 id="orgf665edd"><a href="#orgf665edd">Publishing Steps</a></h2>
-<div class="outline-text-2" id="text-orgf665edd">
+<section id="outline-container-orgf7471dc" class="outline-2">
+<h2 id="orgf7471dc"><a href="#orgf7471dc">Publishing Steps</a></h2>
+<div class="outline-text-2" id="text-orgf7471dc">
 <p>
 Everytime I write a page or make changes to the project, I run the following steps.
 </p>
@@ -96,8 +96,12 @@ Everytime I write a page or make changes to the project, I run the following ste
 <p>
 I am planning to create a post-commit hook which will automate the execution of steps 2-6. [see <a href="./git-hook-publish-pipeline.html">git hooks</a>].
 </p>
-
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
 <hr>
+<section>
 <script src="https://giscus.app/client.js" 
   data-repo="ShriRambo/giscus-comments"
   data-repo-id="R_kgDOG1mtrQ"
@@ -111,8 +115,10 @@ I am planning to create a post-commit hook which will automate the execution of 
   data-lang="en" 
   crossorigin="anonymous" 
   async> </script>
+</section>
 <hr>
-<p style="text-align:center">
+<section>
+  <p style="text-align:center">
 Made with ❤️ and Emacs (Org-mode)
 </p>
 <div align=center>
@@ -139,7 +145,6 @@ Made with ❤️ and Emacs (Org-mode)
   </a>
 </div>
 </div>
-</section>
 </div>
 </body>
 </html>
