@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blocking Ads Everywhere with AdGuard Home and Tailscale</title>
+<meta name="generator" content="Org mode">
+<meta name="description" content="Using Tailscale's Nameserver feature to access self hosted AdGuard Home instance and use it as personal DNS server from anywhere in the world."
+>
+<meta name="keywords" content="tailscale, adguard, adblock, vpn, wireguard, dns, nameserver">
+<link rel='stylesheet' href='./css/code.css' />
+<link rel='stylesheet' href='./css/simple.css' />
+<link rel='shortcut icon' href='./img/favicon.ico' type='image/x-icon' />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css' integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=' crossorigin='anonymous'>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Blocking Ads Everywhere with AdGuard Home and Tailscale
+<br>
+<span class="subtitle">With the use of Tailscale's Nameservers feature</span>
+</h1>
+<hr>
+
+
+<p>
+Everyone in the homelab community is well informed with <a href="https://github.com/AdguardTeam/AdGuardHome#getting-started">AdGuard Home</a> and uses it to block ads at the DNS level in their home network. It is a full-fledged DNS server in itself. Checkout my configuration <a href="./adguardhome-config.html">here</a>. But with my configuration, I could only use AdGuard when on my home network. I wanted to use it from outside as well.
+</p>
+
+<p>
+I already use <a href="https://tailscale.com">Tailscale</a> to connect to my server remotely. There's a neat feature in Tailscale, which lets me set up nameservers to be used by devices on my tailnet to resolve DNS queries. Here, I added a Global Nameserver whose IP corresponds to my AdGuard instance and set it to override local DNS. In that case, every device on my tailnet will be forced to use this as the primary DNS server, regardless of whatever the local settings are.
+</p>
+
+<p>
+So now I can, while keeping my Tailscale VPN on at all times, use self-hosted AdGuard as primary DNS and block all the Ads, no matter where I am. Neat.
+</p>
+
+<p>
+The added bonus is I can set custom URLs in AdGuard to redirect to other services running on my home server (without registering the domain). That way, I can access all my services with an easy-to-remember domain name.
+</p>
+
+<p>
+Another cool feature of Tailscale Nameservers is Split DNS. With this feature, I can restrict every nameserver to resolve specific domains. So if I need to use a specific DNS server for a particular domain, I can restrict that nameserver.
+</p>
+
+
+<hr>
+<script src="https://giscus.app/client.js" 
+  data-repo="ShriRambo/giscus-comments"
+  data-repo-id="R_kgDOG1mtrQ"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOG1mtrc4CBJNW" 
+  data-mapping="title" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top" 
+  data-theme="dark" 
+  data-lang="en" 
+  crossorigin="anonymous" 
+  async> </script>
+<hr>
+<p style="text-align:center">
+Made with ❤️ and Emacs (Org-mode)
+</p>
+<div align=center>
+  <a href="#" class='link-icon'>
+    <i class="fa fa-home fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href="https://www.instagram.com/shrirambo/" class='link-icon'>
+    <i class="fa fa-instagram fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href="https://github.com/shrirambo" class='link-icon'>
+    <i class="fa fa-github fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='https://www.linkedin.com/in/shriram-ashirgade/' class='link-icon'>
+    <i class="fa fa-linkedin-square fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='https://social.vivaldi.net/@shrirambo'>
+    <i class="fa fa-mastodon fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='https://github.com/ShriRambo/sturdy-octo-winner/tree/master/content' class='link-icon'>
+    <i class="fa fa-code  fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='#content' class='link-icon'>
+    <i class="fa fa-hand-o-up  fa-lg" aria-hidden="true"></i>
+  </a>
+</div>
+</div>
+</body>
+</html>

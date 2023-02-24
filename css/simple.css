@@ -162,6 +162,11 @@ h2:hover::after, h3:hover::after, h4:hover::after, h5:hover::after, h6:hover::af
   }
 }
 
+/*Subtitle format*/
+span.subtitle {
+    font-size: 1.25rem;
+}
+
 /* Format links & buttons */
 
 button,
