@@ -11,15 +11,18 @@
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css' integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=' crossorigin='anonymous'>
 </head>
 <body>
-<div id="content">
+<header id="top" class="status">
+<a href="./index.html">shrirambo</a>.<a href="https://github.com/shrirambo">github</a>.<a href="">io</a>/<a href="./index.html">home</a>/<a href="./index.html">blog</a>
+</header>
+<main id="content">
 <h1 class="title">Temperature Measurement with ESP8266 and DST22</h1>
 <p>
 <mark>ESP8266</mark> based circuit boards are great for projects that needs wireless communications. They have very low form factor and can accomplish a lot. Combined with sensors like <mark>DHT22</mark>, we can make a great temperature sensors. This is what I was trying to achieve with this project.
 </p>
 
-<section id="outline-container-org545da68" class="outline-2">
-<h2 id="org545da68"><a href="#org545da68">🧭 The Problem</a></h2>
-<div class="outline-text-2" id="text-org545da68">
+<section id="outline-container-org6136d86" class="outline-2">
+<h2 id="org6136d86"><a href="#org6136d86">🧭 The Problem</a></h2>
+<div class="outline-text-2" id="text-org6136d86">
 <p>
 The aim is to create a sensor that can show temperature and humidity in the different rooms of my house. This information then I can use to do some home automations like open windows, turn up heater, or just to prepare my self the condition at home 🥶 🥵
 </p>
@@ -33,15 +36,15 @@ The aim is to create a sensor that can show temperature and humidity in the diff
 </div>
 </section>
 
-<section id="outline-container-org90d23e5" class="outline-2">
-<h2 id="org90d23e5"><a href="#org90d23e5">🔌 The Circuit</a></h2>
-<div class="outline-text-2" id="text-org90d23e5">
+<section id="outline-container-org88fd37d" class="outline-2">
+<h2 id="org88fd37d"><a href="#org88fd37d">🔌 The Circuit</a></h2>
+<div class="outline-text-2" id="text-org88fd37d">
 <p>
 Here is the circuit setup I started with. 
 </p>
 
 
-<div id="org1652b1b" class="figure">
+<div id="orgbe5f347" class="figure">
 <p><img src="./img/circuit-diagram-temp-sensor.png" alt="circuit-diagram-temp-sensor.png">
 </p>
 </div>
@@ -56,9 +59,9 @@ The 7-segment display is not really necessary. As I am publishing temperature to
 </div>
 </section>
 
-<section id="outline-container-orgf2268a5" class="outline-2">
-<h2 id="orgf2268a5"><a href="#orgf2268a5">🕸 The Network</a></h2>
-<div class="outline-text-2" id="text-orgf2268a5">
+<section id="outline-container-org18d36a1" class="outline-2">
+<h2 id="org18d36a1"><a href="#org18d36a1">🕸 The Network</a></h2>
+<div class="outline-text-2" id="text-org18d36a1">
 <p>
 First, we will configure the wifi so that <code>wemos</code> can connect to our home wifi network. We include following header files and configuration and initialize <code>wifi</code> and <code>pubsub</code> client. The <code>pubsub</code> client will read and publish messages to the MQTT server.
 </p>
@@ -128,9 +131,9 @@ And finally a function to reconnect in case of disconnection.
 </section>
 
 
-<section id="outline-container-org1d6df2f" class="outline-2">
-<h2 id="org1d6df2f"><a href="#org1d6df2f">🌡 The Sensor</a></h2>
-<div class="outline-text-2" id="text-org1d6df2f">
+<section id="outline-container-org0a83299" class="outline-2">
+<h2 id="org0a83299"><a href="#org0a83299">🌡 The Sensor</a></h2>
+<div class="outline-text-2" id="text-org0a83299">
 <p>
 The <code>DHT22</code> sensor is quite straight forward. I am using this <a href="https://github.com/adafruit/DHT-sensor-library">DHT Sensor Library</a> in the project to read sensor data. We need following things to setup.
 </p>
@@ -169,9 +172,9 @@ client.publish<span class="org-rainbow-delimiters-depth-1">(</span><span class="
 </section>
 
 
-<section id="outline-container-org360c890" class="outline-2">
-<h2 id="org360c890"><a href="#org360c890">📺 The Display</a></h2>
-<div class="outline-text-2" id="text-org360c890">
+<section id="outline-container-orgd6aeb57" class="outline-2">
+<h2 id="orgd6aeb57"><a href="#orgd6aeb57">📺 The Display</a></h2>
+<div class="outline-text-2" id="text-orgd6aeb57">
 <p>
 The 7 segment display module is very nice and efficient way to display numerical data. As long as it fits the display format. I am using <a href="https://github.com/avishorp/TM1637">TM1637 Display</a> library. This 
 </p>
@@ -211,16 +214,16 @@ display.setSegments<span class="org-rainbow-delimiters-depth-1">(</span>PER_C, 2
 </div>
 </section>
 
-<section id="outline-container-orgf6d80d8" class="outline-2">
-<h2 id="orgf6d80d8"><a href="#orgf6d80d8">🌯 The Wrap-up</a></h2>
-<div class="outline-text-2" id="text-orgf6d80d8">
+<section id="outline-container-orge93c346" class="outline-2">
+<h2 id="orge93c346"><a href="#orge93c346">🌯 The Wrap-up</a></h2>
+<div class="outline-text-2" id="text-orge93c346">
 <p>
 That is the complete setup of a wireless temperature and humidity sensor. For the future scope, I would like to build automations around this, controlling thermostat. 
 </p>
 </div>
 </section>
-</div>
-<div id="postamble" class="status">
+</main>
+<footer id="postamble" class="status">
 <hr>
 <section>
 <script src="https://giscus.app/client.js" 
@@ -266,6 +269,6 @@ Made with ❤️ and Emacs (Org-mode)
   </a>
 </div>
 </div>
-</div>
+</footer>
 </body>
 </html>

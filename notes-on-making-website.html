@@ -11,15 +11,18 @@
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css' integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=' crossorigin='anonymous'>
 </head>
 <body>
-<div id="content">
+<header id="top" class="status">
+<a href="./index.html">shrirambo</a>.<a href="https://github.com/shrirambo">github</a>.<a href="">io</a>/<a href="./index.html">home</a>/<a href="./index.html">blog</a>
+</header>
+<main id="content">
 <h1 class="title">Notes on making a website with Emacs and orgmode</h1>
 <p>
 Here lies some general things, big and small (although mostly small) that I learned while making my website.
 </p>
 
-<section id="outline-container-orge634b1d" class="outline-2">
-<h2 id="orge634b1d"><a href="#orge634b1d">The root dir</a></h2>
-<div class="outline-text-2" id="text-orge634b1d">
+<section id="outline-container-org5759f35" class="outline-2">
+<h2 id="org5759f35"><a href="#org5759f35">The root dir</a></h2>
+<div class="outline-text-2" id="text-org5759f35">
 <p>
 When hosting a website, we can add links (e.g. links to some css or jacascript files) in the header. The path used can be relative to the document. This becomes a trouble when the html pages are in complicated directory structure.
 </p>
@@ -44,17 +47,17 @@ The root dir for http server is the folder where it is started. If the web serve
 </p>
 </div>
 
-<div id="outline-container-orgac1eeef" class="outline-3">
-<h3 id="orgac1eeef"><a href="#orgac1eeef">Github pages caveat</a></h3>
-<div class="outline-text-3" id="text-orgac1eeef">
+<div id="outline-container-org4c2cec6" class="outline-3">
+<h3 id="org4c2cec6"><a href="#org4c2cec6">Github pages caveat</a></h3>
+<div class="outline-text-3" id="text-org4c2cec6">
 <p>
 On github, we can host static html sites. The root dir for the http server hosting our site is <code>[username].github.io</code>. If we have another repo called <code>blog-post</code> with github pages enabled, then all the content of this repo will be added to <code>root/blog-post</code> i.e. <code>[username].github.io/blogpost</code>. The html file (say <code>page1.html</code> which in in working dir of blog-post repo), which has <code>/css/style.css/</code> in its head will look for the css file in <code>[username].github.io/css/style.css</code>. Therefore, if the html page repo is not  <code>[username].github.io</code>, then it will no be able to load resources. So we can either keep our resources in <code>[username].github.io</code> repo or keep the resources path absolute according to where the http server is hosted.
 </p>
 </div>
 </div>
 </section>
-</div>
-<div id="postamble" class="status">
+</main>
+<footer id="postamble" class="status">
 <hr>
 <section>
 <script src="https://giscus.app/client.js" 
@@ -100,6 +103,6 @@ Made with ❤️ and Emacs (Org-mode)
   </a>
 </div>
 </div>
-</div>
+</footer>
 </body>
 </html>

@@ -11,7 +11,10 @@
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css' integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=' crossorigin='anonymous'>
 </head>
 <body>
-<div id="content">
+<header id="top" class="status">
+<a href="./index.html">shrirambo</a>.<a href="https://github.com/shrirambo">github</a>.<a href="">io</a>/<a href="./index.html">home</a>/<a href="./index.html">blog</a>
+</header>
+<main id="content">
 <h1 class="title">DuckDNS: A Dynamic DNS Service</h1>
 <hr>
 
@@ -19,18 +22,18 @@
 DuckDNS ia a free Domain Name Service which can be setup to point any (available) subdomain of <a href="http://duckdns.org">duckdns</a> to an IP address or our choice. This is a dynamic DNS service, which means the IP address corresponding to your domain can easily be change.
 </p>
 
-<section id="outline-container-org7ad8e5f" class="outline-2">
-<h2 id="org7ad8e5f"><a href="#org7ad8e5f">Why?</a></h2>
-<div class="outline-text-2" id="text-org7ad8e5f">
+<section id="outline-container-org2d91da7" class="outline-2">
+<h2 id="org2d91da7"><a href="#org2d91da7">Why?</a></h2>
+<div class="outline-text-2" id="text-org2d91da7">
 <p>
 This type of service is useful when the IP address assigned to you by your ISP is not a static one and changes. To keep your services running, the domain name entry must be always up to date with current IP address. As update of IP can be done on periodic basis with duckdns, it is always gurenteed that the domain name will point to the correct IP
 </p>
 </div>
 </section>
 
-<section id="outline-container-org9f75d46" class="outline-2">
-<h2 id="org9f75d46"><a href="#org9f75d46">How?</a></h2>
-<div class="outline-text-2" id="text-org9f75d46">
+<section id="outline-container-org96bc57e" class="outline-2">
+<h2 id="org96bc57e"><a href="#org96bc57e">How?</a></h2>
+<div class="outline-text-2" id="text-org96bc57e">
 <p>
 With DuckDNS, I can just use a simple http/https request to update the IP address corresponding to my domain name.
 </p>
@@ -78,25 +81,25 @@ With this, I can just setup a cron job to run at a certain interval doing https 
 </div>
 </section>
 
-<section id="outline-container-org811f2f6" class="outline-2">
-<h2 id="org811f2f6"><a href="#org811f2f6">Then?</a></h2>
-<div class="outline-text-2" id="text-org811f2f6">
+<section id="outline-container-org4721d55" class="outline-2">
+<h2 id="org4721d55"><a href="#org4721d55">Then?</a></h2>
+<div class="outline-text-2" id="text-org4721d55">
 <p>
 After setting an dynamic IP, I can expose all the services running on my home server to the internet so that they can be accessed from anywhere in the world. Of course, it will need port forwarding set up.
 </p>
 </div>
 </section>
 
-<section id="outline-container-orgab50596" class="outline-2">
-<h2 id="orgab50596"><a href="#orgab50596">Some thing extra</a></h2>
-<div class="outline-text-2" id="text-orgab50596">
+<section id="outline-container-orgd7bf2d1" class="outline-2">
+<h2 id="orgd7bf2d1"><a href="#orgd7bf2d1">Some thing extra</a></h2>
+<div class="outline-text-2" id="text-orgd7bf2d1">
 <p>
 Say if I have purchased a domain name from a DNS provider who does not allow dynamic update of IP address, then I can just use a <code>CNAME</code> entry which will point to my duckdns domain which will always be up to date.
 </p>
 </div>
 </section>
-</div>
-<div id="postamble" class="status">
+</main>
+<footer id="postamble" class="status">
 <hr>
 <section>
 <script src="https://giscus.app/client.js" 
@@ -142,6 +145,6 @@ Made with ❤️ and Emacs (Org-mode)
   </a>
 </div>
 </div>
-</div>
+</footer>
 </body>
 </html>
