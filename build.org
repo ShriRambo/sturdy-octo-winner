@@ -82,6 +82,26 @@ A function to format the publication date as a string which will be shown below 
   (capitalize (format-time-string "%B %d, %Y" (org-publish-find-date file project))))	
 #+END_SRC
 
+A function to get the description of the entry.
+
+#+BEGIN_SRC emacs-lisp :tangle ./build.el
+(defun sr/format-description (file project)
+  "Format publication date. Use (org-publish-find-property file :title project) to add other properties
+This works with some specific properties and not all custom property so the following hack."
+   (concat "" (with-temp-buffer 
+     (insert-file-contents (concat "./content/" file) )
+     (cdr
+      (assoc "DESCRIPTION" 
+	     (org-element-map
+		 (org-element-parse-buffer 'element) 'keyword
+               (lambda (keyword) (cons (org-element-property :key keyword)
+                                  (org-element-property :value keyword)))))))))
+#+END_SRC
+
+Thanks to [[https:kitchingroup.cheme.cmu.edu/blog/2013/05/05/Getting-keyword-options-in-org-files/][The Kitchin Research Group Blog]] for the solution.
+
+TODO: Replace ~./content~ in above with something like ~(plist-get project :base-directory)~ but that works.
+
 
 Now I need a function that will format the sitemap/index page entries in a specified way.
 
@@ -91,10 +111,12 @@ Now I need a function that will format the sitemap/index page entries in a speci
 ENTRY is a file name.  STYLE is the style of the sitemap.
 PROJECT is the current project."
   (unless (equal entry "404.org")
-    (format "[[file:%s][%s]] \n /%s/"
+    (format "[[file:%s][%s]] \n %s \n /%s/"
             entry
             (org-publish-find-title entry project)
-            (sr/format-date-subtitle entry project))))
+	    (sr/format-description entry project)
+            (sr/format-date-subtitle entry project)
+	    )))
 #+END_SRC
 
 And finally, a function to generate ~sitemap.org~ file.
