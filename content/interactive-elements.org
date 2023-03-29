@@ -2,6 +2,8 @@
 #+DATE: [2022-10-14]
 #+AUTHOR: shrirambo
 #+OPTIONS: tex:t toc:nil
+#+DESCRIPTION: Using the power of orgmode to create interactive webpages while explaining how that functionality was implemented. More like literate web pages for web based technology.
+#+KEYWORDS: javascript, html, css, interactivity, org-mode, literate programming
 ------
 
 With the current setup, I can write and publish static html pages using Emacs and Org-mode. I can also write literate pages explaining code which can run while editing the org file in emacs. But now I want more. I want to make literate and interactive html pages. Interactive in a sense that I can see, edit and run javascript code in the browser on the click of a button, explain the html, css, js involved in making the the page itself. This page is all about experiments and ideas on how I can achieve this goal. 

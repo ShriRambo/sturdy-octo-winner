@@ -2,6 +2,8 @@
 #+AUTHOR: shrirambo
 #+DATE: [2022-02-22]
 #+OPTIONS: tex:t toc:nil
+#+DESCRIPTION: Theming of the webpage published with org mode and some tips and tricks.
+#+KEYWORDS: theming, webpage, org-mode, publish
 ------
 Writing notes in rich markup style i.e. org-mode is very cool thing. Emacs comes with functionality of exporting org files into html the way I want it. Default style of the published file is nice, but the better thing is I can control each and every aspect of the export. Here, I write my experience about themeing of the webpage export. 
 

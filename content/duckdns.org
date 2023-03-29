@@ -2,6 +2,8 @@
 #+AUTHOR: shrirambo
 #+DATE: [2022-07-01]
 #+OPTIONS: tex:t toc:nil
+#+DESCRIPTION: DuckDNS is a free dynamic DNS service which can be setup to use home server apps over the internet.
+#+KEYWORDS: duckdns, dns, homelab, homeserver
 ------
 
 DuckDNS ia a free Domain Name Service which can be setup to point any (available) subdomain of [[http://duckdns.org][duckdns]] to an IP address or our choice. This is a dynamic DNS service, which means the IP address corresponding to your domain can easily be change.

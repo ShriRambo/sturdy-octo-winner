@@ -2,6 +2,8 @@
 #+AUTHOR: shrirambo
 #+DATE: [2022-03-07]
 #+OPTIONS: tex:t toc:nil
+#+DESCRIPTION: The directory structure of my blog repository project.
+#+KEYWORDS: git, repo, blog, publish, srtucture
 ------
 
 In this note, I am explaining the structure of the repository I use to write notes and how everythong is set up. The blog is under version control with git which makes it easier to track all the changes and setup automations which will update the webserver with newly written content. The repo contains two branches, master and publish. Master tracks all the resources needed to build the website and publish contains the final product ready to host on a web server. 

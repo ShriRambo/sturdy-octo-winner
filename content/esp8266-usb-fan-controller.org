@@ -2,6 +2,8 @@
 #+AUTHOR: shrirambo
 #+DATE:  [2022-09-17]
 #+OPTIONS: tex:t toc:nil
+#+DESCRIPTION: Makeshift cooling fan controlled by ESP8266 board to cool external hard drive based on its temperature.
+#+KEYWORDS: esp8266, cooling, fan, circuit, smartmontools, smartctl
 
 * The Problem
 I have an old laptop repurposed as a home server, which I use to stream media, backup, and a simple file server. As it is an old laptop, the storage capacity is not enough. So I just bought an external hard-drive to extend the capacity. I know, there are better ways to add storage capacity. But, I thought, this is very straightforward and cheap way to achieve the goal. Now, as the hdd is always connected to the server, it can get pretty hot when being used extensively. So I wanted to have a solution to cool the hdd whenever the temperature rises above a certain threshold. Simplest solution, a \EUR2 usb fan controlled by ESP8266 based microcontroller. Here is a list of all tools/packages/devices I used for this project

@@ -2,6 +2,8 @@
 #+AUTHOR: shrirambo
 #+DATE: [2022-02-21]
 #+OPTIONS: tex:t toc:nil
+#+DESCRIPTION: General notes and observations on making a website.
+#+KEYWORDS: notes, website
 
 Here lies some general things, big and small (although mostly small) that I learned while making my website.
 

@@ -2,6 +2,8 @@
 #+AUTHOR: shrirambo
 #+DATE: [2022-02-01]
 #+STARTUP: content
+#+DESCRIPTION: This is the configuration for my website with org mode
+#+KEYWORDS: org-mode, publishing, website, configuration
 
 *  Emacs Build Configuration
 

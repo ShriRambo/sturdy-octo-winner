@@ -2,6 +2,8 @@
 #+AUTHOR: shrirambo
 #+DATE:  [2022-02-27]
 #+OPTIONS: tex:t toc:nil
+#+DESCRIPTION: Using git hooks to publish org blog project
+#+KEYWORDS: org, git, git hooks, publish
 ------
 
 I have all of my publishing configuration witten as a in [[./publish-settings.org][build.org]] file and the shell commands in ~build.sh~. Moreover, I have made ~build.sh~ an executable file. Running this file will build the project and make all of the html files in ~./content~ folder. I would like to automate the publishing process so that, when I write a page in org mode and commit the changes, it gets published automatically. For that, I am using git hooks.

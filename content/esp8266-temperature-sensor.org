@@ -2,6 +2,8 @@
 #+AUTHOR: shrirambo
 #+DATE: [2022-09-29]
 #+OPTIONS: tex:t toc:nil
+#+DESCRIPTION: Combining the power of ESP8266 board, DHT22 temperature sensor, TM1677 7-segment display and, for the cherry on top, Mosquitto MQTT broker to monitor temperature and humidity.
+#+KEYWORDS: esp8266, dht22, tm1677, mqtt, mosquitto, temperature sensor, humidity, monitoring
 
 =ESP8266= based circuit boards are great for projects that needs wireless communications. They have very low form factor and can accomplish a lot. Combined with sensors like =DHT22=, we can make a great temperature sensors. This is what I was trying to achieve with this project.
 
