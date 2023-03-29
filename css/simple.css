@@ -678,10 +678,12 @@ pre.src-conf:before { content: 'Configuration File'; }
 
 
 /* Sitemap */
-/*.sitemap li {
+.sitemap li {
   display: flex;
   flex-direction: column;
-}*/
+  border-bottom: 1px solid var(--text);
+
+}
 
 .sitemap li a {
   font-size: 1.25em;
@@ -689,8 +691,9 @@ pre.src-conf:before { content: 'Configuration File'; }
   font-weight: bold;
 }
 
-/*
+
 .sitemap li i {
-  text-align: right;
+    text-align: left;
+    font-size: 1rem;
 }
-*/
+
