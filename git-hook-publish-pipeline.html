@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Publishing Pipelines with git hooks</title>
 <meta name="generator" content="Org mode">
+<meta name="description" content="Using git hooks to publish org blog project"
+>
+<meta name="keywords" content="org, git, git hooks, publish">
 <link rel='stylesheet' href='./css/code.css' />
 <link rel='stylesheet' href='./css/simple.css' />
 <link rel='shortcut icon' href='./img/favicon.ico' type='image/x-icon' />
@@ -22,9 +25,9 @@
 I have all of my publishing configuration witten as a in <a href="./publish-settings.html">build.org</a> file and the shell commands in <code>build.sh</code>. Moreover, I have made <code>build.sh</code> an executable file. Running this file will build the project and make all of the html files in <code>./content</code> folder. I would like to automate the publishing process so that, when I write a page in org mode and commit the changes, it gets published automatically. For that, I am using git hooks.
 </p>
 
-<section id="outline-container-orgbd1dfef" class="outline-2">
-<h2 id="orgbd1dfef"><a href="#orgbd1dfef">Git hooks</a></h2>
-<div class="outline-text-2" id="text-orgbd1dfef">
+<section id="outline-container-org9764924" class="outline-2">
+<h2 id="org9764924"><a href="#org9764924">Git hooks</a></h2>
+<div class="outline-text-2" id="text-org9764924">
 <p>
 In git scm, there is a way to run custom script which are triggred by specific actions. That is called <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">Git Hooks</a>. Some of the common hooks are
 </p>
@@ -49,18 +52,18 @@ Note: Hooks always run in the repository root.
 </section>
 
 
-<section id="outline-container-org8687a16" class="outline-2">
-<h2 id="org8687a16"><a href="#org8687a16">Hooks under (version) control?</a></h2>
-<div class="outline-text-2" id="text-org8687a16">
+<section id="outline-container-org7dd2df4" class="outline-2">
+<h2 id="org7dd2df4"><a href="#org7dd2df4">Hooks under (version) control?</a></h2>
+<div class="outline-text-2" id="text-org7dd2df4">
 <p>
 The hooks in <code>.git/hooks/</code> folder are local. They are not pushed to the remote and they are not pulled from a remote. What I can do is keep the script in working directory and copy to the hooks folder. Although, it would be better to create symlink in hooks folder, then I do not have to copy it evrytime it is changed. 
 </p>
 </div>
 </section>
 
-<section id="outline-container-orgca4cfbc" class="outline-2">
-<h2 id="orgca4cfbc"><a href="#orgca4cfbc">My setup</a></h2>
-<div class="outline-text-2" id="text-orgca4cfbc">
+<section id="outline-container-org84da69a" class="outline-2">
+<h2 id="org84da69a"><a href="#org84da69a">My setup</a></h2>
+<div class="outline-text-2" id="text-org84da69a">
 <p>
 In my working directory, I have created a <mark>hooks</mark> folder which contains all the scripts I would like to use hooks. And then use symlink. I have a bash script with following contents:
 </p>

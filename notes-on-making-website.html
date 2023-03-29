@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Notes on making a website with Emacs and orgmode</title>
 <meta name="generator" content="Org mode">
+<meta name="description" content="General notes and observations on making a website."
+>
+<meta name="keywords" content="notes, website">
 <link rel='stylesheet' href='./css/code.css' />
 <link rel='stylesheet' href='./css/simple.css' />
 <link rel='shortcut icon' href='./img/favicon.ico' type='image/x-icon' />
@@ -20,9 +23,9 @@
 Here lies some general things, big and small (although mostly small) that I learned while making my website.
 </p>
 
-<section id="outline-container-orgc6dedcf" class="outline-2">
-<h2 id="orgc6dedcf"><a href="#orgc6dedcf">The root dir</a></h2>
-<div class="outline-text-2" id="text-orgc6dedcf">
+<section id="outline-container-orgbcd010f" class="outline-2">
+<h2 id="orgbcd010f"><a href="#orgbcd010f">The root dir</a></h2>
+<div class="outline-text-2" id="text-orgbcd010f">
 <p>
 When hosting a website, we can add links (e.g. links to some css or jacascript files) in the header. The path used can be relative to the document. This becomes a trouble when the html pages are in complicated directory structure.
 </p>
@@ -47,9 +50,9 @@ The root dir for http server is the folder where it is started. If the web serve
 </p>
 </div>
 
-<div id="outline-container-org8b592cb" class="outline-3">
-<h3 id="org8b592cb"><a href="#org8b592cb">Github pages caveat</a></h3>
-<div class="outline-text-3" id="text-org8b592cb">
+<div id="outline-container-orgc197eeb" class="outline-3">
+<h3 id="orgc197eeb"><a href="#orgc197eeb">Github pages caveat</a></h3>
+<div class="outline-text-3" id="text-orgc197eeb">
 <p>
 On github, we can host static html sites. The root dir for the http server hosting our site is <code>[username].github.io</code>. If we have another repo called <code>blog-post</code> with github pages enabled, then all the content of this repo will be added to <code>root/blog-post</code> i.e. <code>[username].github.io/blogpost</code>. The html file (say <code>page1.html</code> which in in working dir of blog-post repo), which has <code>/css/style.css/</code> in its head will look for the css file in <code>[username].github.io/css/style.css</code>. Therefore, if the html page repo is not  <code>[username].github.io</code>, then it will no be able to load resources. So we can either keep our resources in <code>[username].github.io</code> repo or keep the resources path absolute according to where the http server is hosted.
 </p>
