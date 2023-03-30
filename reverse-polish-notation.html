@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polish and Reverse Polish Notation</title>
+<meta name="generator" content="Org mode">
+<meta name="description" content="Polish and Reverse Polish notation uses prefix and postfix operator instead on usual infix operator making it easire to implement computer programs to parse and solve these mathematical expressions"
+>
+<meta name="keywords" content="notation, polish notation, reverse polish notataion, postfix, prefix, infix, maths, mathematical, expressions">
+<link rel='stylesheet' href='./css/code.css' />
+<link rel='stylesheet' href='./css/simple.css' />
+<link rel='shortcut icon' href='./img/favicon.ico' type='image/x-icon' />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css' integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=' crossorigin='anonymous'>
+</head>
+<body>
+<header id="top" class="status">
+<a href="./index.html">shrirambo</a>.<a href="https://github.com/shrirambo">github</a>.<a href="">io</a>/<a href="./index.html">home</a>/<a href="./index.html">blog</a>
+</header>
+<main id="content">
+<h1 class="title">Polish and Reverse Polish Notation
+<br>
+<span class="subtitle">An Alternative Way of Writing Mathematical Expressions</span>
+</h1>
+<hr>
+
+<blockquote>
+<p>
+"Mathematics is a language. Language is a tool. Like any other tool, it has limitations. But language is a tool for dealing with the world as it is. Mathematics is a tool for dealing with the world as it might be. The study of mathematics is not a pursuit of logic; it is a pursuit of language. The language of mathematics is the language of the universe itself."
+</p>
+
+<p>
+&#x2013;Alfred North Whitehead
+</p>
+</blockquote>
+
+<p>
+Mathematics, or at least what we write on paper, is a language like english and german used to communicate ideas. This language is just a set of rules that we have aggreed upon, so that everyone is on same page when one say what is <code>3 * 5 + 2 - 1</code>. The thing with the language is that multiple ones can co-exist with each one having some benefit over the other. Similar with the programming languages, each one has special use cases but in the core the logic is same. Just the way to write can be different. In the same way, there exist multiple different ways of writing mathematical expressions which, if you know the rules, expresses the same idea. More on that later. But let me first give some context on how I found out about these altrnate notation and how it solved (to some extent) the problem I had.
+</p>
+
+<section id="outline-container-org875c2d0" class="outline-2">
+<h2 id="org875c2d0"><a href="#org875c2d0">Context</a></h2>
+<div class="outline-text-2" id="text-org875c2d0">
+<p>
+At work, I had to implement a feature for an app which will allow users to fetch documents from database based on provided parameters. One of the parameter was <code>keywords</code>. I wanted the let user srerch documents with a specific keyword. Simple enough. User passes a value for parameter, say <code>keywords= "hello"</code> and the server will fetch all the documents with the word <code>hello</code> in it and return them.
+</p>
+
+<p>
+Then, somebody wanted to narrow the search by looking for multiple keywords in the document (of course, the parameter is named <code>keywords</code> and not <code>keyword</code>; so that's fair). So, I let the user pass multiple keywords as a string like <code>keywords= "hello there".</code> This will return all the documents which has both words <code>hello</code> and <code>there</code>.
+</p>
+
+<p>
+What if I want documents with one word in it and the other word not in it. Said the person with a purple top hat and a coy smile. To which I said, add an exclaimation mark in front of it you silly. Now, when one passes <code>keywords= "hello !there",</code> he will get all the documents with <code>hello</code> in it and <code>there</code> not in it.
+</p>
+
+<p>
+Another guy came to me asking if he can ask for multiple keywords and get all the documents with any of the keywords in it. He wanted to make his search more broad. That request also seemd fair. So, I let the user pass multiple keywords as a string, but this time separated by a comma, to convey that he is looking for keywords in logical disjunction i.e. if a user passes <code>keywords= "hello, there</code> , then he will get all the documents with either <code>hello</code> in it or <code>there</code> in it.
+</p>
+
+<p>
+Now, the basic parsing logic was: a space in the string will mean logical <code>AND</code>, a comma in the string will represent logical <code>OR,</code> and an exclaimation mean logical <code>NOT</code>. So when <code>keywords= "hello there, general !kenobi"</code> means <code>hello AND there OR general AND NOT kenobi</code>. In logic, <code>AND</code> is like multiplication and <code>OR</code> is like addition, and <code>NOT</code> is like an operator. Therefore, the inambiguous expression will be <code>(hello AND there) OR (general AND (NOT kenobi))</code> <span class="underline"><span class="underline">Replace each word with a boolean that the word is in the document, if the expression evaluates to <code>True</code> then that document will be returned.</span></span>
+</p>
+
+<p>
+(Me sighing while wiping sweat from my forehead) Everything anyone will ever need to create a query as complicated as on can, has been implemented. Or so I thought. With implicit precedence of <code>NOT</code> over <code>AND</code> orver <code>OR</code>, I can only create queries with limited complexity. What if I wanted to make a query like <code>((old AND ben) OR (obi AND van) OR general) AND kenobi</code>? One solution is expanding the expression and writing <code>keywords= "obi van kenobi, old ben kenobi, general kenobi"</code> which is an expanded version. But expanding nested complicated expression will lead to a very long string with a lot of repetation that the user has to type. It will still be easier to parse by the computer but the user has to expand and write it all out.
+</p>
+
+<p>
+Another solution could be introduce the brackets in the expression i.e. let user write the expression in nested brackets. Easy for user to write but complicated for computer to parse. 
+</p>
+
+<p>
+Can there be any better implementation which will make it easy for the user to write and easy for the computer to parse, and also pollibly without using brackets. Well&#x2026;
+</p>
+
+<div style="width:100%;height:0;padding-bottom:76%;position:relative;"><iframe src="https://giphy.com/embed/l2JdXaF36UcSHpSx2" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/thesimpsons-l2JdXaF36UcSHpSx2">via GIPHY</a></p>
+</div>
+</section>
+
+<section id="outline-container-org90d73ec" class="outline-2">
+<h2 id="org90d73ec"><a href="#org90d73ec">The Prefix Notation</a></h2>
+<div class="outline-text-2" id="text-org90d73ec">
+<p>
+Usually, for the common operators, we use infix notation i.e. the operator is surrounded by two oparands on which it is operating on. For example <code>2 + 3</code>, here the operator + is in between 2 and 3 and it is trying to add these two numbers. In the prefix notation, we write the operator before the operands. So this will become <code>+ 2 3.</code> This also seems logical as in most of programming languages, we write function before the parameters (<code>add(2, 3</code>). And as long as the number of parameters/oparands is fixed, we do not need brackets. When reading from left to right, if the two elements after the operator + are numbers, then we add those two numbers e.g. <code>+ 2 - 5 1</code> becomes <code>+ 2 4</code> becomes <code>6</code>. Note that here <code>-</code> is operator and not representing negative number <code>-5</code>. So if there are enough number of operands for an operator, carry out the operation.
+</p>
+
+<div style="width:100%;height:0;padding-bottom:73%;position:relative;"><iframe src="https://giphy.com/embed/RLzkD9nLJ2vMYsTv0x" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/statechamps-state-champs-crying-out-loud-cryingoutloud-RLzkD9nLJ2vMYsTv0x">via GIPHY</a></p>
+
+<p>
+This Prefix Notation is also known as the Polish Notation, named after the nationality of Jan Łukasiewicz, the mathematician who invented it. Guess the country where he is from&#x2026; In our use case, we can write <code>obi AND kenobi</code> in prefix notation as <code>AND obi kenobi</code> where <code>AND</code> is operator and <code>obi kenobi</code> ane operands. And we can write the expression <code>((old AND ben) OR (obi AND van) OR general) AND kenobi</code> in prefix notation as <code>AND OR OR AND old ben AND obi van general kenobi</code>. We solved two problems with this infix notation. No more brackets and no repetation of expressions! 🥳 
+</p>
+
+<p>
+Here are some observation:
+</p>
+
+<ul class="org-ul">
+<li>Expression always starts witn an operator and ends with an operand.</li>
+<li>The operators are more concentrated towards the left side of expression.</li>
+<li>The operands are concentrated towards the right side of the expression.</li>
+<li>The oder of the operation is from right to left, i.e. the right most operator is evaluated first, then the next right most and then the next&#x2026;.</li>
+</ul>
+
+<p>
+This makes the implementation of a computer program to evaluate such expression quite simple. Neither you  need brakets nor you need a proirity of which operator gets precdence over the other. The parsing algorithm can be explained as follows:
+</p>
+
+<ul class="org-ul">
+<li>Break the string expression in tokens and start from the right.</li>
+<li>If the token is an operand, add it to the stack.</li>
+<li>If the token is an operator and that operator needs N operands to work on, pop last N operands from the stack, apply the operation and put the result back on the stack.</li>
+<li>Keep doing that until all of the tokens are exhausted.</li>
+<li>The last remaining operand on the stack is the answer.</li>
+</ul>
+
+<p>
+Let's look at an example here. Consider the expression
+</p>
+
+<pre class="example">
+Infix Notation: ((9 - 5) * 8 / 2) + (6 - 3) * 2 * 2
+Step 1:         (4 * 8 / 2 ) + (6 - 3) * 2 * 2
+Step 2:         (4 * 4) + (6 - 3) * 2 * 2
+Step 3:         16 + (6 - 3) * 2 * 2
+Step 4:         16 + 3 * 2 * 2
+Step 5:         16 + 6 * 2
+Step 6:         16 + 12
+Step 7:         28
+</pre>
+
+<p>
+Now, to solve the same expression in prefix notation, we use the algorighm and go over the expression from right to left:
+</p>
+
+<pre class="example">
+Prefix Notation: + / * - 9 5 8 2 * * - 6 3 2 2
+Step  1: 2                                 add     2   to stack Stack= 2
+Step  2: 2                                 add     2   to stack Stack= 2 2
+Step  3: 3                                 add     3   to stack Stack= 2 2 3
+Step  4: 6                                 add     6   to stack Stack= 2 2 3 6
+Step  5: - remove  6 and  3 from stack and add - 6 3   to stack Stack= 2 2 3
+Step  6: * remove  3 and  2 from stack and add * 3 2   to stack Stack= 2 6
+Step  7: * remove  6 and  2 from stack and add * 6 2   to stack Stack= 12
+Step  8: 2                                 add     2   to stack Stack= 12 2
+Step  9: 8                                 add     8   to stack Stack= 12 2 8
+Step 10: 5                                 add     5   to stack Stack= 12 2 8 5
+Step 11: 9                                 add     9   to stack Stack= 12 2 8 5 9
+Step 12: - remove  9 and  5 from stack and add - 9 5   to stack Stack= 12 2 8 4
+Step 13: * remove  8 and  4 from stack and add * 8 4   to stack Stack= 12 2 32
+Step 14: / remove 20 and  2 from stack and add / 20 2  to stack Stack= 12 16
+Step 15: + remove 12 and 16 from stack and add + 12 16 to stack Stack= 28
+</pre>
+
+<p>
+Looks like way more steps than the infix notation but in the infix, we have to go over the whole expression back and forth to find the operator with highest precedence to evaluate before the rest (based on the famous <b>BODMAS</b> rule which is not shown in the steps so add may be 10 more intermediate steps for that and another 100 steps to figure out where the bracket starts and ends). On the other hand, in the prefix notation; we go over the expression, one toke at a time, from right to left and only once. No more hidden steps. Easy peasy.
+</p>
+<div style="width:100%;height:0;padding-bottom:82%;position:relative;"><iframe src="https://giphy.com/embed/KWhzYRArxnE9U0ioHW" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/reaction-mood-KWhzYRArxnE9U0ioHW">via GIPHY</a></p>
+
+<p>
+There is still one small problem with this prefix notation. Say we want to extend the above expressoin and add <code>+ * 2 3 1</code> to it. In that case we have to prepend a <code>+</code> and append the expression <code>+ * 2 3 1</code> to the original expression. This results in adding tokens in both start and end of the expression (<code>+ + / * - 9 5 8 2 * * - 6 3 2 2 + * 2 3 1</code>). Now, the order of operation will look a little different and  the stack will look a little different. And you cannot stop in the middle, update the expression and continue. You have to either finish all the steps and then update the expression or update it first and re-do all the steps. Can we do better than this?
+</p>
+
+<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/GxBk3vZy86tKiENJQ4" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/helloall-happy-thanksgiving-happythanksgiving-family-GxBk3vZy86tKiENJQ4">via GIPHY</a></p> 
+</div>
+</section>
+
+<section id="outline-container-org15ecaad" class="outline-2">
+<h2 id="org15ecaad"><a href="#org15ecaad">The Postfix Notation</a></h2>
+<div class="outline-text-2" id="text-org15ecaad">
+<p>
+Also called as Reverse Polish Notation. It is just Polish notation but in reverse. As oppose to the prefix notation, in postfix we write the operator after the operands for example the infix expression <code>2 + 3</code> will become <code>2 3 +</code> in postfix. And our logical expression  <code>((old AND ben) OR (obi AND van) OR general) AND kenobi</code> in postfix will become <code>old ben AND obi van AND OR general OR kenobi AND</code>. Notice that in postfix expression
+</p>
+
+<ul class="org-ul">
+<li>Expression always starts witn an operand and ends with an operator.</li>
+<li>The operators are more concentrated towards the right side of expression.</li>
+<li>The operands are concentrated towards the left side of the expression.</li>
+<li>The order of evaluation of operators is from left to right.</li>
+</ul>
+
+<p>
+Left to right!!! Makes more sense now. We also read left to right (in most of the languages). The algorithm to evaluate postfix expression is very similar to that of prefix expression but in reverse order:
+</p>
+
+<ul class="org-ul">
+<li>Break the string expression in tokens and start from the left.</li>
+<li>The rest is same as before 😉</li>
+</ul>
+
+<p>
+Let us look at the same example of infix expression <code>((9 - 5) * 8 / 2) + (6 - 3) * 2 * 2</code> and solve it in postfix:
+</p>
+
+<pre class="example">
+Prefix Notation: 9 5 - 8 * 2 / 6 3 - 2 * 2 * +
+Step  1: 9                                 add     9   to stack Stack= 9       #Like step 11 
+Step  2: 5                                 add     5   to stack Stack= 9 5     #Like step 10
+Step  3: - remove  9 and  5 from stack and add - 9 5   to stack Stack= 4       #Like step 12
+Step  4: 8                                 add     8   to stack Stack= 4 8     #Like step 9
+Step  5: * remove  8 and  4 from stack and add * 8 4   to stack Stack= 32      #Like step 13
+Step  6: 2                                 add     2   to stack Stack= 32 2    #Like step 8
+Step  7: / remove 32 and  2 from stack and add / 32 2  to stack Stack= 16      #Like step 14
+Step  8: 6                                 add     6   to stack Stack= 16 6    #Like step 4
+Step  9: 3                                 add     3   to stack Stack= 16 6 3  #Like step 3
+Step 10: - remove  6 and  3 from stack and add - 6 3   to stack Stack= 16 3    #Like step 5
+Step 11: 2                                 add     2   to stack Stack= 16 3 2  #Like step 1
+Step 12: * remove  3 and  2 from stack and add * 3 2   to stack Stack= 16 6    #Like step 6
+Step 13: 2                                 add     2   to stack Stack= 16 6 2  #Like step 2
+Step 14: * remove  6 and  2 from stack and add * 6 2   to stack Stack= 16 12   #Like step 7
+Step 15: + remove 16 and 12 from stack and add + 16 12 to stack Stack= 28      #Like step 15
+</pre>
+
+<p>
+Very similar to prefix notation. Also, the steps are kind of similar to prefix steps but in different order and the stack looks a bit different. Now let's say that we already evaluated till step 14 and we want to add the expression <code>2 3 * 1 +</code> (i.e. <code>2*3 + 1</code> in infix), we just update the expression and continue our steps without having to restart:
+</p>
+
+<pre class="example">
+Prefix Notation: 9 5 - 8 * 2 / 6 3 - 2 * 2 * +
+Step 14: * remove  6 and  2 from stack and add * 6 2   to stack Stack= 16 12
+Updated Expression: 9 5 - 8 * 2 / 6 3 - 2 * 2 * + 2 3 * 1 + +
+Step 15: + remove 16 and 12 from stack and add + 16 12 to stack Stack= 28
+Step 16: 2                                 add     2   to stack Stack= 28 2
+Step 17: 3                                 add     3   to stack Stack= 28 2 3
+Step 18: * remove  2 and  3 from stack and add * 2 3   to stack Stack= 28 6
+Step 19: 1                                 add     1   to stack Stack= 28 6 1
+Step 20: + remove  6 and  1 from stack and add + 6 1   to stack Stack= 28 7
+Step 21: + remove 28 and  7 from stack and add + 28 7  to stack Stack= 35
+</pre>
+
+<p>
+That way, we can continue the evaluation steps even if the expression is updated (as long as the update happens after the current token). This is not possible in prefix notation as the expression most of the times gets updated from both ends. 
+</p>
+</div>
+</section>
+
+
+<section id="outline-container-orgbd44419" class="outline-2">
+<h2 id="orgbd44419"><a href="#orgbd44419">Partially Application of Operators aka Currying</a></h2>
+<div class="outline-text-2" id="text-orgbd44419">
+<p>
+There is one more benifit of Prefix and Postfix notation that we haven't talked about. The Prefix and postfix notation also allows <b>Currying</b>. Currying is a concept from functional programming that allows us to apply functions (in our case operators) partially and create new functions from it. Check this out: When using prefix notation, let me define <code>X = + 3</code>. I can say that <code>X</code> an operator that takes one operand and adds 3 to it i.e. <code>X 2 = + 3 2 = 5</code>. Here I can use <code>X</code> as a partially applied addition. In postfix it will be <code>X = 3 +</code> and <code>2 X = 2 3 + = 5</code>. It is not possible to do this in infix notation. As Łukasiewicz said, the prefix notation allows to write and prove theorems much more easily.
+</p>
+</div>
+</section>
+
+<section id="outline-container-org4d02cfb" class="outline-2">
+<h2 id="org4d02cfb"><a href="#org4d02cfb">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org4d02cfb">
+<p>
+So, there we have it. A different way of writing mathematical expressions that:
+</p>
+<ol class="org-ol">
+<li>Do not require brackets.</li>
+<li>Avoids repetation of tokens.</li>
+<li>Easy to implement parsing algorithm.</li>
+<li>Easy to adapt to modification of the expression.</li>
+<li>Allows partial application of operator or Currying</li>
+<li>And difficult to write and comprehend by humans. Wait. Noooooooo.</li>
+</ol>
+
+<p>
+Hooman brain has now adjusted to comprehend mathematical expressions with brackets and it is hard for us to adapt now to Postfix notation. That is the upside of using infix notation and brackets. Because most of the world uses it. And it will be difficult to switch everyone to the prefix or postfix. I cannot make users to write query in postfix notation. That will be very unintuitive. Specially for people without mathematics background. So, I will just let them write keywords separated by commas and spaces and let them think about the expanded form which might invlove long expression with a lot of repetation. But they might never need to&#x2026;
+</p>
+
+<p>
+I am thinking about what should I eat for dinner. The restaurant next to my house serves and and and burgers fries milkshakes not and salads sushi.
+</p>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<hr>
+<section>
+<script src="https://giscus.app/client.js" 
+  data-repo="ShriRambo/giscus-comments"
+  data-repo-id="R_kgDOG1mtrQ"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOG1mtrc4CBJNW" 
+  data-mapping="title" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top" 
+  data-theme="dark" 
+  data-lang="en" 
+  crossorigin="anonymous" 
+  async> </script>
+</section>
+<hr>
+<section>
+  <p style="text-align:center">
+Made with ❤️ and Emacs (Org-mode)
+</p>
+<div align=center>
+  <a href="#" class='link-icon'>
+    <i class="fa fa-home fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href="https://www.instagram.com/shrirambo/" class='link-icon'>
+    <i class="fa fa-instagram fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href="https://github.com/shrirambo" class='link-icon'>
+    <i class="fa fa-github fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='https://www.linkedin.com/in/shriram-ashirgade/' class='link-icon'>
+    <i class="fa fa-linkedin-square fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='https://social.vivaldi.net/@shrirambo'>
+    <i class="fa fa-mastodon fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='https://github.com/ShriRambo/sturdy-octo-winner/tree/master/content' class='link-icon'>
+    <i class="fa fa-code  fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='#content' class='link-icon'>
+    <i class="fa fa-hand-o-up  fa-lg" aria-hidden="true"></i>
+  </a>
+</div>
+</div>
+</footer>
+</body>
+</html>

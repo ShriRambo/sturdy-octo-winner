@@ -697,3 +697,6 @@ pre.src-conf:before { content: 'Configuration File'; }
     font-size: 1rem;
 }
 
+.underline {
+    text-decoration: underline
+}
