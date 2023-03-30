@@ -1,0 +1,179 @@
+#+TITLE: Polish and Reverse Polish Notation
+#+SUBTITLE: An Alternative Way of Writing Mathematical Expressions
+#+DATE: [2023-03-29 wo]
+#+AUTHOR: shrirambo
+#+DESCRIPTION: Polish and Reverse Polish notation uses prefix and postfix operator instead on usual infix operator making it easire to implement computer programs to parse and solve these mathematical expressions
+#+KEYWORDS: notation, polish notation, reverse polish notataion, postfix, prefix, infix, maths, mathematical, expressions
+#+OPTIONS: tex:t toc:nil
+------
+
+#+begin_quote
+"Mathematics is a language. Language is a tool. Like any other tool, it has limitations. But language is a tool for dealing with the world as it is. Mathematics is a tool for dealing with the world as it might be. The study of mathematics is not a pursuit of logic; it is a pursuit of language. The language of mathematics is the language of the universe itself."
+
+--Alfred North Whitehead
+#+end_quote
+
+Mathematics, or at least what we write on paper, is a language like english and german used to communicate ideas. This language is just a set of rules that we have aggreed upon, so that everyone is on same page when one say what is ~3 * 5 + 2 - 1~. The thing with the language is that multiple ones can co-exist with each one having some benefit over the other. Similar with the programming languages, each one has special use cases but in the core the logic is same. Just the way to write can be different. In the same way, there exist multiple different ways of writing mathematical expressions which, if you know the rules, expresses the same idea. More on that later. But let me first give some context on how I found out about these altrnate notation and how it solved (to some extent) the problem I had.
+
+* Context
+
+At work, I had to implement a feature for an app which will allow users to fetch documents from database based on provided parameters. One of the parameter was ~keywords~. I wanted the let user srerch documents with a specific keyword. Simple enough. User passes a value for parameter, say ~keywords= "hello"~ and the server will fetch all the documents with the word ~hello~ in it and return them.
+
+Then, somebody wanted to narrow the search by looking for multiple keywords in the document (of course, the parameter is named ~keywords~ and not ~keyword~; so that's fair). So, I let the user pass multiple keywords as a string like ~keywords= "hello there".~ This will return all the documents which has both words ~hello~ and ~there~.
+
+What if I want documents with one word in it and the other word not in it. Said the person with a purple top hat and a coy smile. To which I said, add an exclaimation mark in front of it you silly. Now, when one passes ~keywords= "hello !there",~ he will get all the documents with ~hello~ in it and ~there~ not in it.
+
+Another guy came to me asking if he can ask for multiple keywords and get all the documents with any of the keywords in it. He wanted to make his search more broad. That request also seemd fair. So, I let the user pass multiple keywords as a string, but this time separated by a comma, to convey that he is looking for keywords in logical disjunction i.e. if a user passes ~keywords= "hello, there~ , then he will get all the documents with either ~hello~ in it or ~there~ in it.
+
+Now, the basic parsing logic was: a space in the string will mean logical ~AND~, a comma in the string will represent logical ~OR,~ and an exclaimation mean logical ~NOT~. So when ~keywords= "hello there, general !kenobi"~ means ~hello AND there OR general AND NOT kenobi~. In logic, ~AND~ is like multiplication and ~OR~ is like addition, and ~NOT~ is like an operator. Therefore, the inambiguous expression will be ~(hello AND there) OR (general AND (NOT kenobi))~ __Replace each word with a boolean that the word is in the document, if the expression evaluates to ~True~ then that document will be returned.__
+
+(Me sighing while wiping sweat from my forehead) Everything anyone will ever need to create a query as complicated as on can, has been implemented. Or so I thought. With implicit precedence of ~NOT~ over ~AND~ orver ~OR~, I can only create queries with limited complexity. What if I wanted to make a query like ~((old AND ben) OR (obi AND van) OR general) AND kenobi~? One solution is expanding the expression and writing ~keywords= "obi van kenobi, old ben kenobi, general kenobi"~ which is an expanded version. But expanding nested complicated expression will lead to a very long string with a lot of repetation that the user has to type. It will still be easier to parse by the computer but the user has to expand and write it all out.
+
+Another solution could be introduce the brackets in the expression i.e. let user write the expression in nested brackets. Easy for user to write but complicated for computer to parse. 
+
+Can there be any better implementation which will make it easy for the user to write and easy for the computer to parse, and also pollibly without using brackets. Well...
+
+#+begin_export html
+<div style="width:100%;height:0;padding-bottom:76%;position:relative;"><iframe src="https://giphy.com/embed/l2JdXaF36UcSHpSx2" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/thesimpsons-l2JdXaF36UcSHpSx2">via GIPHY</a></p>
+#+end_export
+
+* The Prefix Notation
+
+Usually, for the common operators, we use infix notation i.e. the operator is surrounded by two oparands on which it is operating on. For example ~2 + 3~, here the operator + is in between 2 and 3 and it is trying to add these two numbers. In the prefix notation, we write the operator before the operands. So this will become ~+ 2 3.~ This also seems logical as in most of programming languages, we write function before the parameters (~add(2, 3~). And as long as the number of parameters/oparands is fixed, we do not need brackets. When reading from left to right, if the two elements after the operator + are numbers, then we add those two numbers e.g. ~+ 2 - 5 1~ becomes ~+ 2 4~ becomes ~6~. Note that here ~-~ is operator and not representing negative number ~-5~. So if there are enough number of operands for an operator, carry out the operation.
+
+#+begin_export html
+<div style="width:100%;height:0;padding-bottom:73%;position:relative;"><iframe src="https://giphy.com/embed/RLzkD9nLJ2vMYsTv0x" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/statechamps-state-champs-crying-out-loud-cryingoutloud-RLzkD9nLJ2vMYsTv0x">via GIPHY</a></p>
+#+end_export
+
+This Prefix Notation is also known as the Polish Notation, named after the nationality of Jan Łukasiewicz, the mathematician who invented it. Guess the country where he is from... In our use case, we can write ~obi AND kenobi~ in prefix notation as ~AND obi kenobi~ where ~AND~ is operator and ~obi kenobi~ ane operands. And we can write the expression ~((old AND ben) OR (obi AND van) OR general) AND kenobi~ in prefix notation as ~AND OR OR AND old ben AND obi van general kenobi~. We solved two problems with this infix notation. No more brackets and no repetation of expressions! 🥳 
+
+Here are some observation:
+
+- Expression always starts witn an operator and ends with an operand.
+- The operators are more concentrated towards the left side of expression.
+- The operands are concentrated towards the right side of the expression.
+- The oder of the operation is from right to left, i.e. the right most operator is evaluated first, then the next right most and then the next....
+
+This makes the implementation of a computer program to evaluate such expression quite simple. Neither you  need brakets nor you need a proirity of which operator gets precdence over the other. The parsing algorithm can be explained as follows:
+
++ Break the string expression in tokens and start from the right.
++ If the token is an operand, add it to the stack.
++ If the token is an operator and that operator needs N operands to work on, pop last N operands from the stack, apply the operation and put the result back on the stack.
++ Keep doing that until all of the tokens are exhausted.
++ The last remaining operand on the stack is the answer.
+
+Let's look at an example here. Consider the expression
+
+#+begin_example
+Infix Notation: ((9 - 5) * 8 / 2) + (6 - 3) * 2 * 2
+Step 1:         (4 * 8 / 2 ) + (6 - 3) * 2 * 2
+Step 2:         (4 * 4) + (6 - 3) * 2 * 2
+Step 3:         16 + (6 - 3) * 2 * 2
+Step 4:         16 + 3 * 2 * 2
+Step 5:         16 + 6 * 2
+Step 6:         16 + 12
+Step 7:         28
+#+end_example
+
+Now, to solve the same expression in prefix notation, we use the algorighm and go over the expression from right to left:
+
+#+begin_example
+Prefix Notation: + / * - 9 5 8 2 * * - 6 3 2 2
+Step  1: 2                                 add     2   to stack Stack= 2
+Step  2: 2                                 add     2   to stack Stack= 2 2
+Step  3: 3                                 add     3   to stack Stack= 2 2 3
+Step  4: 6                                 add     6   to stack Stack= 2 2 3 6
+Step  5: - remove  6 and  3 from stack and add - 6 3   to stack Stack= 2 2 3
+Step  6: * remove  3 and  2 from stack and add * 3 2   to stack Stack= 2 6
+Step  7: * remove  6 and  2 from stack and add * 6 2   to stack Stack= 12
+Step  8: 2                                 add     2   to stack Stack= 12 2
+Step  9: 8                                 add     8   to stack Stack= 12 2 8
+Step 10: 5                                 add     5   to stack Stack= 12 2 8 5
+Step 11: 9                                 add     9   to stack Stack= 12 2 8 5 9
+Step 12: - remove  9 and  5 from stack and add - 9 5   to stack Stack= 12 2 8 4
+Step 13: * remove  8 and  4 from stack and add * 8 4   to stack Stack= 12 2 32
+Step 14: / remove 20 and  2 from stack and add / 20 2  to stack Stack= 12 16
+Step 15: + remove 12 and 16 from stack and add + 12 16 to stack Stack= 28
+#+end_example
+
+Looks like way more steps than the infix notation but in the infix, we have to go over the whole expression back and forth to find the operator with highest precedence to evaluate before the rest (based on the famous *BODMAS* rule which is not shown in the steps so add may be 10 more intermediate steps for that and another 100 steps to figure out where the bracket starts and ends). On the other hand, in the prefix notation; we go over the expression, one toke at a time, from right to left and only once. No more hidden steps. Easy peasy.
+#+begin_export html
+<div style="width:100%;height:0;padding-bottom:82%;position:relative;"><iframe src="https://giphy.com/embed/KWhzYRArxnE9U0ioHW" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/reaction-mood-KWhzYRArxnE9U0ioHW">via GIPHY</a></p>
+#+end_export
+
+There is still one small problem with this prefix notation. Say we want to extend the above expressoin and add ~+ * 2 3 1~ to it. In that case we have to prepend a ~+~ and append the expression ~+ * 2 3 1~ to the original expression. This results in adding tokens in both start and end of the expression (~+ + / * - 9 5 8 2 * * - 6 3 2 2 + * 2 3 1~). Now, the order of operation will look a little different and  the stack will look a little different. And you cannot stop in the middle, update the expression and continue. You have to either finish all the steps and then update the expression or update it first and re-do all the steps. Can we do better than this?
+
+ #+begin_export html
+<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/GxBk3vZy86tKiENJQ4" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/helloall-happy-thanksgiving-happythanksgiving-family-GxBk3vZy86tKiENJQ4">via GIPHY</a></p> 
+#+end_export
+
+* The Postfix Notation
+
+Also called as Reverse Polish Notation. It is just Polish notation but in reverse. As oppose to the prefix notation, in postfix we write the operator after the operands for example the infix expression ~2 + 3~ will become ~2 3 +~ in postfix. And our logical expression  ~((old AND ben) OR (obi AND van) OR general) AND kenobi~ in postfix will become ~old ben AND obi van AND OR general OR kenobi AND~. Notice that in postfix expression
+
+- Expression always starts witn an operand and ends with an operator.
+- The operators are more concentrated towards the right side of expression.
+- The operands are concentrated towards the left side of the expression.
+- The order of evaluation of operators is from left to right.
+
+Left to right!!! Makes more sense now. We also read left to right (in most of the languages). The algorithm to evaluate postfix expression is very similar to that of prefix expression but in reverse order:
+
++ Break the string expression in tokens and start from the left.
++ The rest is same as before 😉
+
+Let us look at the same example of infix expression ~((9 - 5) * 8 / 2) + (6 - 3) * 2 * 2~ and solve it in postfix:
+
+#+begin_example
+Prefix Notation: 9 5 - 8 * 2 / 6 3 - 2 * 2 * +
+Step  1: 9                                 add     9   to stack Stack= 9       #Like step 11 
+Step  2: 5                                 add     5   to stack Stack= 9 5     #Like step 10
+Step  3: - remove  9 and  5 from stack and add - 9 5   to stack Stack= 4       #Like step 12
+Step  4: 8                                 add     8   to stack Stack= 4 8     #Like step 9
+Step  5: * remove  8 and  4 from stack and add * 8 4   to stack Stack= 32      #Like step 13
+Step  6: 2                                 add     2   to stack Stack= 32 2    #Like step 8
+Step  7: / remove 32 and  2 from stack and add / 32 2  to stack Stack= 16      #Like step 14
+Step  8: 6                                 add     6   to stack Stack= 16 6    #Like step 4
+Step  9: 3                                 add     3   to stack Stack= 16 6 3  #Like step 3
+Step 10: - remove  6 and  3 from stack and add - 6 3   to stack Stack= 16 3    #Like step 5
+Step 11: 2                                 add     2   to stack Stack= 16 3 2  #Like step 1
+Step 12: * remove  3 and  2 from stack and add * 3 2   to stack Stack= 16 6    #Like step 6
+Step 13: 2                                 add     2   to stack Stack= 16 6 2  #Like step 2
+Step 14: * remove  6 and  2 from stack and add * 6 2   to stack Stack= 16 12   #Like step 7
+Step 15: + remove 16 and 12 from stack and add + 16 12 to stack Stack= 28      #Like step 15
+#+end_example
+
+Very similar to prefix notation. Also, the steps are kind of similar to prefix steps but in different order and the stack looks a bit different. Now let's say that we already evaluated till step 14 and we want to add the expression ~2 3 * 1 +~ (i.e. ~2*3 + 1~ in infix), we just update the expression and continue our steps without having to restart:
+
+#+begin_example
+Prefix Notation: 9 5 - 8 * 2 / 6 3 - 2 * 2 * +
+Step 14: * remove  6 and  2 from stack and add * 6 2   to stack Stack= 16 12
+Updated Expression: 9 5 - 8 * 2 / 6 3 - 2 * 2 * + 2 3 * 1 + +
+Step 15: + remove 16 and 12 from stack and add + 16 12 to stack Stack= 28
+Step 16: 2                                 add     2   to stack Stack= 28 2
+Step 17: 3                                 add     3   to stack Stack= 28 2 3
+Step 18: * remove  2 and  3 from stack and add * 2 3   to stack Stack= 28 6
+Step 19: 1                                 add     1   to stack Stack= 28 6 1
+Step 20: + remove  6 and  1 from stack and add + 6 1   to stack Stack= 28 7
+Step 21: + remove 28 and  7 from stack and add + 28 7  to stack Stack= 35
+#+end_example
+
+That way, we can continue the evaluation steps even if the expression is updated (as long as the update happens after the current token). This is not possible in prefix notation as the expression most of the times gets updated from both ends. 
+
+
+* Partially Application of Operators aka Currying
+
+There is one more benifit of Prefix and Postfix notation that we haven't talked about. The Prefix and postfix notation also allows *Currying*. Currying is a concept from functional programming that allows us to apply functions (in our case operators) partially and create new functions from it. Check this out: When using prefix notation, let me define ~X = + 3~. I can say that ~X~ an operator that takes one operand and adds 3 to it i.e. ~X 2 = + 3 2 = 5~. Here I can use ~X~ as a partially applied addition. In postfix it will be ~X = 3 +~ and ~2 X = 2 3 + = 5~. It is not possible to do this in infix notation. As Łukasiewicz said, the prefix notation allows to write and prove theorems much more easily.
+
+* Conclusion
+
+So, there we have it. A different way of writing mathematical expressions that:
+1. Do not require brackets.
+2. Avoids repetation of tokens.
+3. Easy to implement parsing algorithm.
+4. Easy to adapt to modification of the expression.
+5. Allows partial application of operator or Currying
+6. And difficult to write and comprehend by humans. Wait. Noooooooo.
+
+Hooman brain has now adjusted to comprehend mathematical expressions with brackets and it is hard for us to adapt now to Postfix notation. That is the upside of using infix notation and brackets. Because most of the world uses it. And it will be difficult to switch everyone to the prefix or postfix. I cannot make users to write query in postfix notation. That will be very unintuitive. Specially for people without mathematics background. So, I will just let them write keywords separated by commas and spaces and let them think about the expanded form which might invlove long expression with a lot of repetation. But they might never need to...
+
+I am thinking about what should I eat for dinner. The restaurant next to my house serves and and and burgers fries milkshakes not and salads sushi.
