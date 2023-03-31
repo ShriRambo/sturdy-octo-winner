@@ -37,10 +37,10 @@ I thought I have covered all the bases, but as it turns out, I was wrong. With i
 
 I considered enabling users to write queries with brackets, as it is a familiar format and would make the queries more explicit. However, implementing a parser for this type of expression presents a significant challenge. The parser would need to analyze the query multiple times to determine which operations to evaluate first, making it difficult for the computer to parse. Although it would be easy for users to write queries in this format, as a self-proclaimed lazy person, I'm hesitant to undertake the task of writing such a complicated parser.
 
-However, there is a solution to this problem, and it comes in the form of prefix notation. Instead of writing expressions with brackets, prefix notation uses operators before the operands, eliminating the need for parentheses altogether. This may seem like a weird concept at first, but once you get the hang of it, prefix notation can simplify the queries and also make them easier to parse for computers. In the following sections, we will explore the prefix notation and how it can be used in conjunction with Polish and reverse Polish notation to create efficient mathematical expressions.
+However, there is a solution to this problem, and it comes in the form of prefix notation. Instead of writing expressions with brackets, prefix notation uses operators before the operands, eliminating the need for parentheses altogether. This may seem like a weird concept at first, but once you get the hang of it, prefix notation can simplify the queries and also make them easier to parse for computers. In the following sections, we will explore the prefix and postfix notation and how it can be used to create efficient mathematical expressions.
 
-#+begin_export html :noexport
-<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/f6z5TkrTIBZILYOd1t" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/NetflixisaJoke-netflix-iglesias-mr-f6z5TkrTIBZILYOd1t">via GIPHY</a></p>
+#+begin_export html
+<div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/OuePMznpbHyrw34608" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/RosannaPansino-ro-rosanna-pansino-OuePMznpbHyrw34608">via GIPHY</a></p>
 #+end_export
 
 * 👈🏻 The Prefix Notation
@@ -52,8 +52,8 @@ This Prefix Notation is also known as the Polish Notation, named after the natio
 
 When we read a prefix expression from left to right, we can apply the operator to the next two elements in the expression if they are operands. For example, the expression ~+ 2 - 5 1~ becomes ~+ 2 4~, which equals ~6~. It's important to note that the minus sign here is an operator and not representing a negative number.
 
-#+begin_export html :noexport
-<div style="width:100%;height:0;padding-bottom:73%;position:relative;"><iframe src="https://giphy.com/embed/RLzkD9nLJ2vMYsTv0x" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/statechamps-state-champs-crying-out-loud-cryingoutloud-RLzkD9nLJ2vMYsTv0x">via GIPHY</a></p>
+#+begin_export html 
+<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/zPbnEgxsPJOJSD3qfr" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/jk-maru-marujon-zPbnEgxsPJOJSD3qfr">via GIPHY</a></p>
 #+end_export
 
 In our case, we can transform the expression ~obi AND kenobi~ in prefix notation as ~AND obi kenobi~ where ~AND~ is the operator and ~obi~ and ~kenobi~ are the operands. Even better, we can take the expression ~((old AND ben) OR (obi AND van) OR general) AND kenobi~ and write it in prefix notation as ~AND OR OR AND old ben AND obi van general kenobi.~ That's right, we just solved two problems with infix notation: no more need for pesky parentheses and no more repeated expressions! Can I get a virtual high-five? 🙌🏼
@@ -99,15 +99,11 @@ Step 15: + pop 12 and 16 from stack and push + 12 16 to stack Stack= 28
 
 Simple as that. If we have to implement an algo for infix notation, we would have to go over the whole expression back and forth to find the operator with the highest precedence to evaluate before the rest (based on the famous *BODMAS* rule). It will be way more complicated to implement this using a memory stack. On the other hand, in the prefix notation; we go over the expression, one token at a time, from right to left and only once. No more hidden steps. Easy peasy.
 
-#+begin_export html :noexport
-<div style="width:100%;height:0;padding-bottom:82%;position:relative;"><iframe src="https://giphy.com/embed/KWhzYRArxnE9U0ioHW" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/reaction-mood-KWhzYRArxnE9U0ioHW">via GIPHY</a></p>
+#+begin_export html
+<div style="width:100%;height:0;padding-bottom:77%;position:relative;"><iframe src="https://giphy.com/embed/fWlesbav1qMk8" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/food-dairy-queen-dq-fWlesbav1qMk8">via GIPHY</a></p>
 #+end_export
 
-Now, assume that we want to extend the above expression and add ~+ * 2 3 1~ to it. In that case we can prepend a ~+ + * 2 3 1~ to the original expression resulting in ~+ + * 2 3 1 + / * - 9 5 8 2 * * - 6 3 2 2~. And as we are evaluating it from right to left, we do not have to restart the algo even if we update the expression in the middle. Let's talk about it in the next section.
-
- #+begin_export html :noexport
-<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/GxBk3vZy86tKiENJQ4" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/helloall-happy-thanksgiving-happythanksgiving-family-GxBk3vZy86tKiENJQ4">via GIPHY</a></p> 
-#+end_export
+Now, assume that we want to extend the above expression and add ~+ * 2 3 1~ to it. In that case we can prepend a ~+ + * 2 3 1~ to the original expression resulting in ~+ + * 2 3 1 + / * - 9 5 8 2 * * - 6 3 2 2~. And as we are evaluating it from right to left, we do not have to restart the algo even if we update the expression in the middle. We will see that in the next section, where we'll learn about *The Postfix Notation*.
 
 * 👉🏼 The Postfix Notation
 
@@ -118,7 +114,7 @@ Let me introduce the hippy cousin of Polish notation, the Reverse Polish Notatio
 - The operands are concentrated towards the left side of the expression.
 - The order of evaluation of operators is from left to right.
   
-Left to right!!! Makes more sense now. We also read left to right (in most languages). Exactly the reverse of prefix notation. There is a reason it is called Reverse Polish Notation. The algorithm to evaluate postfix expression is very similar to that of prefix expression, just in reverse order:
+Left to right!!! Makes more sense now. We also read left to right (in most languages). Exactly the reverse of prefix notation. There is a reason it is called Reverse Polish Notation. The algorithm to evaluate postfix expression is very similar to that of prefix expression, just  reverse the order:
 
 + Break the string expression in tokens and start from the left.
 + The rest is the same as before 😉
@@ -162,7 +158,7 @@ Step 21: + pop 28 and  7 from stack and push + 28 7  to stack Stack= 35
 That is the magic of prefixes and postfix notation. Super simple implementation algorithm that we can stop in the middle, update the expression and continue. But wait, there is still desert 😋.
 
 
-* 🍛 Partially Application of Operators a.k.a. Currying
+* 🍛 Partial Application of Operators a.k.a. Currying
 
 Did you know about the additional benefits the prefix and postfix notation have? They allow for /Currying./ Currying is a concept from functional programming that lets us apply functions (in our case operators) partially and create new functions from it. Here's an example: In prefix notation, let's define ~X = + 3~. This means that ~X~ is an operator that takes one operand and adds 3 to it. So  ~X 2~ would be equal to ~+ 3 2~ which is equal to 5. We can use ~X~ as a partially applied addition. In postfix notation, this would be written as ~X = 3 +~ and ~2 X~ would be ~2 3 +~ which is ~5~. Unfortunately, this isn't possible in infix notation. As Łukasiewicz said, prefix notation makes it easier to write and prove theorems! True that.
 
@@ -179,3 +175,4 @@ So, there we have it. A different way of writing mathematical expressions that:
 Our human brains have become so accustomed to using brackets in math expressions that it would be difficult to switch to prefix or postfix notations overnight. After all, the majority of the world uses infix notation, and it's what most people are comfortable with. It's intuitive and easier to understand, especially for those without a strong math background. So for my use case, instead of forcing users to adopt postfix or prefix notation, we can stick to the infix notation but without brackets. That way it will be easier for users to understand and write and simple for computers to parse. The only downside is that the user has to write a query in an expanded form. I guess that is okay. We cannot have our cake and eat it too.
 
 Speaking of eating, I'm trying to decide what to eat for dinner tonight. The restaurant next to my house serves and and and burgers fries milkshakes not and salads sushi 😉
+
