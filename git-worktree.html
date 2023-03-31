@@ -20,9 +20,9 @@
 <h1 class="title">Git Worktree</h1>
 <hr>
 
-<section id="outline-container-org757eba8" class="outline-2">
-<h2 id="org757eba8"><a href="#org757eba8">🐎 Motivation</a></h2>
-<div class="outline-text-2" id="text-org757eba8">
+<section id="outline-container-org0ee921a" class="outline-2">
+<h2 id="org0ee921a"><a href="#org0ee921a">🐎 Motivation</a></h2>
+<div class="outline-text-2" id="text-org0ee921a">
 <p>
 Most of the time when I am working a project, version controlled by git, I am working on a single branch. Implementing single feature or solving a single bug. But at times, I have to make a quick fix in another branch or just test the commit made by somebody else. Usually, if I have uncommitted changes in my current branch, I would use <a href="https://git-scm.com/docs/git-stash">git-stash</a>. I would first <code>git stash push</code>, do the magic I want to do, and then <code>git stash pop</code>. But this can be inefficient and still only allows me to work on a single branch at a time. And I am always scared of using it wrong and losing all the changes. 
 </p>
@@ -51,9 +51,9 @@ With <code>git-worktree</code>, I can open another branch for temporary work in 
 </div>
 </section>
 
-<section id="outline-container-orgb859684" class="outline-2">
-<h2 id="orgb859684"><a href="#orgb859684">🎯 Commands and Usage</a></h2>
-<div class="outline-text-2" id="text-orgb859684">
+<section id="outline-container-org2729fee" class="outline-2">
+<h2 id="org2729fee"><a href="#org2729fee">🎯 Commands and Usage</a></h2>
+<div class="outline-text-2" id="text-org2729fee">
 <p>
 Following is the list of commands (verbatim from <a href="https://git-scm.com/docs/git-worktree">git-scm.com</a>) related to <code>git-worktree</code>.
 </p>
@@ -75,9 +75,9 @@ The command <code>git worktree add ../develop</code> adds a worktreee at <code>.
 </p>
 </div>
 
-<div id="outline-container-org229ff65" class="outline-3">
-<h3 id="org229ff65"><a href="#org229ff65">Quick fix workflow</a></h3>
-<div class="outline-text-3" id="text-org229ff65">
+<div id="outline-container-orgf1d5e03" class="outline-3">
+<h3 id="orgf1d5e03"><a href="#orgf1d5e03">Quick fix workflow</a></h3>
+<div class="outline-text-3" id="text-orgf1d5e03">
 <p>
 To make a quick fix branch without having to stop working on the other branch.
 </p>
@@ -93,9 +93,9 @@ git worktree remove quickfix
 </div>
 </div>
 
-<div id="outline-container-orgbe54488" class="outline-3">
-<h3 id="orgbe54488"><a href="#orgbe54488">Throwaway worktree</a></h3>
-<div class="outline-text-3" id="text-orgbe54488">
+<div id="outline-container-orgc75b621" class="outline-3">
+<h3 id="orgc75b621"><a href="#orgc75b621">Throwaway worktree</a></h3>
+<div class="outline-text-3" id="text-orgc75b621">
 <p>
 To get a clean throwaway worktree, use the <code>--detach</code> flag. This worktree is not related to any branch and the changes cannot be committed anywhere. 
 </p>
@@ -111,9 +111,9 @@ git worktree remove throwaway
 </div>
 </section>
 
-<section id="outline-container-org63c3b69" class="outline-2">
-<h2 id="org63c3b69"><a href="#org63c3b69">Conclusion</a></h2>
-<div class="outline-text-2" id="text-org63c3b69">
+<section id="outline-container-org0abb407" class="outline-2">
+<h2 id="org0abb407"><a href="#org0abb407">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org0abb407">
 <p>
 <code>Git-worktree</code> is definitely a cool feature of git and can be integrated in the work-flow nicely. Specially for some use cases. Does this mean that <code>git-stash</code> is redundant? May be not. In some cases, <code>git-stash</code> can also be useful.
 </p>

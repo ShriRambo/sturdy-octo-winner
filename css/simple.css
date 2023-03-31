@@ -70,7 +70,7 @@ body>* {
 body > header {
     background: var(--accent-bg);
     color: var(--code);
-    font-size: min(1.75rem, 6vw);
+    font-size: min(1.75rem, 5vw);
     font-family: var(--mono-font);
     text-align: center;
     border-bottom: 10px solid var(--border);
