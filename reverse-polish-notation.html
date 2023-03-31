@@ -50,9 +50,9 @@ And that's where things get really interesting. There are actually multiple ways
 Before we get into different mathematical notations, let me tell you a story about how I discovered these alternative notations and how they helped me solve a problem I was having. 
 </p>
 
-<section id="outline-container-orgc08272c" class="outline-2">
-<h2 id="orgc08272c"><a href="#orgc08272c">🔎 The Problem of Keyword Search</a></h2>
-<div class="outline-text-2" id="text-orgc08272c">
+<section id="outline-container-orgc61b939" class="outline-2">
+<h2 id="orgc61b939"><a href="#orgc61b939">🔎 The Problem of Keyword Search</a></h2>
+<div class="outline-text-2" id="text-orgc61b939">
 <p>
 I was working on a project where I needed to implement a new feature for an app. The feature would allow users to fetch documents from a database based on provided parameters. One of these parameters was the search <code>keywords.</code> It seemed simple enough at first - users would pass a value for the parameter, like <code>keywords= "hello"</code>, and the server would fetch all the documents with the word "hello" in them.
 </p>
@@ -82,14 +82,16 @@ I considered enabling users to write queries with brackets, as it is a familiar 
 </p>
 
 <p>
-However, there is a solution to this problem, and it comes in the form of prefix notation. Instead of writing expressions with brackets, prefix notation uses operators before the operands, eliminating the need for parentheses altogether. This may seem like a weird concept at first, but once you get the hang of it, prefix notation can simplify the queries and also make them easier to parse for computers. In the following sections, we will explore the prefix notation and how it can be used in conjunction with Polish and reverse Polish notation to create efficient mathematical expressions.
+However, there is a solution to this problem, and it comes in the form of prefix notation. Instead of writing expressions with brackets, prefix notation uses operators before the operands, eliminating the need for parentheses altogether. This may seem like a weird concept at first, but once you get the hang of it, prefix notation can simplify the queries and also make them easier to parse for computers. In the following sections, we will explore the prefix and postfix notation and how it can be used to create efficient mathematical expressions.
 </p>
+
+<div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/OuePMznpbHyrw34608" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/RosannaPansino-ro-rosanna-pansino-OuePMznpbHyrw34608">via GIPHY</a></p>
 </div>
 </section>
 
-<section id="outline-container-orgbbef369" class="outline-2">
-<h2 id="orgbbef369"><a href="#orgbbef369">👈🏻 The Prefix Notation</a></h2>
-<div class="outline-text-2" id="text-orgbbef369">
+<section id="outline-container-org720fbde" class="outline-2">
+<h2 id="org720fbde"><a href="#org720fbde">👈🏻 The Prefix Notation</a></h2>
+<div class="outline-text-2" id="text-org720fbde">
 <p>
 Normally, for common operators like "+ - / *", we use infix notation meaning the operator is placed between two operands. For example <code>2 + 3</code>, here the plus sign is in between 2 and 3. But in the prefix notation, the operator comes before the operands. So the same expression will be written as  <code>+ 2 3.</code> This might seem strange at first, but think about how we write functions in most programming languages: we put the function name before the parameters. Like <code>add(2,3)</code>. And as long as the number of parameters is fixed, we don't need to use brackets.
 </p>
@@ -101,6 +103,8 @@ This Prefix Notation is also known as the Polish Notation, named after the natio
 <p>
 When we read a prefix expression from left to right, we can apply the operator to the next two elements in the expression if they are operands. For example, the expression <code>+ 2 - 5 1</code> becomes <code>+ 2 4</code>, which equals <code>6</code>. It's important to note that the minus sign here is an operator and not representing a negative number.
 </p>
+
+<div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/zPbnEgxsPJOJSD3qfr" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/jk-maru-marujon-zPbnEgxsPJOJSD3qfr">via GIPHY</a></p>
 
 <p>
 In our case, we can transform the expression <code>obi AND kenobi</code> in prefix notation as <code>AND obi kenobi</code> where <code>AND</code> is the operator and <code>obi</code> and <code>kenobi</code> are the operands. Even better, we can take the expression <code>((old AND ben) OR (obi AND van) OR general) AND kenobi</code> and write it in prefix notation as <code>AND OR OR AND old ben AND obi van general kenobi.</code> That's right, we just solved two problems with infix notation: no more need for pesky parentheses and no more repeated expressions! Can I get a virtual high-five? 🙌🏼
@@ -161,15 +165,17 @@ Step 15: + pop 12 and 16 from stack and push + 12 16 to stack Stack= 28
 Simple as that. If we have to implement an algo for infix notation, we would have to go over the whole expression back and forth to find the operator with the highest precedence to evaluate before the rest (based on the famous <b>BODMAS</b> rule). It will be way more complicated to implement this using a memory stack. On the other hand, in the prefix notation; we go over the expression, one token at a time, from right to left and only once. No more hidden steps. Easy peasy.
 </p>
 
+<div style="width:100%;height:0;padding-bottom:77%;position:relative;"><iframe src="https://giphy.com/embed/fWlesbav1qMk8" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/food-dairy-queen-dq-fWlesbav1qMk8">via GIPHY</a></p>
+
 <p>
-Now, assume that we want to extend the above expression and add <code>+ * 2 3 1</code> to it. In that case we can prepend a <code>+ + * 2 3 1</code> to the original expression resulting in <code>+ + * 2 3 1 + / * - 9 5 8 2 * * - 6 3 2 2</code>. And as we are evaluating it from right to left, we do not have to restart the algo even if we update the expression in the middle. Let's talk about it in the next section.
+Now, assume that we want to extend the above expression and add <code>+ * 2 3 1</code> to it. In that case we can prepend a <code>+ + * 2 3 1</code> to the original expression resulting in <code>+ + * 2 3 1 + / * - 9 5 8 2 * * - 6 3 2 2</code>. And as we are evaluating it from right to left, we do not have to restart the algo even if we update the expression in the middle. We will see that in the next section, where we'll learn about <b>The Postfix Notation</b>.
 </p>
 </div>
 </section>
 
-<section id="outline-container-org69a608a" class="outline-2">
-<h2 id="org69a608a"><a href="#org69a608a">👉🏼 The Postfix Notation</a></h2>
-<div class="outline-text-2" id="text-org69a608a">
+<section id="outline-container-orgc24bede" class="outline-2">
+<h2 id="orgc24bede"><a href="#orgc24bede">👉🏼 The Postfix Notation</a></h2>
+<div class="outline-text-2" id="text-orgc24bede">
 <p>
 Let me introduce the hippy cousin of Polish notation, the Reverse Polish Notation. It is just Polish notation but in reverse. As opposed to the prefix notation, in postfix, we write the operator after the operands for example the infix expression <code>2 + 3</code> will become <code>2 3 +</code> in postfix. And our logical expression  <code>((old AND ben) OR (obi AND van) OR general) AND kenobi</code> in postfix will become <code>old ben AND obi van AND OR general OR kenobi AND</code>. Notice that in the postfix expression
 </p>
@@ -182,7 +188,7 @@ Let me introduce the hippy cousin of Polish notation, the Reverse Polish Notatio
 </ul>
 
 <p>
-Left to right!!! Makes more sense now. We also read left to right (in most languages). Exactly the reverse of prefix notation. There is a reason it is called Reverse Polish Notation. The algorithm to evaluate postfix expression is very similar to that of prefix expression, just in reverse order:
+Left to right!!! Makes more sense now. We also read left to right (in most languages). Exactly the reverse of prefix notation. There is a reason it is called Reverse Polish Notation. The algorithm to evaluate postfix expression is very similar to that of prefix expression, just  reverse the order:
 </p>
 
 <ul class="org-ul">
@@ -237,18 +243,18 @@ That is the magic of prefixes and postfix notation. Super simple implementation 
 </section>
 
 
-<section id="outline-container-orga7f4ec7" class="outline-2">
-<h2 id="orga7f4ec7"><a href="#orga7f4ec7">🍛 Partially Application of Operators a.k.a. Currying</a></h2>
-<div class="outline-text-2" id="text-orga7f4ec7">
+<section id="outline-container-org6dc4cf2" class="outline-2">
+<h2 id="org6dc4cf2"><a href="#org6dc4cf2">🍛 Partial Application of Operators a.k.a. Currying</a></h2>
+<div class="outline-text-2" id="text-org6dc4cf2">
 <p>
 Did you know about the additional benefits the prefix and postfix notation have? They allow for <i>Currying.</i> Currying is a concept from functional programming that lets us apply functions (in our case operators) partially and create new functions from it. Here's an example: In prefix notation, let's define <code>X = + 3</code>. This means that <code>X</code> is an operator that takes one operand and adds 3 to it. So  <code>X 2</code> would be equal to <code>+ 3 2</code> which is equal to 5. We can use <code>X</code> as a partially applied addition. In postfix notation, this would be written as <code>X = 3 +</code> and <code>2 X</code> would be <code>2 3 +</code> which is <code>5</code>. Unfortunately, this isn't possible in infix notation. As Łukasiewicz said, prefix notation makes it easier to write and prove theorems! True that.
 </p>
 </div>
 </section>
 
-<section id="outline-container-org33383da" class="outline-2">
-<h2 id="org33383da"><a href="#org33383da">🥂 Conclusion</a></h2>
-<div class="outline-text-2" id="text-org33383da">
+<section id="outline-container-org70bc607" class="outline-2">
+<h2 id="org70bc607"><a href="#org70bc607">🥂 Conclusion</a></h2>
+<div class="outline-text-2" id="text-org70bc607">
 <p>
 So, there we have it. A different way of writing mathematical expressions that:
 </p>
