@@ -50,9 +50,9 @@ And that's where things get really interesting. There are actually multiple ways
 Before we get into different mathematical notations, let me tell you a story about how I discovered these alternative notations and how they helped me solve a problem I was having. 
 </p>
 
-<section id="outline-container-orgc61b939" class="outline-2">
-<h2 id="orgc61b939"><a href="#orgc61b939">🔎 The Problem of Keyword Search</a></h2>
-<div class="outline-text-2" id="text-orgc61b939">
+<section id="outline-container-org3e9a76d" class="outline-2">
+<h2 id="org3e9a76d"><a href="#org3e9a76d">🔎 The Problem of Keyword Search</a></h2>
+<div class="outline-text-2" id="text-org3e9a76d">
 <p>
 I was working on a project where I needed to implement a new feature for an app. The feature would allow users to fetch documents from a database based on provided parameters. One of these parameters was the search <code>keywords.</code> It seemed simple enough at first - users would pass a value for the parameter, like <code>keywords= "hello"</code>, and the server would fetch all the documents with the word "hello" in them.
 </p>
@@ -89,9 +89,9 @@ However, there is a solution to this problem, and it comes in the form of prefix
 </div>
 </section>
 
-<section id="outline-container-org720fbde" class="outline-2">
-<h2 id="org720fbde"><a href="#org720fbde">👈🏻 The Prefix Notation</a></h2>
-<div class="outline-text-2" id="text-org720fbde">
+<section id="outline-container-org41c4d01" class="outline-2">
+<h2 id="org41c4d01"><a href="#org41c4d01">👈🏻 The Prefix Notation</a></h2>
+<div class="outline-text-2" id="text-org41c4d01">
 <p>
 Normally, for common operators like "+ - / *", we use infix notation meaning the operator is placed between two operands. For example <code>2 + 3</code>, here the plus sign is in between 2 and 3. But in the prefix notation, the operator comes before the operands. So the same expression will be written as  <code>+ 2 3.</code> This might seem strange at first, but think about how we write functions in most programming languages: we put the function name before the parameters. Like <code>add(2,3)</code>. And as long as the number of parameters is fixed, we don't need to use brackets.
 </p>
@@ -102,6 +102,10 @@ This Prefix Notation is also known as the Polish Notation, named after the natio
 
 <p>
 When we read a prefix expression from left to right, we can apply the operator to the next two elements in the expression if they are operands. For example, the expression <code>+ 2 - 5 1</code> becomes <code>+ 2 4</code>, which equals <code>6</code>. It's important to note that the minus sign here is an operator and not representing a negative number.
+</p>
+
+<p>
+It is important to note that for the non-commutative operators, the order of oparands matters in prefix notation. For example in  <code>- 6 3</code>, 3 is subtracted from 6 and <code>/ 10 5</code> 10 is divided by 5.
 </p>
 
 <div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/zPbnEgxsPJOJSD3qfr" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/jk-maru-marujon-zPbnEgxsPJOJSD3qfr">via GIPHY</a></p>
@@ -131,7 +135,7 @@ This makes the implementation of a computer program to evaluate such expressions
 <li>If the token is an operator and that operator needs N operands to work on then:
 <ul class="org-ul">
 <li>Pop the last N operands from the stack.</li>
-<li>Apply the operation</li>
+<li>Apply the operation by maintaining the order of the operands.</li>
 <li>Push the result back on the stack.</li>
 </ul></li>
 <li>Repeat until all of the tokens are used up.</li>
@@ -139,7 +143,7 @@ This makes the implementation of a computer program to evaluate such expressions
 </ul>
 
 <p>
-Simple as that. Let's look at an example here. Consider the expression in infix notattion <code>((9 - 5) * 8 / 2) + (6 - 3) * 2 * 2,</code> which evaluates to 28. We can solve this in prefix notation, using the above algorithm, as follows:
+Simple as that. To make sure that the operands are in correct order, start with the operator and write the popped elements from left to right. Let's look at an example here. Consider the expression in infix notattion <code>((9 - 5) * 8 / 2) + (6 - 3) * 2 * 2,</code> which evaluates to 28. We can solve this in prefix notation, using the above algorithm, as follows:
 </p>
 
 <pre class="example">
@@ -148,7 +152,7 @@ Step  1: 2                              push     2   to stack Stack= 2
 Step  2: 2                              push     2   to stack Stack= 2 2
 Step  3: 3                              push     3   to stack Stack= 2 2 3
 Step  4: 6                              push     6   to stack Stack= 2 2 3 6
-Step  5: - pop  6 and  3 from stack and push - 6 3   to stack Stack= 2 2 3
+Step  5: - pop  6 and  3 from stack and push - 6 3   to stack Stack= 2 2 3    # Note the order of poped tokens
 Step  6: * pop  3 and  2 from stack and push * 3 2   to stack Stack= 2 6
 Step  7: * pop  6 and  2 from stack and push * 6 2   to stack Stack= 12
 Step  8: 2                              push     2   to stack Stack= 12 2
@@ -156,8 +160,8 @@ Step  9: 8                              push     8   to stack Stack= 12 2 8
 Step 10: 5                              push     5   to stack Stack= 12 2 8 5
 Step 11: 9                              push     9   to stack Stack= 12 2 8 5 9
 Step 12: - pop  9 and  5 from stack and push - 9 5   to stack Stack= 12 2 8 4
-Step 13: * pop  8 and  4 from the stack and push * 8 4   to stack Stack= 12 2 32
-Step 14: / pop 20 and  2 from the stack and push / 20 2  to stack Stack= 12 16
+Step 13: * pop  8 and  4 from the stack push * 8 4   to stack Stack= 12 2 32
+Step 14: / pop 20 and  2 from the stack push / 32 2  to stack Stack= 12 16
 Step 15: + pop 12 and 16 from stack and push + 12 16 to stack Stack= 28
 </pre>
 
@@ -173,9 +177,9 @@ Now, assume that we want to extend the above expression and add <code>+ * 2 3 1<
 </div>
 </section>
 
-<section id="outline-container-orgc24bede" class="outline-2">
-<h2 id="orgc24bede"><a href="#orgc24bede">👉🏼 The Postfix Notation</a></h2>
-<div class="outline-text-2" id="text-orgc24bede">
+<section id="outline-container-orgbf17c07" class="outline-2">
+<h2 id="orgbf17c07"><a href="#orgbf17c07">👉🏼 The Postfix Notation</a></h2>
+<div class="outline-text-2" id="text-orgbf17c07">
 <p>
 Let me introduce the hippy cousin of Polish notation, the Reverse Polish Notation. It is just Polish notation but in reverse. As opposed to the prefix notation, in postfix, we write the operator after the operands for example the infix expression <code>2 + 3</code> will become <code>2 3 +</code> in postfix. And our logical expression  <code>((old AND ben) OR (obi AND van) OR general) AND kenobi</code> in postfix will become <code>old ben AND obi van AND OR general OR kenobi AND</code>. Notice that in the postfix expression
 </p>
@@ -197,26 +201,26 @@ Left to right!!! Makes more sense now. We also read left to right (in most langu
 </ul>
 
 <p>
-Let us look at the same example of infix expression <code>((9 - 5) * 8 / 2) + (6 - 3) * 2 * 2</code> and solve it in postfix:
+Here also, the order of operands matter when using non-commutative operators. When popping tokens from stack, write the operator first and go right to left with operands. That way you make sure the order is correct. Let us look at the same example of infix expression <code>((9 - 5) * 8 / 2) + (6 - 3) * 2 * 2</code> and solve it in postfix:
 </p>
 
 <pre class="example">
 Prefix Notation: 9 5 - 8 * 2 / 6 3 - 2 * 2 * +
 Step  1: 9                              push     9   to stack Stack= 9       #Like step 11 
 Step  2: 5                              push     5   to stack Stack= 9 5     #Like step 10
-Step  3: - pop  9 and  5 from stack and push - 9 5   to stack Stack= 4       #Like step 12
+Step  3: - pop  9 and  5 from stack and push 9 5 -   to stack Stack= 4       #Like step 12  # Note the order of poped tokens
 Step  4: 8                              push     8   to stack Stack= 4 8     #Like step 9
-Step  5: * pop  8 and  4 from stack and push * 8 4   to stack Stack= 32      #Like step 13
+Step  5: * pop  8 and  4 from stack and push 8 4 *   to stack Stack= 32      #Like step 13
 Step  6: 2                              push     2   to stack Stack= 32 2    #Like step 8
-Step  7: / pop 32 and  2 from stack and push / 32 2  to stack Stack= 16      #Like step 14
+Step  7: / pop 32 and  2 from stack and push 32 2 /  to stack Stack= 16      #Like step 14
 Step  8: 6                              push     6   to stack Stack= 16 6    #Like step 4
 Step  9: 3                              push     3   to stack Stack= 16 6 3  #Like step 3
-Step 10: - pop  6 and  3 from stack and push - 6 3   to stack Stack= 16 3    #Like step 5
+Step 10: - pop  6 and  3 from stack and push 6 3 -   to stack Stack= 16 3    #Like step 5
 Step 11: 2                              push     2   to stack Stack= 16 3 2  #Like step 1
-Step 12: * pop  3 and  2 from stack and push * 3 2   to stack Stack= 16 6    #Like step 6
+Step 12: * pop  3 and  2 from stack and push 3 2 *   to stack Stack= 16 6    #Like step 6
 Step 13: 2                              push     2   to stack Stack= 16 6 2  #Like step 2
-Step 14: * pop  6 and  2 from stack and push * 6 2   to stack Stack= 16 12   #Like step 7
-Step 15: + pop 16 and 12 from stack and push + 16 12 to stack Stack= 28      #Like step 15
+Step 14: * pop  6 and  2 from stack and push 6 2 *   to stack Stack= 16 12   #Like step 7
+Step 15: + pop 16 and 12 from stack and push 16 12 + to stack Stack= 28      #Like step 15
 </pre>
 
 <p>
@@ -243,18 +247,18 @@ That is the magic of prefixes and postfix notation. Super simple implementation 
 </section>
 
 
-<section id="outline-container-org6dc4cf2" class="outline-2">
-<h2 id="org6dc4cf2"><a href="#org6dc4cf2">🍛 Partial Application of Operators a.k.a. Currying</a></h2>
-<div class="outline-text-2" id="text-org6dc4cf2">
+<section id="outline-container-orga29c0b9" class="outline-2">
+<h2 id="orga29c0b9"><a href="#orga29c0b9">🍛 Partial Application of Operators a.k.a. Currying</a></h2>
+<div class="outline-text-2" id="text-orga29c0b9">
 <p>
 Did you know about the additional benefits the prefix and postfix notation have? They allow for <i>Currying.</i> Currying is a concept from functional programming that lets us apply functions (in our case operators) partially and create new functions from it. Here's an example: In prefix notation, let's define <code>X = + 3</code>. This means that <code>X</code> is an operator that takes one operand and adds 3 to it. So  <code>X 2</code> would be equal to <code>+ 3 2</code> which is equal to 5. We can use <code>X</code> as a partially applied addition. In postfix notation, this would be written as <code>X = 3 +</code> and <code>2 X</code> would be <code>2 3 +</code> which is <code>5</code>. Unfortunately, this isn't possible in infix notation. As Łukasiewicz said, prefix notation makes it easier to write and prove theorems! True that.
 </p>
 </div>
 </section>
 
-<section id="outline-container-org70bc607" class="outline-2">
-<h2 id="org70bc607"><a href="#org70bc607">🥂 Conclusion</a></h2>
-<div class="outline-text-2" id="text-org70bc607">
+<section id="outline-container-org11ab631" class="outline-2">
+<h2 id="org11ab631"><a href="#org11ab631">🥂 Conclusion</a></h2>
+<div class="outline-text-2" id="text-org11ab631">
 <p>
 So, there we have it. A different way of writing mathematical expressions that:
 </p>
