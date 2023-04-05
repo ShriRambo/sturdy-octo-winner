@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One Coin To Rule Them All</title>
+<meta name="generator" content="Org mode">
+<meta name="description" content="A single coin can be used can be used to sample random numbers from any distribution. This blog explains how."
+>
+<meta name="keywords" content="coin toss, randomness, random number generator, rng,">
+<link rel='stylesheet' href='./css/code.css' />
+<link rel='stylesheet' href='./css/simple.css' />
+<link rel='shortcut icon' href='./img/favicon.ico' type='image/x-icon' />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css' integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=' crossorigin='anonymous'>
+</head>
+<body>
+<header id="top" class="status">
+<a href="./index.html">shrirambo</a>.<a href="https://github.com/shrirambo">github</a>.<a href="">io</a>/<a href="./index.html">home</a>/<a href="./index.html">blog</a>
+</header>
+<main id="content">
+<h1 class="title">One Coin To Rule Them All
+<br>
+<span class="subtitle">How We Can Sample Random Numbers From Any Distribution With a Bunch of Coin Toss and a Lot of Patient</span>
+</h1>
+<hr>
+
+<p>
+What is a random number? Well, it's definitely not 17. According to MIT, 17 is actually the "least random" number<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>. In fact, in a study where participants were asked to choose a random number between 1 and 20, the most common answer was 17. So which number is random? Is it 0.5348? Or 5973? The number <b><span id='randint1'>0</span></b> looks quite random. But wait, it's not "a number". It is a sequence of numbers. A sequence without any pattern. Then I guess the lack of pattern in a series of numbers makes them random.
+</p>
+<script type="text/javascript">
+setInterval( function () {
+    document.getElementById('randint1').innerText
+	= Math.ceil(Math.random()*6)
+    }, 100)
+</script>
+
+<p>
+But how do we know if a sequence is truly random? Well, we need to look at a lot of numbers - like, a lot. In fact, we'd need an infinite number of them to really be sure. And to generate that many numbers, we need a process. That process, like rolling a die or flipping a coin, is what makes the numbers truly random.
+</p>
+
+<p>
+For instance, think about the number 5. It's a nice number. Very friendly. If I told you that I got the number by counting the fingers of my left hand to arrive at 5, you'd probably say it's not a random number. After all, the process is very deterministic - it will always result in 5. But if I told you that I got the number by rolling a die, then you'd consider that a random number. Rolling of a die 🎲 is a truly random process, because the sequence of numbers it generates doesn't follow any pattern. While counting fingers 🖐🏽 is not a random process, as there is a clear pattern here.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
+</p>
+
+<p>
+So, it is not the number that is random - it's the process that generated it. Like a roll of a die, toss of a coin, collapse of a wave function etc. And if we have access to such random processes, we can generate an infinite sequence of random numbers. And with the help of some mathematical magic wand, we can transform the sequence to follow any probability distribution. How cool is that? 
+</p>
+
+<p>
+In case, if you are curious how the ever changing sequence is generated in the first paragraph, here's the secret:
+</p>
+<div class="org-src-container">
+<pre class="src src-js" id="orga6b79c1">setInterval<span class="org-rainbow-delimiters-depth-1">(</span> <span class="org-keyword">function</span> <span class="org-rainbow-delimiters-depth-2">()</span> <span class="org-rainbow-delimiters-depth-2">{</span>
+    document.getElementById<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">'randint1'</span><span class="org-rainbow-delimiters-depth-3">)</span>.innerText
+        = Math.ceil<span class="org-rainbow-delimiters-depth-3">(</span>Math.random<span class="org-rainbow-delimiters-depth-4">()</span>*6<span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-2">}</span>, 100<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+The <code>Math.random</code> method of javascript generates a pseudo random number sequence, not a real one. But don't tell that to anyone 😉 In the following sections we'll see how we can use a coin toss as a random process to generate sequence from any probability distribution.
+</p>
+<section id="outline-container-org0cf7ec6" class="outline-2">
+<h2 id="org0cf7ec6"><a href="#org0cf7ec6">🪙 A Toss of a Coin</a></h2>
+<div class="outline-text-2" id="text-org0cf7ec6">
+<p>
+A toss of a coin is actually not a random process. If we know the exact initial position of the coin and the exact amount, location, direction of force applied to it for the toss, we can determine the outcome. But for the sake of this post, let's say it is.
+</p>
+
+<p>
+We will use this beautiful function to generate a random sequence of heads and tails:
+</p>
+<div class="org-src-container">
+<pre class="src src-js" id="orgc10ce29"><span class="org-keyword">const</span> <span class="org-variable-name">flipN</span> = n =&gt; Array.from<span class="org-rainbow-delimiters-depth-1">(</span>
+    <span class="org-rainbow-delimiters-depth-2">{</span>length: n<span class="org-rainbow-delimiters-depth-2">}</span>,
+    <span class="org-rainbow-delimiters-depth-2">()</span> =&gt; Math.random<span class="org-rainbow-delimiters-depth-2">()</span> &lt; 0.5 ? <span class="org-string">"H"</span> : <span class="org-string">"T"</span><span class="org-rainbow-delimiters-depth-1">)</span>;
+</pre>
+</div>
+<script type="text/javascript">
+const flipN = n => Array.from(
+    {length: n},
+    () => Math.random() < 0.5 ? "H" : "T");
+</script>
+
+<span>
+<label for="nr-flips"># Coins:</label>
+<input type="number" id="nr-flips" name="nr-flips" min="1" max="2048" value=5>
+<button onclick="flipCoins()">Flip Coins</button>
+</span>
+
+<script type="text/javascript">
+function flipCoins(){
+    let n = parseInt(
+	document.getElementById('nr-flips').value)
+
+    let seq = flipN(n)
+    document.getElementById('toss-result')
+	.children[1]
+	.children[0]
+	.children[1].innerText = seq.join('')
+
+    let binseq = seq.map(function (i) { return i == 'H' ? 1 : 0 })
+    document.getElementById('toss-result')
+	.children[1]
+	.children[1]
+	.children[1].innerText = '0.'+binseq.join('')
+
+    document.getElementById('toss-result')
+	.children[1]
+	.children[2]
+	.children[1].innerText = binseq.reduce( (a, c, i) => c ? a + 1/(2**(i+1)) : a , 0 )
+
+    document.getElementById('toss-result')
+	.children[1]
+	.children[3]
+	.children[1].innerText = 1 / (2**n)
+
+       document.getElementById('toss-result')
+	.children[1]
+	.children[4]
+	.children[1].innerText = 2**(n)
+}
+</script>
+
+<table id="toss-result">
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-right">
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Sequence</td>
+<td class="org-right">HHTHH</td>
+</tr>
+
+<tr>
+<td class="org-left">Binary float</td>
+<td class="org-right">0.11011</td>
+</tr>
+
+<tr>
+<td class="org-left">Decimal float</td>
+<td class="org-right">0.84375</td>
+</tr>
+
+<tr>
+<td class="org-left">Step size</td>
+<td class="org-right">0.03125</td>
+</tr>
+
+<tr>
+<td class="org-left"># Outcomes</td>
+<td class="org-right">32</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+
+<section id="outline-container-orga7a9645" class="outline-2">
+<h2 id="orga7a9645"><a href="#orga7a9645">Discrete Random Process</a></h2>
+</section>
+
+<section id="outline-container-org1bd1af9" class="outline-2">
+<h2 id="org1bd1af9"><a href="#org1bd1af9">Continuous Random Process</a></h2>
+</section>
+
+<section id="outline-container-org7b681b8" class="outline-2">
+<h2 id="org7b681b8"><a href="#org7b681b8">Multidimentional Distribution</a></h2>
+</section>
+
+<section id="outline-container-org4cb50d8" class="outline-2">
+<h2 id="org4cb50d8"><a href="#org4cb50d8">Food for thought</a></h2>
+</section>
+
+<section id="outline-container-orgc408496" class="outline-2">
+<h2 id="orgc408496"><a href="#orgc408496">Conclusions</a></h2>
+</section>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://en.wikipedia.org/wiki/17_(number)#:~:text=Seventeen%20is:,was%20the%20most%20common%20choice.">Wikipedia page on the number 17</a> 
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+Test note
+</p></div></div>
+
+
+</div>
+</div></main>
+<footer id="postamble" class="status">
+<hr>
+<section>
+<script src="https://giscus.app/client.js" 
+  data-repo="ShriRambo/giscus-comments"
+  data-repo-id="R_kgDOG1mtrQ"
+  data-category="Announcements" 
+  data-category-id="DIC_kwDOG1mtrc4CBJNW" 
+  data-mapping="title" 
+  data-reactions-enabled="1" 
+  data-emit-metadata="0" 
+  data-input-position="top" 
+  data-theme="dark" 
+  data-lang="en" 
+  crossorigin="anonymous" 
+  async> </script>
+</section>
+<hr>
+<section>
+  <p style="text-align:center">
+Made with ❤️ and Emacs (Org-mode)
+</p>
+<div align=center>
+  <a href="#" class='link-icon'>
+    <i class="fa fa-home fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href="https://www.instagram.com/shrirambo/" class='link-icon'>
+    <i class="fa fa-instagram fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href="https://github.com/shrirambo" class='link-icon'>
+    <i class="fa fa-github fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='https://www.linkedin.com/in/shriram-ashirgade/' class='link-icon'>
+    <i class="fa fa-linkedin-square fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='https://social.vivaldi.net/@shrirambo'>
+    <i class="fa fa-mastodon fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='https://github.com/ShriRambo/sturdy-octo-winner/tree/master/content' class='link-icon'>
+    <i class="fa fa-code  fa-lg" aria-hidden="true"></i>
+  </a>
+  <a href='#content' class='link-icon'>
+    <i class="fa fa-hand-o-up  fa-lg" aria-hidden="true"></i>
+  </a>
+</div>
+</div>
+</footer>
+</body>
+</html>

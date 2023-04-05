@@ -50,9 +50,9 @@ And that's where things get really interesting. There are actually multiple ways
 Before we get into different mathematical notations, let me tell you a story about how I discovered these alternative notations and how they helped me solve a problem I was having. 
 </p>
 
-<section id="outline-container-org3e9a76d" class="outline-2">
-<h2 id="org3e9a76d"><a href="#org3e9a76d">🔎 The Problem of Keyword Search</a></h2>
-<div class="outline-text-2" id="text-org3e9a76d">
+<section id="outline-container-org593a6a2" class="outline-2">
+<h2 id="org593a6a2"><a href="#org593a6a2">🔎 The Problem of Keyword Search</a></h2>
+<div class="outline-text-2" id="text-org593a6a2">
 <p>
 I was working on a project where I needed to implement a new feature for an app. The feature would allow users to fetch documents from a database based on provided parameters. One of these parameters was the search <code>keywords.</code> It seemed simple enough at first - users would pass a value for the parameter, like <code>keywords= "hello"</code>, and the server would fetch all the documents with the word "hello" in them.
 </p>
@@ -89,9 +89,9 @@ However, there is a solution to this problem, and it comes in the form of prefix
 </div>
 </section>
 
-<section id="outline-container-org41c4d01" class="outline-2">
-<h2 id="org41c4d01"><a href="#org41c4d01">👈🏻 The Prefix Notation</a></h2>
-<div class="outline-text-2" id="text-org41c4d01">
+<section id="outline-container-orgb932ad3" class="outline-2">
+<h2 id="orgb932ad3"><a href="#orgb932ad3">👈🏻 The Prefix Notation</a></h2>
+<div class="outline-text-2" id="text-orgb932ad3">
 <p>
 Normally, for common operators like "+ - / *", we use infix notation meaning the operator is placed between two operands. For example <code>2 + 3</code>, here the plus sign is in between 2 and 3. But in the prefix notation, the operator comes before the operands. So the same expression will be written as  <code>+ 2 3.</code> This might seem strange at first, but think about how we write functions in most programming languages: we put the function name before the parameters. Like <code>add(2,3)</code>. And as long as the number of parameters is fixed, we don't need to use brackets.
 </p>
@@ -177,9 +177,9 @@ Now, assume that we want to extend the above expression and add <code>+ * 2 3 1<
 </div>
 </section>
 
-<section id="outline-container-orgbf17c07" class="outline-2">
-<h2 id="orgbf17c07"><a href="#orgbf17c07">👉🏼 The Postfix Notation</a></h2>
-<div class="outline-text-2" id="text-orgbf17c07">
+<section id="outline-container-org801be5f" class="outline-2">
+<h2 id="org801be5f"><a href="#org801be5f">👉🏼 The Postfix Notation</a></h2>
+<div class="outline-text-2" id="text-org801be5f">
 <p>
 Let me introduce the hippy cousin of Polish notation, the Reverse Polish Notation. It is just Polish notation but in reverse. As opposed to the prefix notation, in postfix, we write the operator after the operands for example the infix expression <code>2 + 3</code> will become <code>2 3 +</code> in postfix. And our logical expression  <code>((old AND ben) OR (obi AND van) OR general) AND kenobi</code> in postfix will become <code>old ben AND obi van AND OR general OR kenobi AND</code>. Notice that in the postfix expression
 </p>
@@ -247,18 +247,18 @@ That is the magic of prefixes and postfix notation. Super simple implementation 
 </section>
 
 
-<section id="outline-container-orga29c0b9" class="outline-2">
-<h2 id="orga29c0b9"><a href="#orga29c0b9">🍛 Partial Application of Operators a.k.a. Currying</a></h2>
-<div class="outline-text-2" id="text-orga29c0b9">
+<section id="outline-container-orgcd0db0c" class="outline-2">
+<h2 id="orgcd0db0c"><a href="#orgcd0db0c">🍛 Partial Application of Operators a.k.a. Currying</a></h2>
+<div class="outline-text-2" id="text-orgcd0db0c">
 <p>
 Did you know about the additional benefits the prefix and postfix notation have? They allow for <i>Currying.</i> Currying is a concept from functional programming that lets us apply functions (in our case operators) partially and create new functions from it. Here's an example: In prefix notation, let's define <code>X = + 3</code>. This means that <code>X</code> is an operator that takes one operand and adds 3 to it. So  <code>X 2</code> would be equal to <code>+ 3 2</code> which is equal to 5. We can use <code>X</code> as a partially applied addition. In postfix notation, this would be written as <code>X = 3 +</code> and <code>2 X</code> would be <code>2 3 +</code> which is <code>5</code>. Unfortunately, this isn't possible in infix notation. As Łukasiewicz said, prefix notation makes it easier to write and prove theorems! True that.
 </p>
 </div>
 </section>
 
-<section id="outline-container-org11ab631" class="outline-2">
-<h2 id="org11ab631"><a href="#org11ab631">🥂 Conclusion</a></h2>
-<div class="outline-text-2" id="text-org11ab631">
+<section id="outline-container-org86e57c0" class="outline-2">
+<h2 id="org86e57c0"><a href="#org86e57c0">🥂 Conclusion</a></h2>
+<div class="outline-text-2" id="text-org86e57c0">
 <p>
 So, there we have it. A different way of writing mathematical expressions that:
 </p>
