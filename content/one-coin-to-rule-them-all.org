@@ -1,0 +1,113 @@
+#+TITLE: One Coin To Rule Them All
+#+SUBTITLE: How We Can Sample Random Numbers From Any Distribution With a Bunch of Coin Toss and a Lot of Patient
+#+DATE: [2023-04-03 ma]
+#+AUTHOR: shrirambo
+#+DESCRIPTION: A single coin can be used can be used to sample random numbers from any distribution. This blog explains how.
+#+KEYWORDS: coin toss, randomness, random number generator, rng, 
+#+OPTIONS: tex:t toc:nil
+#+HTML_MATHJAX: align: left indent: 5em tagside: left
+#+INCLUDE: "./setup/literate-web.setup.org"
+#+INCLUD: "./setup/d3.setup.org"
+------
+
+What is a random number? Well, it's definitely not 17. According to MIT, 17 is actually the "least random" number[fn:1]. In fact, in a study where participants were asked to choose a random number between 1 and 20, the most common answer was 17. So which number is random? Is it 0.5348? Or 5973? The number *@@html:<span id='randint1'>0</span>@@* looks quite random. But wait, it's not "a number". It is a sequence of numbers. A sequence without any pattern. Then I guess the lack of pattern in a series of numbers makes them random.
+#+CALL: raw_export("set-randint1")
+
+But how do we know if a sequence is truly random? Well, we need to look at a lot of numbers - like, a lot. In fact, we'd need an infinite number of them to really be sure. And to generate that many numbers, we need a process. That process, like rolling a die or flipping a coin, is what makes the numbers truly random.
+
+For instance, think about the number 5. It's a nice number. Very friendly. If I told you that I got the number by counting the fingers of my left hand to arrive at 5, you'd probably say it's not a random number. After all, the process is very deterministic - it will always result in 5. But if I told you that I got the number by rolling a die, then you'd consider that a random number. Rolling of a die 🎲 is a truly random process, because the sequence of numbers it generates doesn't follow any pattern. While counting fingers 🖐🏽 is not a random process, as there is a clear pattern here.[fn:2]
+
+So, it is not the number that is random - it's the process that generated it. Like a roll of a die, toss of a coin, collapse of a wave function etc. And if we have access to such random processes, we can generate an infinite sequence of random numbers. And with the help of some mathematical magic wand, we can transform the sequence to follow any probability distribution. How cool is that? 
+
+In case, if you are curious how the ever changing sequence is generated in the first paragraph, here's the secret:
+#+name: set-randint1
+#+begin_src js
+setInterval( function () {
+    document.getElementById('randint1').innerText
+	= Math.ceil(Math.random()*6)
+    }, 100)
+#+end_src
+
+The ~Math.random~ method of javascript generates a pseudo random number sequence, not a real one. But don't tell that to anyone 😉 In the following sections we'll see how we can use a coin toss as a random process to generate sequence from any probability distribution.
+* 🪙 A Toss of a Coin
+
+A toss of a coin is actually not a random process. If we know the exact initial position of the coin and the exact amount, location, direction of force applied to it for the toss, we can determine the outcome. But for the sake of this post, let's say it is.
+
+We will use this beautiful function to generate a random sequence of heads and tails:
+#+name: coin-toss-seq
+#+begin_src js
+const flipN = n => Array.from(
+    {length: n},
+    () => Math.random() < 0.5 ? "H" : "T");
+#+end_src
+#+CALL: raw_export("coin-toss-seq")
+
+#+name: input-flip-coin-button
+#+begin_export html
+<span>
+<label for="nr-flips"># Coins:</label>
+<input type="number" id="nr-flips" name="nr-flips" min="1" max="2048" value=5>
+<button onclick="flipCoins()">Flip Coins</button>
+</span>
+#+end_export
+
+#+name: flipCoins-update-table
+#+begin_src js :exports none
+function flipCoins(){
+    let n = parseInt(
+	document.getElementById('nr-flips').value)
+
+    let seq = flipN(n)
+    document.getElementById('toss-result')
+	.children[1]
+	.children[0]
+	.children[1].innerText = seq.join('')
+
+    let binseq = seq.map(function (i) { return i == 'H' ? 1 : 0 })
+    document.getElementById('toss-result')
+	.children[1]
+	.children[1]
+	.children[1].innerText = '0.'+binseq.join('')
+
+    document.getElementById('toss-result')
+	.children[1]
+	.children[2]
+	.children[1].innerText = binseq.reduce( (a, c, i) => c ? a + 1/(2**(i+1)) : a , 0 )
+
+    document.getElementById('toss-result')
+	.children[1]
+	.children[3]
+	.children[1].innerText = 1 / (2**n)
+
+       document.getElementById('toss-result')
+	.children[1]
+	.children[4]
+	.children[1].innerText = 2**(n)
+}
+#+end_src
+#+CALL: raw_export("flipCoins-update-table")
+
+#+name: ctres
+#+ATTR_HTML: :id toss-result 
+| Sequence      |   HHTHH |
+| Binary float  | 0.11011 |
+| Decimal float | 0.84375 |
+| Step size     | 0.03125 |
+| # Outcomes    |      32 |
+
+
+* Discrete Random Process
+
+* Continuous Random Process
+
+* Multidimentional Distribution
+
+* Food for thought
+
+* Conclusions
+
+* Footnotes
+
+[fn:2] Test note
+
+[fn:1] [[https://en.wikipedia.org/wiki/17_(number)#:~:text=Seventeen%20is:,was%20the%20most%20common%20choice.][Wikipedia page on the number 17]] 
