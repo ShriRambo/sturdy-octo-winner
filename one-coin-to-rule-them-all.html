@@ -50,7 +50,7 @@ So, it is not the number that is random - it's the process that generated it. Li
 In case, if you are curious how the ever changing sequence is generated in the first paragraph, here's the secret:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="orga6b79c1">setInterval<span class="org-rainbow-delimiters-depth-1">(</span> <span class="org-keyword">function</span> <span class="org-rainbow-delimiters-depth-2">()</span> <span class="org-rainbow-delimiters-depth-2">{</span>
+<pre class="src src-js" id="org7766ab3">setInterval<span class="org-rainbow-delimiters-depth-1">(</span> <span class="org-keyword">function</span> <span class="org-rainbow-delimiters-depth-2">()</span> <span class="org-rainbow-delimiters-depth-2">{</span>
     document.getElementById<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">'randint1'</span><span class="org-rainbow-delimiters-depth-3">)</span>.innerText
         = Math.ceil<span class="org-rainbow-delimiters-depth-3">(</span>Math.random<span class="org-rainbow-delimiters-depth-4">()</span>*6<span class="org-rainbow-delimiters-depth-3">)</span>
     <span class="org-rainbow-delimiters-depth-2">}</span>, 100<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -60,9 +60,9 @@ In case, if you are curious how the ever changing sequence is generated in the f
 <p>
 The <code>Math.random</code> method of javascript generates a pseudo random number sequence, not a real one. But don't tell that to anyone 😉 In the following sections we'll see how we can use a coin toss as a random process to generate sequence from any probability distribution.
 </p>
-<section id="outline-container-org0cf7ec6" class="outline-2">
-<h2 id="org0cf7ec6"><a href="#org0cf7ec6">🪙 A Toss of a Coin</a></h2>
-<div class="outline-text-2" id="text-org0cf7ec6">
+<section id="outline-container-orgfe90100" class="outline-2">
+<h2 id="orgfe90100"><a href="#orgfe90100">🪙 A Toss of a Coin</a></h2>
+<div class="outline-text-2" id="text-orgfe90100">
 <p>
 A toss of a coin is actually not a random process. If we know the exact initial position of the coin and the exact amount, location, direction of force applied to it for the toss, we can determine the outcome. But for the sake of this post, let's say it is.
 </p>
@@ -71,7 +71,7 @@ A toss of a coin is actually not a random process. If we know the exact initial 
 We will use this beautiful function to generate a random sequence of heads and tails:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="orgc10ce29"><span class="org-keyword">const</span> <span class="org-variable-name">flipN</span> = n =&gt; Array.from<span class="org-rainbow-delimiters-depth-1">(</span>
+<pre class="src src-js" id="org26bd266"><span class="org-keyword">const</span> <span class="org-variable-name">flipN</span> = n =&gt; Array.from<span class="org-rainbow-delimiters-depth-1">(</span>
     <span class="org-rainbow-delimiters-depth-2">{</span>length: n<span class="org-rainbow-delimiters-depth-2">}</span>,
     <span class="org-rainbow-delimiters-depth-2">()</span> =&gt; Math.random<span class="org-rainbow-delimiters-depth-2">()</span> &lt; 0.5 ? <span class="org-string">"H"</span> : <span class="org-string">"T"</span><span class="org-rainbow-delimiters-depth-1">)</span>;
 </pre>
@@ -161,24 +161,24 @@ function flipCoins(){
 </section>
 
 
-<section id="outline-container-orga7a9645" class="outline-2">
-<h2 id="orga7a9645"><a href="#orga7a9645">Discrete Random Process</a></h2>
+<section id="outline-container-orgd6512bf" class="outline-2">
+<h2 id="orgd6512bf"><a href="#orgd6512bf">Discrete Random Process</a></h2>
 </section>
 
-<section id="outline-container-org1bd1af9" class="outline-2">
-<h2 id="org1bd1af9"><a href="#org1bd1af9">Continuous Random Process</a></h2>
+<section id="outline-container-orgd723e0a" class="outline-2">
+<h2 id="orgd723e0a"><a href="#orgd723e0a">Continuous Random Process</a></h2>
 </section>
 
-<section id="outline-container-org7b681b8" class="outline-2">
-<h2 id="org7b681b8"><a href="#org7b681b8">Multidimentional Distribution</a></h2>
+<section id="outline-container-orge785ab4" class="outline-2">
+<h2 id="orge785ab4"><a href="#orge785ab4">Multidimentional Distribution</a></h2>
 </section>
 
-<section id="outline-container-org4cb50d8" class="outline-2">
-<h2 id="org4cb50d8"><a href="#org4cb50d8">Food for thought</a></h2>
+<section id="outline-container-org6a8ae61" class="outline-2">
+<h2 id="org6a8ae61"><a href="#org6a8ae61">Food for thought</a></h2>
 </section>
 
-<section id="outline-container-orgc408496" class="outline-2">
-<h2 id="orgc408496"><a href="#orgc408496">Conclusions</a></h2>
+<section id="outline-container-org4a62ee4" class="outline-2">
+<h2 id="org4a62ee4"><a href="#org4a62ee4">Conclusions</a></h2>
 </section>
 <div id="footnotes">
 <h2 class="footnotes">Footnotes: </h2>
