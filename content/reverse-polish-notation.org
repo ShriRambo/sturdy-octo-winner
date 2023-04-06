@@ -10,7 +10,7 @@
 #+begin_quote
 "Mathematics is a language. A language is a tool. Like any other tool, it has limitations. But language is a tool for dealing with the world as it is. Mathematics is a tool for dealing with the world as it might be. The study of mathematics is not a pursuit of logic; it is a pursuit of language. The language of mathematics is the language of the universe itself."
 
---Alfred North Whitehead
+--Unknown
 #+end_quote
 
 Mathematics, or at least the notation that we write and read, is a language like English and German that we use to communicate ideas. The beauty of This language is that it is based on a set of agreed-upon rules, so we can all understand what someone means when they say ~3 * 5 + 2 - 1~.
