@@ -23,9 +23,9 @@
 <mark>ESP8266</mark> based circuit boards are great for projects that needs wireless communications. They have very low form factor and can accomplish a lot. Combined with sensors like <mark>DHT22</mark>, we can make a great temperature sensors. This is what I was trying to achieve with this project.
 </p>
 
-<section id="outline-container-org1e9498e" class="outline-2">
-<h2 id="org1e9498e"><a href="#org1e9498e">🧭 The Problem</a></h2>
-<div class="outline-text-2" id="text-org1e9498e">
+<section id="outline-container-orgba0a419" class="outline-2">
+<h2 id="orgba0a419"><a href="#orgba0a419">🧭 The Problem</a></h2>
+<div class="outline-text-2" id="text-orgba0a419">
 <p>
 The aim is to create a sensor that can show temperature and humidity in the different rooms of my house. This information then I can use to do some home automations like open windows, turn up heater, or just to prepare my self the condition at home 🥶 🥵
 </p>
@@ -39,15 +39,15 @@ The aim is to create a sensor that can show temperature and humidity in the diff
 </div>
 </section>
 
-<section id="outline-container-org3b2f0e7" class="outline-2">
-<h2 id="org3b2f0e7"><a href="#org3b2f0e7">🔌 The Circuit</a></h2>
-<div class="outline-text-2" id="text-org3b2f0e7">
+<section id="outline-container-org10c3251" class="outline-2">
+<h2 id="org10c3251"><a href="#org10c3251">🔌 The Circuit</a></h2>
+<div class="outline-text-2" id="text-org10c3251">
 <p>
 Here is the circuit setup I started with. 
 </p>
 
 
-<div id="org557078e" class="figure">
+<div id="orgf565d08" class="figure">
 <p><img src="./img/circuit-diagram-temp-sensor.png" alt="circuit-diagram-temp-sensor.png">
 </p>
 </div>
@@ -62,9 +62,9 @@ The 7-segment display is not really necessary. As I am publishing temperature to
 </div>
 </section>
 
-<section id="outline-container-orgff031af" class="outline-2">
-<h2 id="orgff031af"><a href="#orgff031af">🕸 The Network</a></h2>
-<div class="outline-text-2" id="text-orgff031af">
+<section id="outline-container-orgdb7b3a0" class="outline-2">
+<h2 id="orgdb7b3a0"><a href="#orgdb7b3a0">🕸 The Network</a></h2>
+<div class="outline-text-2" id="text-orgdb7b3a0">
 <p>
 First, we will configure the wifi so that <code>wemos</code> can connect to our home wifi network. We include following header files and configuration and initialize <code>wifi</code> and <code>pubsub</code> client. The <code>pubsub</code> client will read and publish messages to the MQTT server.
 </p>
@@ -134,9 +134,9 @@ And finally a function to reconnect in case of disconnection.
 </section>
 
 
-<section id="outline-container-orgfa3b42d" class="outline-2">
-<h2 id="orgfa3b42d"><a href="#orgfa3b42d">🌡 The Sensor</a></h2>
-<div class="outline-text-2" id="text-orgfa3b42d">
+<section id="outline-container-org45a0115" class="outline-2">
+<h2 id="org45a0115"><a href="#org45a0115">🌡 The Sensor</a></h2>
+<div class="outline-text-2" id="text-org45a0115">
 <p>
 The <code>DHT22</code> sensor is quite straight forward. I am using this <a href="https://github.com/adafruit/DHT-sensor-library">DHT Sensor Library</a> in the project to read sensor data. We need following things to setup.
 </p>
@@ -175,9 +175,9 @@ client.publish<span class="org-rainbow-delimiters-depth-1">(</span><span class="
 </section>
 
 
-<section id="outline-container-orgc798520" class="outline-2">
-<h2 id="orgc798520"><a href="#orgc798520">📺 The Display</a></h2>
-<div class="outline-text-2" id="text-orgc798520">
+<section id="outline-container-orgab62d53" class="outline-2">
+<h2 id="orgab62d53"><a href="#orgab62d53">📺 The Display</a></h2>
+<div class="outline-text-2" id="text-orgab62d53">
 <p>
 The 7 segment display module is very nice and efficient way to display numerical data. As long as it fits the display format. I am using <a href="https://github.com/avishorp/TM1637">TM1637 Display</a> library. This 
 </p>
@@ -217,9 +217,9 @@ display.setSegments<span class="org-rainbow-delimiters-depth-1">(</span>PER_C, 2
 </div>
 </section>
 
-<section id="outline-container-org5cac448" class="outline-2">
-<h2 id="org5cac448"><a href="#org5cac448">🌯 The Wrap-up</a></h2>
-<div class="outline-text-2" id="text-org5cac448">
+<section id="outline-container-orgd9fb218" class="outline-2">
+<h2 id="orgd9fb218"><a href="#orgd9fb218">🌯 The Wrap-up</a></h2>
+<div class="outline-text-2" id="text-orgd9fb218">
 <p>
 That is the complete setup of a wireless temperature and humidity sensor. For the future scope, I would like to build automations around this, controlling thermostat. 
 </p>

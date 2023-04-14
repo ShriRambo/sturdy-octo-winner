@@ -25,15 +25,15 @@
 With the current setup, I can write and publish static html pages using Emacs and Org-mode. I can also write literate pages explaining code which can run while editing the org file in emacs. But now I want more. I want to make literate and interactive html pages. Interactive in a sense that I can see, edit and run javascript code in the browser on the click of a button, explain the html, css, js involved in making the the page itself. This page is all about experiments and ideas on how I can achieve this goal. 
 </p>
 
-<section id="outline-container-org7738263" class="outline-2">
-<h2 id="org7738263"><a href="#org7738263">🐑 Raw html export</a></h2>
-<div class="outline-text-2" id="text-org7738263">
+<section id="outline-container-orge461a0d" class="outline-2">
+<h2 id="orge461a0d"><a href="#orge461a0d">🐑 Raw html export</a></h2>
+<div class="outline-text-2" id="text-orge461a0d">
 <p>
 Let's start with basic elements. Like button, forms, input fields. Adding raw html text in org-mode file is done by using <code>#+BEGIN_EXPORT html ... #+END_EXPORT</code> block. Everything in this block will be exported as raw html. Here, we can write all the elements which are not directly exported from org-mode tags. Adding following in an export block will create a button in html export and on clicking it, we will see an alert on top.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org564be2e">&lt;<span class="org-function-name">button</span> <span class="org-variable-name">onclick</span>=<span class="org-string">"onButt()"</span>&gt; This is a button &lt;/<span class="org-function-name">button</span>&gt;
+<pre class="src src-html" id="org2800051">&lt;<span class="org-function-name">button</span> <span class="org-variable-name">onclick</span>=<span class="org-string">"onButt()"</span>&gt; This is a button &lt;/<span class="org-function-name">button</span>&gt;
 &lt;<span class="org-function-name">script</span> <span class="org-variable-name">type</span>=<span class="org-string">"text/javascript"</span>&gt;
 function onButt(){
     alert("Button pressed");    
@@ -55,9 +55,9 @@ On top of these <code>BEGIN_EXPORT</code> block, we can also add <code>#+HTML:</
 </div>
 </section>
 
-<section id="outline-container-org18b0880" class="outline-2">
-<h2 id="org18b0880"><a href="#org18b0880">🐙 More efficient export</a></h2>
-<div class="outline-text-2" id="text-org18b0880">
+<section id="outline-container-org4f90394" class="outline-2">
+<h2 id="org4f90394"><a href="#org4f90394">🐙 More efficient export</a></h2>
+<div class="outline-text-2" id="text-org4f90394">
 <p>
 With these export blocks, I can now add whatever html literally into the exported webpage. But, there are few inefficiencies in this method.
 </p>
@@ -73,7 +73,7 @@ To solve this issue, I came up with a solution. An <code>emacs-lisp</code> sourc
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org14388ac"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span>
+<pre class="src src-emacs-lisp" id="orgf77a2fc"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span>
     <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>lan <span class="org-rainbow-delimiters-depth-4">(</span>nth 0 <span class="org-rainbow-delimiters-depth-5">(</span>org-babel-lob--src-info blk<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-comment-delimiter">;</span><span class="org-comment">src block language</span>
      <span class="org-rainbow-delimiters-depth-3">(</span>bod <span class="org-rainbow-delimiters-depth-4">(</span>cadr <span class="org-rainbow-delimiters-depth-5">(</span>org-babel-lob--src-info blk<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-comment-delimiter">;</span><span class="org-comment">src block body</span>
 
@@ -87,7 +87,7 @@ To solve this issue, I came up with a solution. An <code>emacs-lisp</code> sourc
 </div>
 
 <p>
-This function checks the language of src block. If it is html, it returns the body as is. If it is javascript, it wraps the body in <code>&lt;script&gt;</code> tag. And if it is stylesheet, it wraps it in <code>&lt;style&gt;</code> tag. Now, I can just write html, css, javascript in normal src block. Which will export the code. And to export this literally, all I have to do is just call the above function by passing the name of src block. In this case, I will have to pass <a href="#org564be2e">test-button</a>, which is the name of html src block.
+This function checks the language of src block. If it is html, it returns the body as is. If it is javascript, it wraps the body in <code>&lt;script&gt;</code> tag. And if it is stylesheet, it wraps it in <code>&lt;style&gt;</code> tag. Now, I can just write html, css, javascript in normal src block. Which will export the code. And to export this literally, all I have to do is just call the above function by passing the name of src block. In this case, I will have to pass <a href="#org2800051">test-button</a>, which is the name of html src block.
 </p>
 
 <pre class="example">
