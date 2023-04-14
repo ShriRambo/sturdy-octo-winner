@@ -7,17 +7,18 @@
 #+OPTIONS: tex:t toc:nil
 #+HTML_MATHJAX: align: left indent: 5em tagside: left
 #+INCLUDE: "./setup/literate-web.setup.org"
-#+INCLUD: "./setup/d3.setup.org"
+#+HTML: <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
 ------
 
-What is a random number? Well, it's definitely not 17. According to MIT, 17 is actually the "least random" number[fn:1]. In fact, in a study where participants were asked to choose a random number between 1 and 20, the most common answer was 17. So which number is random? Is it 0.5348? Or 5973? The number *@@html:<span id='randint1'>0</span>@@* looks quite random. But wait, it's not "a number". It is a sequence of numbers. A sequence without any pattern. Then I guess the lack of pattern in a series of numbers makes them random.
+
+What  is a random number? Well, it's definitely not 17. According to MIT, 17 is actually the "least random" number[fn:1]. In fact, in a study where participants were asked to choose a random number between 1 and 20, the most common answer was 17. So which number is random? Is it 0.5348? Or 5973? The number *@@html:<span id='randint1'>0</span>@@* looks quite random. But wait, it's not "a number". It is a sequence of numbers. A sequence without any pattern. Then I guess the lack of pattern in a squence of numbers makes them random.
 #+CALL: raw_export("set-randint1")
 
 But how do we know if a sequence is truly random? Well, we need to look at a lot of numbers - like, a lot. In fact, we'd need an infinite number of them to really be sure. And to generate that many numbers, we need a process. That process, like rolling a die or flipping a coin, is what makes the numbers truly random.
 
-For instance, think about the number 5. It's a nice number. Very friendly. If I told you that I got the number by counting the fingers of my left hand to arrive at 5, you'd probably say it's not a random number. After all, the process is very deterministic - it will always result in 5. But if I told you that I got the number by rolling a die, then you'd consider that a random number. Rolling of a die 🎲 is a truly random process, because the sequence of numbers it generates doesn't follow any pattern. While counting fingers 🖐🏽 is not a random process, as there is a clear pattern here.[fn:2]
+For instance, think about the number 5. It's a nice number. Very friendly. If I told you that I got the number by counting the fingers of my left hand, you'd probably say it's not a random number. After all, the process is very deterministic - it will always result in 5. But if I told you that I got the number by rolling a die, then you'd consider that a random number. Rolling of a die 🎲 is a truly random process, because the sequence of numbers it generates doesn't follow any pattern. While counting fingers 🖐🏽 is not a random process, as there is a clear pattern here.
 
-So, it is not the number that is random - it's the process that generated it. Like a roll of a die, toss of a coin, collapse of a wave function etc. And if we have access to such random processes, we can generate an infinite sequence of random numbers. And with the help of some mathematical magic wand, we can transform the sequence to follow any probability distribution. How cool is that? 
+So, it is not the number that is random - it's the process that generated it. Like a roll of a die, toss of a coin, collapse of a wave function etc. And if we have access to such random processes, we can generate an infinite sequence of random numbers by measuring the outcome. And with the help of some mathematical magic wand, we can transform the sequence to follow any probability distribution. How cool is that? 
 
 In case, if you are curious how the ever changing sequence is generated in the first paragraph, here's the secret:
 #+name: set-randint1
@@ -31,11 +32,15 @@ setInterval( function () {
 The ~Math.random~ method of javascript generates a pseudo random number sequence, not a real one. But don't tell that to anyone 😉 In the following sections we'll see how we can use a coin toss as a random process to generate sequence from any probability distribution.
 * 🪙 A Toss of a Coin
 
-A toss of a coin is actually not a random process. If we know the exact initial position of the coin and the exact amount, location, direction of force applied to it for the toss, we can determine the outcome. But for the sake of this post, let's say it is.
+A toss of a coin is actually not a random process. If we know the exact initial position of the coin and the exact amount, location, direction of force applied to it for the toss, we can determine the outcome. But for the sake of this post, let's say it is. Now, our goal is to formulate a process that, using a bunch of coin toss, will generate random numbers from a uniform distribution over $[0,1)$. But the former one has discrete outcomes and the later one is continuous distribution. Then how is it possible? Well, it is, with a catch.
 
-We will use this beautiful function to generate a random sequence of heads and tails:
+Say we toss a coin 5 times and we get a sequence *HHTHH*. Let's assign a digit to each outcome by calling *H=1* and *T=0*. Then the sequence translates to *11011*, which looks like a number in binary. Now, let's just write this binary number as a fractional part by adding *0.* in front i.e. *0.11011*. Now, this looks like a binary fraction between zero and one. This binary fraction, after converting to decimal, becomes *0.84375*.
+
+Now, as every sequence of 5 coin toss are equally likely, all the decimal fractions it can generate are equally likely. Kind of uniform distribution. I said kind of, because the number of outcomes with 5 coin toss is just $2^5=32$ which is not much. But as the number of toss goes up, the final decimal fraction goes towards the real Uniform Distribution.
+
+You can play around with different number of coin toss to see how increasing that number gets you closer to the uniform distribution.
 #+name: coin-toss-seq
-#+begin_src js
+#+begin_src js :exports none
 const flipN = n => Array.from(
     {length: n},
     () => Math.random() < 0.5 ? "H" : "T");
@@ -89,14 +94,93 @@ function flipCoins(){
 
 #+name: ctres
 #+ATTR_HTML: :id toss-result 
-| Sequence      |   HHTHH |
-| Binary float  | 0.11011 |
-| Decimal float | 0.84375 |
-| Step size     | 0.03125 |
-| # Outcomes    |      32 |
+| Sequence     |   HHTHH |
+| Binary frac  | 0.11011 |
+| Decimal frac | 0.84375 |
+| Step size    | 0.03125 |
+| # Outcomes   |      32 |
+
+In the above table, the step size is the smallest non-zero decimal fraction that can be generated with the given number of coin toss. The outcome decimal frac will always be an integral multiple of this step size. If we toss 10 coins, the number of outcomes goes to 1024 and the stepsize becomes less than 0.001. If this precision is not good enough for you then toss the coin 20 times, and we'll get the precision of 6 decimal digits. Every 10 extra coin toss will give us approximately 3 additional decimal digits of precision[fn:3]. The question is how far are you willing to go? 
+
+Let's try the experiment with 126 coin toss. That leads to the step size of approximately $1.1754×10^{-38}$. This is a special number. This a the smallest non-zero single precision floating point number a machine can represent. If you are using a 32bit machine, which is probably not true, this is the best you can get. Compare this number to the Planck length which is around $1.6162×10^{−35} m$. So, with 126 coin toss, you can sample, from a length of 1m, a random segment of length that is even smaller than the Planck length. I think you can consider that small of a segment as a point for most of the practical purposes.
+
+If you want higher precision, we can toss the coin 1023 times. That will give us the step size of $1.1125×10^{-308}$, which is the smallest non-zero double precision floating point normal number. The extreme a computer can go is $4.9407×10^{-324}$, the double precision floating point subnormal number[fn:2]. This precision can be achieved with *1075* coin tosses. That is the best we can get.
+
+We are already at the limit of what computers can do. But still, we cannot call this sampling-from-continuous-distribution. After all the number of outcomes, even though very large, are finite. With the tossing of coin $n$ times, the number of possible outcomes is $2^n$. When $n\rightarrow\infty$, number of outcomes goes to infinity and the step size goes to zero. Then only we get to true continuous distribution. But the problem is, it will take infinite amounut of time to flip a coin infinite times. The process will never end.
+
+This is the case with most of the random processes. The outcome cannot always be measured with infinite precision. With finite precision measurement, we are setteling for a discrete distribution and just calling it continuous.
+
+In mathematical sense, we say tha the probability of getting exactly *0.84375* from a uniform distribution is zero but still we get that number. So does the probability being zero do not mean that the event cannot occure? No, probability zero precisely means that the event cannot occure. In this case, we got *0.84375* because we got lazy and stopped measuring the number beyond 5th decimal digit. The number *0.84375* in this sense is not same as *0.84375000000000...* because we did not bother to check the zeros. It is the faulty process of sampling that leads to the outcomes which has probability zero. And it is always going to be the case because of our limitations.
+
+I think this comes from the fact that we are trying to sample from a domain, whose dimensionality is higher than that of the sample we are expecting. For example we are sampling a zero dimentional point from a one dimentional line. Everytime this is the case, we will hit the limitation of our measuring ablities. That is what measure theory is about, I guess.
+
+As none of the process to sample from uniform distribution can be of infinite precision, we can consider our coin toss process good enough. And with a uniformly distributed random number, we can sample from litrally any distribution. Let's see how. 
+
+* Discrete Random Distribution
+Let's start simple. Let's use the coin toss to sample from a discrete distribution. I could not think of a good example and I also like colors, so consider that we have to sample from the following colors and probability: $\mathbb{P}$ call_color_span("#2eb2ff") = 30/155, $\mathbb{P}$ call_color_span("#77e4ff") = 45/155, $\mathbb{P}$ call_color_span("#ff2eb2") = 25/155, $\mathbb{P}$ call_color_span("#b2ff2e") = 40/155, $\mathbb{P}$ call_color_span("#e8ff6a") = 15/155.
+
+#+INCLUDE: "./img/discrete-sampling-events.svg" export html
+
+#+INCLUDE: "./img/discrete-sampling-plot.svg" export html
+
+#+name: fold-rect
+#+begin_src js :exports none
+var width = gsap.getProperty('#prob-rect', 'width')
+var x = gsap.getProperty('#prob-rect', 'x')
+var resetState = {duration:1, width:width, x:x, ease:"elastic.out(1, 0.3)"}
+var isDone = false
+var pointerX0 = gsap.getProperty("#pointer1", 'x')
+var colors = ["#2eb2ff", "#77e4ff", "#ff2eb2", "#b2ff2e", "#e8ff6a"]
+
+// Pointer move
+setInterval(()=> {
+    let r = Math.random()
+    gsap.to("#pointer-prob", {textContent: r})
+    gsap.to("#pointer1",
+	    {x:  pointerX0 + resetState.width*r,
+	     ease: "elastic.out(1, 0.3)"}
+	   )
+    }
+	    , 1000)
+
+//Prob lines
+const cumsum = (sum => value => sum += value)(0);
+var prob = [0, 30, 45, 25, 40, 15]
+var cumprob = prob.map(cumsum)
+
+function foldRect(i){
+    if ((width < 3) || isDone) return
+    width =  width*0.5
+    i && (x = x + width)
+    gsap.to("#prob-rect", {duration:1, width: width, x:x,  ease: "elastic.out(1, 0.3)"})
+    hideLines()
+}
+
+function resetRect(){
+    gsap.to("#prob-rect", resetState)
+    width = resetState.width
+    x = resetState.x
+    hideLines()
+    isDone = false
+}
+
+function hideLines(){
+    n = 0
+    for (let i = 1; i < 6; i++){
+	if( (cumprob[i-1] > x+width) || (cumprob[i] < x)) {
+	    gsap.to('#line'+i, {opacity:0})
+	    n++
+	}
+	else{
+	 gsap.to('#line'+i, {opacity:100})
+	}
+    }
+    if(n==4) isDone=true
+}
+#+end_src
+#+CALL: raw_export("fold-rect")
 
 
-* Discrete Random Process
 
 * Continuous Random Process
 
@@ -107,7 +191,8 @@ function flipCoins(){
 * Conclusions
 
 * Footnotes
+[fn:3] Has to do something with $\log^{10}_{2}=3.32$ 
 
-[fn:2] Test note
+[fn:2] [[https://en.wikipedia.org/wiki/Subnormal_number][Subnormal number]]
 
 [fn:1] [[https://en.wikipedia.org/wiki/17_(number)#:~:text=Seventeen%20is:,was%20the%20most%20common%20choice.][Wikipedia page on the number 17]] 

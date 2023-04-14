@@ -697,3 +697,16 @@ pre.src-conf:before { content: 'Configuration File'; }
 .underline {
     text-decoration: underline
 }
+
+/* Footnotes */
+p.footpara,div.footpara {
+    display: inline
+}
+
+/* Color mark */
+span.color-mark {
+    font-family: var(--mono-font);
+    padding: 0px 5px;
+    border: 2px solid #000;
+    border-radius: 5px;
+}
