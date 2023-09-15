@@ -192,13 +192,11 @@ Function to retrieve template html
   ;; Define the publishing project
   (setq org-publish-project-alist
         (list
-         (list "org-site:main"
+         (list "blog"
                :recursive t
                :base-directory "./content"
                :base-extension "org"
                :exclude ".*\.\\(setup\\|draft\\)\.org"  ;; This ignores all the setup and draft files
-               ;:exclude ".*\.org" ;; Exclude everything. Use this for local testing
-               ;:include ["blog1.org" "blog2.org"]
                :publishing-function 'org-html-publish-to-html
                :publishing-directory "./public"
                :with-author nil           ;; Don't include author name
@@ -217,7 +215,32 @@ Function to retrieve template html
 	       :html-preamble-format (sa/get-template 'preamble)
 	       :html-postamble t
 	       :html-postamble-format (sa/get-template 'postamble)
-	       )))
+	       )
+	 (list "microblog"
+               :recursive t
+               :base-directory "./microblog"
+               :base-extension "org"
+               :publishing-function 'org-html-publish-to-html
+               :publishing-directory "./public"
+               :with-author nil           ;; Don't include author name
+               :with-creator nil            ;; Include Emacs and Org versions in footer
+               :with-date nil
+               :with-toc t                ;; Include a table of contents
+               :section-numbers nil       ;; Don't include section numbers
+               :time-stamp-file nil ;; Don't include time stamp in file
+	       :auto-sitemap nil
+               ;:sitemap-filename "index.org"
+               ;:sitemap-style 'list
+	       ;:sitemap-title "Blog Posts"
+	       ;:sitemap-function  'sr/org-publish-sitemap  
+               ;:sitemap-sort-files 'anti-chronologically
+	       ;:sitemap-format-entry 'sr/org-publish-sitemap-entry
+	       :html-preamble-format (sa/get-template 'preamble)
+	       :html-postamble t
+	       :html-postamble-format (sa/get-template 'postamble)
+	       )
+	 (list "mail-site" :components '("blog" "microblog"))
+	))
 
 #+END_SRC
 
