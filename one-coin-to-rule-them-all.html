@@ -74,7 +74,7 @@ So, it is not the number that is random - it's the process that generated it. Li
 In case, if you are curious how the ever changing sequence is generated in the first paragraph, here's the secret:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="org6ff5d0c">setInterval<span class="org-rainbow-delimiters-depth-1">(</span> <span class="org-keyword">function</span> <span class="org-rainbow-delimiters-depth-2">()</span> <span class="org-rainbow-delimiters-depth-2">{</span>
+<pre class="src src-js" id="orgd3b148c">setInterval<span class="org-rainbow-delimiters-depth-1">(</span> <span class="org-keyword">function</span> <span class="org-rainbow-delimiters-depth-2">()</span> <span class="org-rainbow-delimiters-depth-2">{</span>
     document.getElementById<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">'randint1'</span><span class="org-rainbow-delimiters-depth-3">)</span>.innerText
         = Math.ceil<span class="org-rainbow-delimiters-depth-3">(</span>Math.random<span class="org-rainbow-delimiters-depth-4">()</span>*6<span class="org-rainbow-delimiters-depth-3">)</span>
     <span class="org-rainbow-delimiters-depth-2">}</span>, 100<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -84,9 +84,9 @@ In case, if you are curious how the ever changing sequence is generated in the f
 <p>
 The <code>Math.random</code> method of javascript generates a pseudo random number sequence, not a real one. But don't tell that to anyone 😉 In the following sections we'll see how we can use a coin toss as a random process to generate sequence from any probability distribution.
 </p>
-<section id="outline-container-org5bc5184" class="outline-2">
-<h2 id="org5bc5184"><a href="#org5bc5184">🪙 A Toss of a Coin</a></h2>
-<div class="outline-text-2" id="text-org5bc5184">
+<section id="outline-container-orge87ffee" class="outline-2">
+<h2 id="orge87ffee"><a href="#orge87ffee">🪙 A Toss of a Coin</a></h2>
+<div class="outline-text-2" id="text-orge87ffee">
 <p>
 A toss of a coin is actually not a random process. If we know the exact initial position of the coin and the exact amount, location, direction of force applied to it for the toss, we can determine the outcome. But for the sake of this post, let's say it is. Now, our goal is to formulate a process that, using a bunch of coin toss, will generate random numbers from a uniform distribution over \([0,1)\). But the former one has discrete outcomes and the later one is continuous distribution. Then how is it possible? Well, it is, with a catch.
 </p>
@@ -218,11 +218,15 @@ As none of the process to sample from uniform distribution can be of infinite pr
 </div>
 </section>
 
-<section id="outline-container-org4216aba" class="outline-2">
-<h2 id="org4216aba"><a href="#org4216aba">Discrete Random Distribution</a></h2>
-<div class="outline-text-2" id="text-org4216aba">
+<section id="outline-container-orgcfdd3b9" class="outline-2">
+<h2 id="orgcfdd3b9"><a href="#orgcfdd3b9">Discrete Random Distribution</a></h2>
+<div class="outline-text-2" id="text-orgcfdd3b9">
 <p>
 Let's start simple. Let's use the coin toss to sample from a discrete distribution. I could not think of a good example and I also like colors, so consider that we have to sample from the following colors and probability: \(\mathbb{P}\) <span class='color-mark' style='background:#2eb2ff; color:#000000'>#2eb2ff</span> = 30/155, \(\mathbb{P}\) <span class='color-mark' style='background:#77e4ff; color:#000000'>#77e4ff</span> = 45/155, \(\mathbb{P}\) <span class='color-mark' style='background:#ff2eb2; color:#ffffff'>#ff2eb2</span> = 25/155, \(\mathbb{P}\) <span class='color-mark' style='background:#b2ff2e; color:#000000'>#b2ff2e</span> = 40/155, \(\mathbb{P}\) <span class='color-mark' style='background:#e8ff6a; color:#000000'>#e8ff6a</span> = 15/155.
+</p>
+
+<p>
+To sample from this distrubitoin, we first order these colors in line segments such that the length of each color is porportional to it's probability. Then we generate a number, sampled from uniform distribution over \([0,1)\), as described in the previous section using a bunch of coin toss. Assuming the total length of all segments together is 1, then where ever the sampled number lands on this scale, the corresponding color is our outcome. Checkout the following animation:
 </p>
 
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -250,15 +254,15 @@ Let's start simple. Let's use the coin toss to sample from a discrete distributi
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="3.0716611"
-     inkscape:cx="96.364797"
-     inkscape:cy="78.621955"
+     inkscape:zoom="4.3439848"
+     inkscape:cx="139.04284"
+     inkscape:cy="50.759846"
      inkscape:window-width="1920"
      inkscape:window-height="1021"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g30018"
+     inkscape:current-layer="layer1"
      showguides="true"
      inkscape:guide-bbox="true"
      fit-margin-top="0"
@@ -298,6 +302,14 @@ Let's start simple. Let's use the coin toss to sample from a discrete distributi
        position="94.57501,5.435224"
        orientation="0,-1"
        id="guide1440" />
+    <sodipodi:guide
+       position="74.594545,-1.1519717"
+       orientation="0,-1"
+       id="guide992" />
+    <sodipodi:guide
+       position="22.223317,9.7874129"
+       orientation="0,-1"
+       id="guide37200" />
   </sodipodi:namedview>
   <defs
      id="defs2" />
@@ -357,6 +369,65 @@ Let's start simple. Let's use the coin toss to sample from a discrete distributi
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#d8cab1;fill-opacity:1;stroke-width:0.264583"
          x="43.646011"
          y="173.87709">0</tspan></text>
+    <g
+       id="g50228"
+       style="fill:#000000;fill-opacity:0.15752633">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222222px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:0.15752633;stroke:none;stroke-width:0.264583"
+         x="54.061661"
+         y="166.07817"
+         id="text8390-9"><tspan
+           sodipodi:role="line"
+           id="tspan8388-1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:0.15752633;stroke-width:0.264583;font-size:2.82222222px"
+           x="54.061661"
+           y="166.07817">30/155</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:0.15752633;stroke:none;stroke-width:0.264583"
+         x="93.25795"
+         y="165.89459"
+         id="text8390-9-6"><tspan
+           sodipodi:role="line"
+           id="tspan8388-1-1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:0.15752633;stroke-width:0.264583"
+           x="93.25795"
+           y="165.89459">45/155</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:0.15752633;stroke:none;stroke-width:0.264583"
+         x="128.28616"
+         y="165.93307"
+         id="text8390-9-8"><tspan
+           sodipodi:role="line"
+           id="tspan8388-1-79"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:0.15752633;stroke-width:0.264583"
+           x="128.28616"
+           y="165.93307">25/155</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:0.15752633;stroke:none;stroke-width:0.264583"
+         x="161.16325"
+         y="165.93619"
+         id="text8390-9-20"><tspan
+           sodipodi:role="line"
+           id="tspan8388-1-23"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:0.15752633;stroke-width:0.264583"
+           x="161.16325"
+           y="165.93619">40/155</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:0.15752633;stroke:none;stroke-width:0.264583"
+         x="188.82986"
+         y="165.98723"
+         id="text8390-9-7"><tspan
+           sodipodi:role="line"
+           id="tspan8388-1-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:sans-serif;-inkscape-font-specification:sans-serif;fill:#000000;fill-opacity:0.15752633;stroke-width:0.264583"
+           x="188.82986"
+           y="165.98723">15/155</tspan></text>
+    </g>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#d8cab1;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -403,6 +474,10 @@ Let's start simple. Let's use the coin toss to sample from a discrete distributi
     </g>
   </g>
 </svg>
+
+<p>
+The purple pointer points to the sampled color.
+</p>
 
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
@@ -608,6 +683,10 @@ var isDone = false
 var pointerX0 = gsap.getProperty("#pointer1", 'x')
 var colors = ["#2eb2ff", "#77e4ff", "#ff2eb2", "#b2ff2e", "#e8ff6a"]
 
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
 // Pointer move
 setInterval(()=> {
     let r = Math.random()
@@ -625,11 +704,12 @@ var prob = [0, 30, 45, 25, 40, 15]
 var cumprob = prob.map(cumsum)
 
 function foldRect(i){
-    if ((width < 3) || isDone) return
+    if ((width < 3) || isDone) return false
     width =  width*0.5
     i && (x = x + width)
     gsap.to("#prob-rect", {duration:1, width: width, x:x,  ease: "elastic.out(1, 0.3)"})
     hideLines()
+    return true
 }
 
 function resetRect(){
@@ -653,26 +733,44 @@ function hideLines(){
     }
     if(n==4) isDone=true
 }
+
+async function sampleColor(){
+    let flag = true
+    let seq = ''
+    while (flag) {
+	gsap.to("#colorseq", {textContent: seq})
+	let samp = flipN(1)
+	let i = samp == 'H' ? 1 : 0
+	flag = foldRect(i)
+	seq = seq + samp
+	await delay(1000)
+	
+    }
+    
+}
 </script>
+
+<p>
+<button onclick="sampleColor()">Sample</button> <button onclick="resetRect()">Reset</button> &nbsp; &nbsp;  Sampled sequence: <span id='colorseq'></span>
+</p>
 </div>
 </section>
 
 
-
-<section id="outline-container-org3ced013" class="outline-2">
-<h2 id="org3ced013"><a href="#org3ced013">Continuous Random Process</a></h2>
+<section id="outline-container-orgd5117d6" class="outline-2">
+<h2 id="orgd5117d6"><a href="#orgd5117d6">Continuous Random Process</a></h2>
 </section>
 
-<section id="outline-container-orgb87fc98" class="outline-2">
-<h2 id="orgb87fc98"><a href="#orgb87fc98">Multidimentional Distribution</a></h2>
+<section id="outline-container-org986e8b6" class="outline-2">
+<h2 id="org986e8b6"><a href="#org986e8b6">Multidimentional Distribution</a></h2>
 </section>
 
-<section id="outline-container-orgd0e7bf5" class="outline-2">
-<h2 id="orgd0e7bf5"><a href="#orgd0e7bf5">Food for thought</a></h2>
+<section id="outline-container-org4037c06" class="outline-2">
+<h2 id="org4037c06"><a href="#org4037c06">Food for thought</a></h2>
 </section>
 
-<section id="outline-container-orgb7bedc2" class="outline-2">
-<h2 id="orgb7bedc2"><a href="#orgb7bedc2">Conclusions</a></h2>
+<section id="outline-container-orga63a8d9" class="outline-2">
+<h2 id="orga63a8d9"><a href="#orga63a8d9">Conclusions</a></h2>
 </section>
 <div id="footnotes">
 <h2 class="footnotes">Footnotes: </h2>

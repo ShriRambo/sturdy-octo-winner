@@ -3,8 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AdGuardhome Setup</title>
+<title>September 2023</title>
 <meta name="generator" content="Org mode">
+<meta name="description" content="September is 9th month of the year. Yet Sept means 7. Weird."
+>
+<meta name="keywords" content="microblog, september, 2023">
 <link rel='stylesheet' href='./css/code.css' />
 <link rel='stylesheet' href='./css/simple.css' />
 <link rel='shortcut icon' href='./img/favicon.ico' type='image/x-icon' />
@@ -15,59 +18,16 @@
 <a href="./index.html">shrirambo</a>.<a href="https://github.com/shrirambo">github</a>.<a href="">io</a>/<a href="./index.html">home</a>/<a href="./index.html">blog</a>
 </header>
 <main id="content">
-<h1 class="title">AdGuardhome Setup</h1>
+<h1 class="title">September 2023</h1>
 <hr>
-<p>
-Adguard home is a software that blocks ads and trackers over your complete network. And for it to work, no client side apps are required at all. Adguard achieves this by acting as a dns server and redirects all the requests to domains, which are known to be ad servers or trackers, to black hole. We can also add our own list of domain names or from a publicaly maintained list of trackers. 
-</p>
 
-<section id="outline-container-org7339a58" class="outline-2">
-<h2 id="org7339a58"><a href="#org7339a58">Docker compose file</a></h2>
-<div class="outline-text-2" id="text-org7339a58">
-<p>
-Here is my docker compose file.
-</p>
 
-<div class="org-src-container">
-<pre class="src src-yaml">version: "2"
-services:
-  adguardhome:
-    image: adguard/adguardhome
-    container_name: adguardhome
-    ports:
-      - 53:53/tcp
-      - 53:53/udp
-      - 67:67/udp
-      - 68:68/tcp
-      - 68:68/udp
-      - 853:853/tcp
-      - 3000:3000/tcp
-    environment:
-      - USER_ID=998
-      - GROUP_ID=100
-      - TZ=Europe/Amsterdam
-    volumes:
-      - /mnt/local/appdata/adguard/work:/opt/adguardhome/work
-      - /mnt/local/appdata/adguard/conf:/opt/adguardhome/conf
-    restart: unless-stopped
-</pre>
-</div>
-
+<section id="outline-container-org33e17af" class="outline-2">
+<h2 id="org33e17af"><a href="#org33e17af">Firday the 15th</a></h2>
+<div class="outline-text-2" id="text-org33e17af">
 <p>
-There are many ports exposed by the container and many of them are to be mapped to the same port on server. Here is what those ports are used for:
+I had a world class Idea today, to create my own microblog, that no one will ever read. Made with Emacs Orgmode and published as a static page. Please give me a million dollars :)
 </p>
-<dl class="org-dl">
-<dt>53 (tcp/udp)</dt><dd>Used by DNS service for domain name resolutoin</dd>
-<dt>67 (udp)</dt><dd>Bootstrap protocol server. Used by DHCP servers to communicate addressing information to remote DHCP clients. Cool stuff, we can use Adguard to act as DHCP server as well.</dd>
-<dt>68 (tcp/udp)</dt><dd>Bootstrap protocol client. Used by client machines to obtain dynamic IP addressing information from a DHCP server.</dd>
-</dl>
-<p>
-<b>Note</b>: This port can be used by the host machine if static IP is not configured. And the docker container will not start as the port cannot be mapped
-</p>
-<dl class="org-dl">
-<dt>853 (tcp) </dt><dd>DNS over TLS. A bit more secured.</dd>
-<dt>3000 (tcp)</dt><dd>AdGuard Home web interface.</dd>
-</dl>
 </div>
 </section>
 </main>
