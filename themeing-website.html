@@ -24,9 +24,9 @@
 Writing notes in rich markup style i.e. org-mode is very cool thing. Emacs comes with functionality of exporting org files into html the way I want it. Default style of the published file is nice, but the better thing is I can control each and every aspect of the export. Here, I write my experience about themeing of the webpage export. 
 </p>
 
-<section id="outline-container-org21e5ecd" class="outline-2">
-<h2 id="org21e5ecd"><a href="#org21e5ecd">The custom styling</a></h2>
-<div class="outline-text-2" id="text-org21e5ecd">
+<section id="outline-container-org61178b0" class="outline-2">
+<h2 id="org61178b0"><a href="#org61178b0">The custom styling</a></h2>
+<div class="outline-text-2" id="text-org61178b0">
 <p>
 The default publishing settings might already be good. But the best part is, I can can customize each and every aspect of it. The way to do this is to set some of the org export variables. 
 </p>
@@ -42,9 +42,9 @@ Note: Remember to escape the special characters in the string assigned to this v
 </section>
 
 
-<section id="outline-container-org8f98671" class="outline-2">
-<h2 id="org8f98671"><a href="#org8f98671">Stylesheet</a></h2>
-<div class="outline-text-2" id="text-org8f98671">
+<section id="outline-container-org79c6eac" class="outline-2">
+<h2 id="org79c6eac"><a href="#org79c6eac">Stylesheet</a></h2>
+<div class="outline-text-2" id="text-org79c6eac">
 <p>
 Now that I know how to add custom stylesheet and scripts in the exported html files, I want to "make" a custom stylesheet. I can go and write rules for each required tags and classes one by one. But I am not really a web designer. Some nice people, who are professional, have contributed to the open source community by making nice stylesheets which are free to use and modify. 
 </p>
@@ -68,9 +68,9 @@ The upside of useing standard frameworks is that they are usually hosted on cont
 </div>
 </section>
 
-<section id="outline-container-orgbc84874" class="outline-2">
-<h2 id="orgbc84874"><a href="#orgbc84874">Custom modifications</a></h2>
-<div class="outline-text-2" id="text-orgbc84874">
+<section id="outline-container-orga7523a4" class="outline-2">
+<h2 id="orga7523a4"><a href="#orga7523a4">Custom modifications</a></h2>
+<div class="outline-text-2" id="text-orga7523a4">
 <p>
 Now that I have a basic stylesheet, I want to modify the way I want it. What I did is use some easily available tools and some hacky tricks to make it work.
 </p>
@@ -83,9 +83,9 @@ Now that I have a basic stylesheet, I want to modify the way I want it. What I d
 </section>
 
 
-<section id="outline-container-orgfae19d2" class="outline-2">
-<h2 id="orgfae19d2"><a href="#orgfae19d2">Code highliting</a></h2>
-<div class="outline-text-2" id="text-orgfae19d2">
+<section id="outline-container-org1a7efb1" class="outline-2">
+<h2 id="org1a7efb1"><a href="#org1a7efb1">Code highliting</a></h2>
+<div class="outline-text-2" id="text-org1a7efb1">
 <p>
 The styling I did so far is only for normal html elements. The code blocks are exported to <code>pre</code> and <code>code</code> tags. But the code itself does not contain language specific highliting. To do that I use <mark>htmlize</mark> package and  set the variable <code>org-html-htmlize-output-type</code> to <code>inline</code>. This will export code with syntax highliting used by current emacs themes. Although the colors will be exported as inline css style. Theme change, code highliting change. 
 </p>
