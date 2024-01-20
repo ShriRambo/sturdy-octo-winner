@@ -23,9 +23,9 @@
 Here lies some general things, big and small (although mostly small) that I learned while making my website.
 </p>
 
-<section id="outline-container-org15e250e" class="outline-2">
-<h2 id="org15e250e"><a href="#org15e250e">The root dir</a></h2>
-<div class="outline-text-2" id="text-org15e250e">
+<section id="outline-container-orgc004c05" class="outline-2">
+<h2 id="orgc004c05"><a href="#orgc004c05">The root dir</a></h2>
+<div class="outline-text-2" id="text-orgc004c05">
 <p>
 When hosting a website, we can add links (e.g. links to some css or jacascript files) in the header. The path used can be relative to the document. This becomes a trouble when the html pages are in complicated directory structure.
 </p>
@@ -50,9 +50,9 @@ The root dir for http server is the folder where it is started. If the web serve
 </p>
 </div>
 
-<div id="outline-container-org135703e" class="outline-3">
-<h3 id="org135703e"><a href="#org135703e">Github pages caveat</a></h3>
-<div class="outline-text-3" id="text-org135703e">
+<div id="outline-container-org6b87ef6" class="outline-3">
+<h3 id="org6b87ef6"><a href="#org6b87ef6">Github pages caveat</a></h3>
+<div class="outline-text-3" id="text-org6b87ef6">
 <p>
 On github, we can host static html sites. The root dir for the http server hosting our site is <code>[username].github.io</code>. If we have another repo called <code>blog-post</code> with github pages enabled, then all the content of this repo will be added to <code>root/blog-post</code> i.e. <code>[username].github.io/blogpost</code>. The html file (say <code>page1.html</code> which in in working dir of blog-post repo), which has <code>/css/style.css/</code> in its head will look for the css file in <code>[username].github.io/css/style.css</code>. Therefore, if the html page repo is not  <code>[username].github.io</code>, then it will no be able to load resources. So we can either keep our resources in <code>[username].github.io</code> repo or keep the resources path absolute according to where the http server is hosted.
 </p>
