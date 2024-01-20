@@ -1,12 +1,22 @@
-#+TITLE: September 2023
+#+TITLE: 2023
 #+SUBTITLE: 
 #+DATE: [2023-09-15 vr]
 #+AUTHOR: shrirambo
 #+DESCRIPTION: September is 9th month of the year. Yet Sept means 7. Weird.
-#+KEYWORDS:  microblog, september, 2023
+#+KEYWORDS:  microblog, 2023
 #+OPTIONS: tex:t toc:nil
 ------
 
+* 🎲 Intransitive dice
+#+DATE: [2023-10-14 za 14:51]
+#+TAGS: dice, randomness, irrational
+When one says that they prefers icecream over doughnut and a doughnut over a chocolat bar, it goes without saying that they prefer icecream over a chocolate bar. If they are a rational being. This is transitive nature. But if I say that I have a set of 3 defective dice such that the first one rolls a higher number than the second one more often than not. And the second one rolls a higher number than the third one more often than not. And the third one also rolls a higher number than the first one more often than not. Say what?? These are known as intransitive dice. Here is an example
+
+- D1: 1, 1, 3, 5, 5, 6
+- D2: 2, 3, 3, 4, 4, 5
+- D3: 1, 2, 2, 4, 6, 6
+
+   Check it out for yourself. [[https://en.wikipedia.org/wiki/Intransitive_dice][Wikipedia: Intransitive dice]]
 
 * 🍄 Idempotence
 #+DATE: [2023-09-16 za 08:51]
@@ -15,8 +25,8 @@ Today I learned the concept of Idempotency, a property of set of mathematical op
 
 This property is useful when designing APIs for which the operations are expected to carry out only once irrespective of how many times requested. This allows carrying out heavy computations or modify data only once, even if multiple requests are made with same sets of parameters.
 
+
 * 💲 Million dollar idea
 #+DATE: [2023-09-15 vr 19:52]
 #+TAGS: microblogging, idea, emacs, orgmode
 I had a world class Idea today, to create my own microblog, that no one will ever read. Made with Emacs Orgmode and published as a static page. Please give me a million dollars :)
-
