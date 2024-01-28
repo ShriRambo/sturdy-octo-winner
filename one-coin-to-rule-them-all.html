@@ -74,7 +74,7 @@ So, it is not the number that is random - it's the process that generated it. Li
 In case, if you are curious how the ever changing sequence is generated in the first paragraph, here's the secret:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="orgf9c45ba">setInterval<span class="org-rainbow-delimiters-depth-1">(</span> <span class="org-keyword">function</span> <span class="org-rainbow-delimiters-depth-2">()</span> <span class="org-rainbow-delimiters-depth-2">{</span>
+<pre class="src src-js" id="orgc7f4c5a">setInterval<span class="org-rainbow-delimiters-depth-1">(</span> <span class="org-keyword">function</span> <span class="org-rainbow-delimiters-depth-2">()</span> <span class="org-rainbow-delimiters-depth-2">{</span>
     document.getElementById<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">'randint1'</span><span class="org-rainbow-delimiters-depth-3">)</span>.innerText
         = Math.ceil<span class="org-rainbow-delimiters-depth-3">(</span>Math.random<span class="org-rainbow-delimiters-depth-4">()</span>*6<span class="org-rainbow-delimiters-depth-3">)</span>
     <span class="org-rainbow-delimiters-depth-2">}</span>, 100<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -84,9 +84,9 @@ In case, if you are curious how the ever changing sequence is generated in the f
 <p>
 The <code>Math.random</code> method of javascript generates a pseudo random number sequence, not a real one. But don't tell that to anyone 😉 In the following sections we'll see how we can use a coin toss as a random process to generate sequence from any probability distribution.
 </p>
-<section id="outline-container-org0cfe351" class="outline-2">
-<h2 id="org0cfe351"><a href="#org0cfe351">🪙 A Toss of a Coin</a></h2>
-<div class="outline-text-2" id="text-org0cfe351">
+<section id="outline-container-orgb75debf" class="outline-2">
+<h2 id="orgb75debf"><a href="#orgb75debf">🪙 A Toss of a Coin</a></h2>
+<div class="outline-text-2" id="text-orgb75debf">
 <p>
 A toss of a coin is actually not a random process. If we know the exact initial position of the coin and the exact amount, location, direction of force applied to it for the toss, we can determine the outcome. But for the sake of this post, let's say it is. Now, our goal is to formulate a process that, using a bunch of coin toss, will generate random numbers from a uniform distribution over \([0,1)\). But the former one has discrete outcomes and the later one is continuous distribution. Then how is it possible? Well, it is, with a catch.
 </p>
@@ -218,9 +218,9 @@ As none of the process to sample from uniform distribution can be of infinite pr
 </div>
 </section>
 
-<section id="outline-container-org0c539ed" class="outline-2">
-<h2 id="org0c539ed"><a href="#org0c539ed">Discrete Random Distribution</a></h2>
-<div class="outline-text-2" id="text-org0c539ed">
+<section id="outline-container-org19cd661" class="outline-2">
+<h2 id="org19cd661"><a href="#org19cd661">Discrete Random Distribution</a></h2>
+<div class="outline-text-2" id="text-org19cd661">
 <p>
 Let's start simple. Let's use the coin toss to sample from a discrete distribution. I could not think of a good example and I also like colors, so consider that we have to sample from the following colors and probability: \(\mathbb{P}\) <span class='color-mark' style='background:#2eb2ff; color:#000000'>#2eb2ff</span> = 30/155, \(\mathbb{P}\) <span class='color-mark' style='background:#77e4ff; color:#000000'>#77e4ff</span> = 45/155, \(\mathbb{P}\) <span class='color-mark' style='background:#ff2eb2; color:#ffffff'>#ff2eb2</span> = 25/155, \(\mathbb{P}\) <span class='color-mark' style='background:#b2ff2e; color:#000000'>#b2ff2e</span> = 40/155, \(\mathbb{P}\) <span class='color-mark' style='background:#e8ff6a; color:#000000'>#e8ff6a</span> = 15/155.
 </p>
@@ -757,20 +757,20 @@ async function sampleColor(){
 </section>
 
 
-<section id="outline-container-orgd89215b" class="outline-2">
-<h2 id="orgd89215b"><a href="#orgd89215b">Continuous Random Process</a></h2>
+<section id="outline-container-orgd626010" class="outline-2">
+<h2 id="orgd626010"><a href="#orgd626010">Continuous Random Process</a></h2>
 </section>
 
-<section id="outline-container-org4339873" class="outline-2">
-<h2 id="org4339873"><a href="#org4339873">Multidimentional Distribution</a></h2>
+<section id="outline-container-orge55d853" class="outline-2">
+<h2 id="orge55d853"><a href="#orge55d853">Multidimentional Distribution</a></h2>
 </section>
 
-<section id="outline-container-org085938a" class="outline-2">
-<h2 id="org085938a"><a href="#org085938a">Food for thought</a></h2>
+<section id="outline-container-org29a66b7" class="outline-2">
+<h2 id="org29a66b7"><a href="#org29a66b7">Food for thought</a></h2>
 </section>
 
-<section id="outline-container-org340c452" class="outline-2">
-<h2 id="org340c452"><a href="#org340c452">Conclusions</a></h2>
+<section id="outline-container-org0a1eed5" class="outline-2">
+<h2 id="org0a1eed5"><a href="#org0a1eed5">Conclusions</a></h2>
 </section>
 <div id="footnotes">
 <h2 class="footnotes">Footnotes: </h2>

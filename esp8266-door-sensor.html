@@ -32,9 +32,9 @@ We will utilize a Reed Switch instead, a simple yet ingenious device that prompt
 </p>
 
 
-<section id="outline-container-orgd66e429" class="outline-2">
-<h2 id="orgd66e429"><a href="#orgd66e429">🧭 The Problem</a></h2>
-<div class="outline-text-2" id="text-orgd66e429">
+<section id="outline-container-org90105a3" class="outline-2">
+<h2 id="org90105a3"><a href="#org90105a3">🧭 The Problem</a></h2>
+<div class="outline-text-2" id="text-org90105a3">
 <p>
 The minimal requirement for this project is as follows:
 </p>
@@ -52,15 +52,15 @@ This task is straightforward and requires a simple connection of the reed switch
 </div>
 </section>
 
-<section id="outline-container-orgb9c8661" class="outline-2">
-<h2 id="orgb9c8661"><a href="#orgb9c8661">🔌 The Circuit</a></h2>
-<div class="outline-text-2" id="text-orgb9c8661">
+<section id="outline-container-orgc99816e" class="outline-2">
+<h2 id="orgc99816e"><a href="#orgc99816e">🔌 The Circuit</a></h2>
+<div class="outline-text-2" id="text-orgc99816e">
 <p>
 The circuit diagram for this project is very simple. The reed switch comes with two ends, and all we need to do is connect one end to either the <code>GND</code> or <code>3.3V</code> pin, while the other one to a GPIO pin. Depending on where the first end is connected to, closing the switch will pull the GPIO pin to a low or a high. For this case, I am connecting one end to <code>GND</code> and one to <code>D1</code>.
 </p>
 
 
-<div id="orgc28886e" class="figure">
+<div id="org4a86b9a" class="figure">
 <p><img src="./img/circuit-diagram-door-sensor.png" alt="circuit-diagram-door-sensor.png">
 </p>
 </div>
@@ -75,9 +75,9 @@ Finally, we'll power the Wemos D1 Mini using a USB cable, but feel free to choos
 </div>
 </section>
 
-<section id="outline-container-orgabfd2b6" class="outline-2">
-<h2 id="orgabfd2b6"><a href="#orgabfd2b6">🐝 The Code</a></h2>
-<div class="outline-text-2" id="text-orgabfd2b6">
+<section id="outline-container-org85c94b0" class="outline-2">
+<h2 id="org85c94b0"><a href="#org85c94b0">🐝 The Code</a></h2>
+<div class="outline-text-2" id="text-org85c94b0">
 <p>
 We define a variable <code>doorState</code> which will hold the current state of the door. More specifically the <code>doorPin</code> state. We can now detect the change in state by comparing <code>doorState</code> to <code>doorPin</code> state. The <code>doorPin</code> is set to mode <code>INPUT_PULLUP</code>. So, when no external signal is given to the pin, it defaults to HIGH. That is all the setup is needed.
 </p>
@@ -124,9 +124,9 @@ As we are using a normally open switch, switch closed means door closed. As simp
 </p>
 </div>
 </section>
-<section id="outline-container-orgb16a54d" class="outline-2">
-<h2 id="orgb16a54d"><a href="#orgb16a54d">🌯 The Wrap-up</a></h2>
-<div class="outline-text-2" id="text-orgb16a54d">
+<section id="outline-container-org0f49c36" class="outline-2">
+<h2 id="org0f49c36"><a href="#org0f49c36">🌯 The Wrap-up</a></h2>
+<div class="outline-text-2" id="text-org0f49c36">
 <p>
 The beauty of this project lies in its simplicity and versatility. Now that we have the foundation set up, the possibilities are endless. You can easily add any logic you desire to this code, allowing you to achieve a wide range of exciting functionalities.
 </p>

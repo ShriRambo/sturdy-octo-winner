@@ -710,3 +710,8 @@ span.color-mark {
     border: 2px solid #000;
     border-radius: 5px;
 }
+
+::selection {
+    background: #f0c674; /*  #EF7190; */
+    color: var(--bg);
+}
