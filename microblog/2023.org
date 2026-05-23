@@ -16,7 +16,7 @@ When one says that they prefers icecream over doughnut and a doughnut over a cho
 - D2: 2, 3, 3, 4, 4, 5
 - D3: 1, 2, 2, 4, 6, 6
 
-   Check it out for yourself. [[https://en.wikipedia.org/wiki/Intransitive_dice][Wikipedia: Intransitive dice]]
+  Check it out for yourself. [[https://en.wikipedia.org/wiki/Intransitive_dice][Wikipedia: Intransitive dice]]
 
 * 🍄 Idempotence
 #+DATE: [2023-09-16 za 08:51]
@@ -24,8 +24,6 @@ When one says that they prefers icecream over doughnut and a doughnut over a cho
 Today I learned the concept of Idempotency, a property of set of mathematical operations that yields the same output as when applied first time. For example, consider the operation of multiplication by zero. No matter how many times you multiply a number by zero, the result is same as the first time you multiplied it. More practical example would be the elevator button. It doesn't matter if you press it once or a thousand time.
 
 This property is useful when designing APIs for which the operations are expected to carry out only once irrespective of how many times requested. This allows carrying out heavy computations or modify data only once, even if multiple requests are made with same sets of parameters.
-
-
 * 💲 Million dollar idea
 #+DATE: [2023-09-15 vr 19:52]
 #+TAGS: microblogging, idea, emacs, orgmode

@@ -5,7 +5,7 @@
 #+DESCRIPTION: Detect opening and closing of doors or windows with esp8266 and a reed switch
 #+KEYWORDS: esp8266, mqtt, mosquitto, door sensor, window sensor, home automation, monitoring
 
-Door sensors are incredibly valuable devices that serve multiple purposes. Not only do they enhance security monitoring, but they also allow for the setup of intelligent automations based on whether a door or window is open or closed.
+Door sensors are incredibly valuable devices that serve multiple purposes. Not only do they enhance security monitoring, but they also allow for the setup of intelligent automations based on whether a door or window is open or closed .
 
 The idea is simple. We have to program the microcontroller to detect the changes in the state of a switch, and use a switch that can turn on-off based on whether the door is open or closed. It can be as simple as a contact switch whch closes the circuit when the door is closed.
 
@@ -18,6 +18,7 @@ The minimal requirement for this project is as follows:
 
 + [[https://www.wemos.cc/en/latest/d1/d1_mini.html][Wemos D1 Mini]] (~ESP8266~ based board) 
 + [[https://en.wikipedia.org/wiki/Reed_switch][Reed Switch]]
+
 
   This task is straightforward and requires a simple connection of the reed switch to a GPIO pin to detect state changes. The reed switch offers two variants: a _Normally Open_ one that closes in the presence of a magnetic field, and a _Normally Closed_ one that opens when exposed to a magnetic field. For this example, I am using a normally open switch, which will close when a magnet comes in the proximity.
 

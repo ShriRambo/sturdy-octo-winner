@@ -90,14 +90,14 @@ A function to get the description of the entry.
 (defun sr/format-description (file project)
   "Format publication date. Use (org-publish-find-property file :title project) to add other properties
 This works with some specific properties and not all custom property so the following hack."
-   (concat "" (with-temp-buffer 
-     (insert-file-contents (concat "./content/" file) )
-     (cdr
-      (assoc "DESCRIPTION" 
-	     (org-element-map
-		 (org-element-parse-buffer 'element) 'keyword
-               (lambda (keyword) (cons (org-element-property :key keyword)
-                                  (org-element-property :value keyword)))))))))
+  (concat "" (with-temp-buffer 
+               (insert-file-contents (concat "./content/" file) )
+               (cdr
+                (assoc "DESCRIPTION" 
+	               (org-element-map
+		           (org-element-parse-buffer 'element) 'keyword
+                         (lambda (keyword) (cons (org-element-property :key keyword)
+                                                 (org-element-property :value keyword)))))))))
 #+END_SRC
 
 Thanks to [[https:kitchingroup.cheme.cmu.edu/blog/2013/05/05/Getting-keyword-options-in-org-files/][The Kitchin Research Group Blog]] for the solution.
@@ -172,7 +172,7 @@ Function to retrieve template html
         org-html-htmlize-output-type 'css     ;; Instead of using inline css for each element
         org-export-with-todo-keywords nil       ;; Ignore TODO keywords
         org-html-doctype "html5"
-        org-html-html5-fancy nil
+        org-html-html5-fancy t
         org-html-head (concat
 		        "<link rel='stylesheet' href='./css/code.css' />\n"
 		       "<link rel='stylesheet' href='./css/simple.css' />\n"
@@ -199,22 +199,25 @@ Function to retrieve template html
                :exclude ".*\.\\(setup\\|draft\\)\.org"  ;; This ignores all the setup and draft files
                :publishing-function 'org-html-publish-to-html
                :publishing-directory "./public"
-               :with-author nil           ;; Don't include author name
+               :with-author t           ;; Don't include author name
                :with-creator nil            ;; Include Emacs and Org versions in footer
-               :with-date nil
+               :with-date t
+               :author "shrirambo"
                :with-toc t                ;; Include a table of contents
                :section-numbers nil       ;; Don't include section numbers
                :time-stamp-file nil ;; Don't include time stamp in file
-	       :auto-sitemap t
+	           :auto-sitemap t
                :sitemap-filename "index.org"
                :sitemap-style 'list
-	       :sitemap-title "Blog Posts"
-	       :sitemap-function  'sr/org-publish-sitemap  
+	           :sitemap-title "Blog Posts"
+	           :sitemap-function  'sr/org-publish-sitemap  
                :sitemap-sort-files 'anti-chronologically
-	       :sitemap-format-entry 'sr/org-publish-sitemap-entry
-	       :html-preamble-format (sa/get-template 'preamble)
-	       :html-postamble t
-	       :html-postamble-format (sa/get-template 'postamble)
+	           :sitemap-format-entry 'sr/org-publish-sitemap-entry
+	           :html-preamble-format (sa/get-template 'preamble)
+	           :html-postamble t
+               :description "This is a test description. Find me."
+	      
+               :html-postamble-format (sa/get-template 'postamble)
 	       )
 	 (list "microblog"
                :recursive t
@@ -237,7 +240,7 @@ Function to retrieve template html
 	       ;:sitemap-format-entry 'sr/org-publish-sitemap-entry
 	       :html-preamble-format (sa/get-template 'preamble)
 	       :html-postamble t
-	       :html-postamble-format (sa/get-template 'postamble)
+           :html-postamble-format (sa/get-template 'postamble)
 	       )
 	 (list "mail-site" :components '("blog" "microblog"))
 	))
@@ -253,11 +256,28 @@ Function to retrieve template html
 * Build
 First line evaluates thin org file and creates a ~build.el~ file which contains all the publishing configuration. The second line evaluates ~build.el~ file itself and publish the web pages. And the final line removes ~build.el~ file.
 
-#+BEGIN_SRC shell :tangle no
+#+BEGIN_SRC shell :tangle no :result no
   #!/bin/bash
   emacs -Q --batch --eval "(require 'org)" --eval '(org-babel-tangle-file "build.org")'
   emacs -Q --script build.el
   rm build.el
 #+END_SRC
+
+#+RESULTS:
+| (blk      | set-randint1           |
+| (blk      | coin-toss-seq          |
+| (blk      | flipCoins-update-table |
+| (hexcolor | #2eb2ff                |
+| (hexcolor | #77e4ff                |
+| (hexcolor | #ff2eb2                |
+| (hexcolor | #b2ff2e                |
+| (hexcolor | #e8ff6a                |
+| (blk      | fold-rect              |
+| (blk      | test-button            |
+| (blk      | test-button            |
+| (blk      | test-button            |
+| (blk      | test-button            |
+| (blk      | test-button            |
+
 ** TODO One step less
 Make emacs evaluate ~build.org~ itself, rahter than tangling ~build.el~ first. This will remove one step from the deployment.
