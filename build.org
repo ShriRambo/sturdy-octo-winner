@@ -91,7 +91,7 @@ A function to get the description of the entry.
   "Format publication date. Use (org-publish-find-property file :title project) to add other properties
 This works with some specific properties and not all custom property so the following hack."
   (concat "" (with-temp-buffer 
-               (insert-file-contents (concat "./content/" file) )
+               (insert-file-contents (concat "./content/blog/" file) )
                (cdr
                 (assoc "DESCRIPTION" 
 	               (org-element-map
@@ -174,8 +174,8 @@ Function to retrieve template html
         org-html-doctype "html5"
         org-html-html5-fancy t
         org-html-head (concat
-		        "<link rel='stylesheet' href='./css/code.css' />\n"
-		       "<link rel='stylesheet' href='./css/simple.css' />\n"
+		        "<link rel='stylesheet' href='../css/code.css' />\n"
+		       "<link rel='stylesheet' href='../css/simple.css' />\n"
 		       "<link rel='shortcut icon' href='./img/favicon.ico' type='image/x-icon' />\n"
 		       "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css' integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=' crossorigin='anonymous'>\n")
 	org-html-self-link-headlines t
@@ -194,11 +194,11 @@ Function to retrieve template html
         (list
          (list "blog"
                :recursive t
-               :base-directory "./content"
+               :base-directory "./content/blog"
                :base-extension "org"
                :exclude ".*\.\\(setup\\|draft\\)\.org"  ;; This ignores all the setup and draft files
                :publishing-function 'org-html-publish-to-html
-               :publishing-directory "./public"
+               :publishing-directory "./public/blog"
                :with-author t           ;; Don't include author name
                :with-creator nil            ;; Include Emacs and Org versions in footer
                :with-date t
@@ -216,15 +216,14 @@ Function to retrieve template html
 	           :html-preamble-format (sa/get-template 'preamble)
 	           :html-postamble t
                :description "This is a test description. Find me."
-	      
                :html-postamble-format (sa/get-template 'postamble)
 	       )
 	 (list "microblog"
                :recursive t
-               :base-directory "./microblog"
+               :base-directory "./content/microblog"
                :base-extension "org"
                :publishing-function 'org-html-publish-to-html
-               :publishing-directory "./public"
+               :publishing-directory "./public/microblog"
                :with-author nil           ;; Don't include author name
                :with-creator nil            ;; Include Emacs and Org versions in footer
                :with-date nil
@@ -242,9 +241,8 @@ Function to retrieve template html
 	       :html-postamble t
            :html-postamble-format (sa/get-template 'postamble)
 	       )
-	 (list "mail-site" :components '("blog" "microblog"))
+	 (list "mail-site" :components '("microblog" "blog"))
 	))
-
 #+END_SRC
 
 ** Generate Output
@@ -264,20 +262,6 @@ First line evaluates thin org file and creates a ~build.el~ file which contains 
 #+END_SRC
 
 #+RESULTS:
-| (blk      | set-randint1           |
-| (blk      | coin-toss-seq          |
-| (blk      | flipCoins-update-table |
-| (hexcolor | #2eb2ff                |
-| (hexcolor | #77e4ff                |
-| (hexcolor | #ff2eb2                |
-| (hexcolor | #b2ff2e                |
-| (hexcolor | #e8ff6a                |
-| (blk      | fold-rect              |
-| (blk      | test-button            |
-| (blk      | test-button            |
-| (blk      | test-button            |
-| (blk      | test-button            |
-| (blk      | test-button            |
 
 ** TODO One step less
 Make emacs evaluate ~build.org~ itself, rahter than tangling ~build.el~ first. This will remove one step from the deployment.
