@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Notes on making a website with Emacs and orgmode</title>
-<meta name="generator" content="Org mode">
-<meta name="description" content="General notes and observations on making a website."
->
-<meta name="keywords" content="notes, website">
-<link rel='stylesheet' href='./css/code.css' />
-<link rel='stylesheet' href='./css/simple.css' />
+<meta name="author" content="shrirambo" />
+<meta name="description" content="General notes and observations on making a website." />
+<meta name="keywords" content="notes, website" />
+<meta name="generator" content="Org Mode" />
+<link rel='stylesheet' href='../css/code.css' />
+<link rel='stylesheet' href='../css/simple.css' />
 <link rel='shortcut icon' href='./img/favicon.ico' type='image/x-icon' />
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css' integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=' crossorigin='anonymous'>
 </head>
@@ -17,15 +17,16 @@
 <header id="top" class="status">
 <a href="./index.html">shrirambo</a>.<a href="https://github.com/shrirambo">github</a>.<a href="">io</a>/<a href="./index.html">home</a>/<a href="./index.html">blog</a>
 </header>
-<main id="content">
+<main id="content" class="content">
+<header>
 <h1 class="title">Notes on making a website with Emacs and orgmode</h1>
-<p>
+</header><p>
 Here lies some general things, big and small (although mostly small) that I learned while making my website.
 </p>
 
-<section id="outline-container-org0d788d1" class="outline-2">
-<h2 id="org0d788d1"><a href="#org0d788d1">The root dir</a></h2>
-<div class="outline-text-2" id="text-org0d788d1">
+<section id="outline-container-org9122b2b" class="outline-2">
+<h2 id="org9122b2b"><a href="#org9122b2b">The root dir</a></h2>
+<div class="outline-text-2" id="text-org9122b2b">
 <p>
 When hosting a website, we can add links (e.g. links to some css or jacascript files) in the header. The path used can be relative to the document. This becomes a trouble when the html pages are in complicated directory structure.
 </p>
@@ -50,9 +51,9 @@ The root dir for http server is the folder where it is started. If the web serve
 </p>
 </div>
 
-<div id="outline-container-org53d88fb" class="outline-3">
-<h3 id="org53d88fb"><a href="#org53d88fb">Github pages caveat</a></h3>
-<div class="outline-text-3" id="text-org53d88fb">
+<div id="outline-container-org298d4fe" class="outline-3">
+<h3 id="org298d4fe"><a href="#org298d4fe">Github pages caveat</a></h3>
+<div class="outline-text-3" id="text-org298d4fe">
 <p>
 On github, we can host static html sites. The root dir for the http server hosting our site is <code>[username].github.io</code>. If we have another repo called <code>blog-post</code> with github pages enabled, then all the content of this repo will be added to <code>root/blog-post</code> i.e. <code>[username].github.io/blogpost</code>. The html file (say <code>page1.html</code> which in in working dir of blog-post repo), which has <code>/css/style.css/</code> in its head will look for the css file in <code>[username].github.io/css/style.css</code>. Therefore, if the html page repo is not  <code>[username].github.io</code>, then it will no be able to load resources. So we can either keep our resources in <code>[username].github.io</code> repo or keep the resources path absolute according to where the http server is hosted.
 </p>

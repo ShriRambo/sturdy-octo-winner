@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Door Sensor with ESP8266 and Reed Switch</title>
-<meta name="generator" content="Org mode">
-<meta name="description" content="Detect opening and closing of doors or windows with esp8266 and a reed switch"
->
-<meta name="keywords" content="esp8266, mqtt, mosquitto, door sensor, window sensor, home automation, monitoring">
-<link rel='stylesheet' href='./css/code.css' />
-<link rel='stylesheet' href='./css/simple.css' />
+<meta name="author" content="shrirambo" />
+<meta name="description" content="Detect opening and closing of doors or windows with esp8266 and a reed switch" />
+<meta name="keywords" content="esp8266, mqtt, mosquitto, door sensor, window sensor, home automation, monitoring" />
+<meta name="generator" content="Org Mode" />
+<link rel='stylesheet' href='../css/code.css' />
+<link rel='stylesheet' href='../css/simple.css' />
 <link rel='shortcut icon' href='./img/favicon.ico' type='image/x-icon' />
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css' integrity='sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=' crossorigin='anonymous'>
 </head>
@@ -17,10 +17,11 @@
 <header id="top" class="status">
 <a href="./index.html">shrirambo</a>.<a href="https://github.com/shrirambo">github</a>.<a href="">io</a>/<a href="./index.html">home</a>/<a href="./index.html">blog</a>
 </header>
-<main id="content">
+<main id="content" class="content">
+<header>
 <h1 class="title">Door Sensor with ESP8266 and Reed Switch</h1>
-<p>
-Door sensors are incredibly valuable devices that serve multiple purposes. Not only do they enhance security monitoring, but they also allow for the setup of intelligent automations based on whether a door or window is open or closed.
+</header><p>
+Door sensors are incredibly valuable devices that serve multiple purposes. Not only do they enhance security monitoring, but they also allow for the setup of intelligent automations based on whether a door or window is open or closed .
 </p>
 
 <p>
@@ -32,38 +33,37 @@ We will utilize a Reed Switch instead, a simple yet ingenious device that prompt
 </p>
 
 
-<section id="outline-container-org90105a3" class="outline-2">
-<h2 id="org90105a3"><a href="#org90105a3">🧭 The Problem</a></h2>
-<div class="outline-text-2" id="text-org90105a3">
+<section id="outline-container-org77b8e4d" class="outline-2">
+<h2 id="org77b8e4d"><a href="#org77b8e4d">🧭 The Problem</a></h2>
+<div class="outline-text-2" id="text-org77b8e4d">
 <p>
 The minimal requirement for this project is as follows:
 </p>
 
 <ul class="org-ul">
 <li><a href="https://www.wemos.cc/en/latest/d1/d1_mini.html">Wemos D1 Mini</a> (<code>ESP8266</code> based board)</li>
-<li><p>
-<a href="https://en.wikipedia.org/wiki/Reed_switch">Reed Switch</a>
-</p>
+<li><a href="https://en.wikipedia.org/wiki/Reed_switch">Reed Switch</a></li>
+</ul>
+
 
 <p>
 This task is straightforward and requires a simple connection of the reed switch to a GPIO pin to detect state changes. The reed switch offers two variants: a <span class="underline">Normally Open</span> one that closes in the presence of a magnetic field, and a <span class="underline">Normally Closed</span> one that opens when exposed to a magnetic field. For this example, I am using a normally open switch, which will close when a magnet comes in the proximity.
-</p></li>
-</ul>
+</p>
 </div>
 </section>
 
-<section id="outline-container-orgc99816e" class="outline-2">
-<h2 id="orgc99816e"><a href="#orgc99816e">🔌 The Circuit</a></h2>
-<div class="outline-text-2" id="text-orgc99816e">
+<section id="outline-container-orgc333768" class="outline-2">
+<h2 id="orgc333768"><a href="#orgc333768">🔌 The Circuit</a></h2>
+<div class="outline-text-2" id="text-orgc333768">
 <p>
 The circuit diagram for this project is very simple. The reed switch comes with two ends, and all we need to do is connect one end to either the <code>GND</code> or <code>3.3V</code> pin, while the other one to a GPIO pin. Depending on where the first end is connected to, closing the switch will pull the GPIO pin to a low or a high. For this case, I am connecting one end to <code>GND</code> and one to <code>D1</code>.
 </p>
 
 
-<div id="org4a86b9a" class="figure">
-<p><img src="./img/circuit-diagram-door-sensor.png" alt="circuit-diagram-door-sensor.png">
-</p>
-</div>
+<figure id="org2fa479e">
+<img src="./img/circuit-diagram-door-sensor.png" alt="circuit-diagram-door-sensor.png">
+
+</figure>
 
 <p>
 Now, here's something to consider. With the current circuit, when the switch is closed, <code>D1</code> will be pulled low, and it will remain low until it's manually pulled high by connecting it to <code>3.3V</code>. However, we want the desired behavior where the pin automatically gets pulled high when the switch is open. To achieve this, we'll need to use a pull-up resistor. The simplest way is to utilize the internal pull-up resistor by specifying pin mode <code>INPUT_PULLUP</code>.
@@ -75,25 +75,25 @@ Finally, we'll power the Wemos D1 Mini using a USB cable, but feel free to choos
 </div>
 </section>
 
-<section id="outline-container-org85c94b0" class="outline-2">
-<h2 id="org85c94b0"><a href="#org85c94b0">🐝 The Code</a></h2>
-<div class="outline-text-2" id="text-org85c94b0">
+<section id="outline-container-org57a7fa6" class="outline-2">
+<h2 id="org57a7fa6"><a href="#org57a7fa6">🐝 The Code</a></h2>
+<div class="outline-text-2" id="text-org57a7fa6">
 <p>
 We define a variable <code>doorState</code> which will hold the current state of the door. More specifically the <code>doorPin</code> state. We can now detect the change in state by comparing <code>doorState</code> to <code>doorPin</code> state. The <code>doorPin</code> is set to mode <code>INPUT_PULLUP</code>. So, when no external signal is given to the pin, it defaults to HIGH. That is all the setup is needed.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-cpp"><span class="org-comment-delimiter">//</span><span class="org-comment">Reed switch</span>
-<span class="org-keyword">const</span> <span class="org-type">int</span> <span class="org-variable-name">doorPin</span> = D1;
+<pre class="src src-cpp"><span class="org-comment-delimiter">//</span><span class="org-comment">Reed switch
+</span><span class="org-keyword">const</span> <span class="org-type">int</span> <span class="org-variable-name">doorPin</span> = D1;
 <span class="org-type">int</span> <span class="org-variable-name">doorState</span> = 2;
 
 <span class="org-type">void</span> <span class="org-function-name">setup</span><span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-rainbow-delimiters-depth-1">{</span>
-  <span class="org-comment-delimiter">// </span><span class="org-comment">Serial setup</span>
-  Serial.begin<span class="org-rainbow-delimiters-depth-2">(</span>115200<span class="org-rainbow-delimiters-depth-2">)</span>;
+  <span class="org-comment-delimiter">// </span><span class="org-comment">Serial setup
+</span>  Serial.begin<span class="org-rainbow-delimiters-depth-2">(</span>115200<span class="org-rainbow-delimiters-depth-2">)</span>;
   Serial.println<span class="org-rainbow-delimiters-depth-2">()</span>;
 
-  <span class="org-comment-delimiter">// </span><span class="org-comment">Reed switch setup</span>
-  pinMode<span class="org-rainbow-delimiters-depth-2">(</span>doorPin, INPUT_PULLUP<span class="org-rainbow-delimiters-depth-2">)</span>;
+  <span class="org-comment-delimiter">// </span><span class="org-comment">Reed switch setup
+</span>  pinMode<span class="org-rainbow-delimiters-depth-2">(</span>doorPin, INPUT_PULLUP<span class="org-rainbow-delimiters-depth-2">)</span>;
 
 <span class="org-rainbow-delimiters-depth-1">}</span>
 </pre>
@@ -109,11 +109,11 @@ For the process loop, the esp reads the state of <code>doorPin</code> and compar
     doorState = readPin;
     <span class="org-keyword">if</span><span class="org-rainbow-delimiters-depth-3">(</span>doorState == LOW<span class="org-rainbow-delimiters-depth-3">){</span>
       Serial.println<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"Door closed"</span><span class="org-rainbow-delimiters-depth-4">)</span>;
-      <span class="org-comment-delimiter">// </span><span class="org-comment">Do stuff when door is closed</span>
-    <span class="org-rainbow-delimiters-depth-3">}</span><span class="org-keyword">else</span> <span class="org-rainbow-delimiters-depth-3">{</span>
+      <span class="org-comment-delimiter">// </span><span class="org-comment">Do stuff when door is closed
+</span>    <span class="org-rainbow-delimiters-depth-3">}</span><span class="org-keyword">else</span> <span class="org-rainbow-delimiters-depth-3">{</span>
       Serial.println<span class="org-rainbow-delimiters-depth-4">(</span><span class="org-string">"Door opened"</span><span class="org-rainbow-delimiters-depth-4">)</span>;
-      <span class="org-comment-delimiter">// </span><span class="org-comment">Do stuff when door is opened</span>
-    <span class="org-rainbow-delimiters-depth-3">}</span>
+      <span class="org-comment-delimiter">// </span><span class="org-comment">Do stuff when door is opened
+</span>    <span class="org-rainbow-delimiters-depth-3">}</span>
   <span class="org-rainbow-delimiters-depth-2">}</span>
   delay<span class="org-rainbow-delimiters-depth-2">(</span>1000<span class="org-rainbow-delimiters-depth-2">)</span>
 </pre>
@@ -124,9 +124,9 @@ As we are using a normally open switch, switch closed means door closed. As simp
 </p>
 </div>
 </section>
-<section id="outline-container-org0f49c36" class="outline-2">
-<h2 id="org0f49c36"><a href="#org0f49c36">🌯 The Wrap-up</a></h2>
-<div class="outline-text-2" id="text-org0f49c36">
+<section id="outline-container-orgdc24ab8" class="outline-2">
+<h2 id="orgdc24ab8"><a href="#orgdc24ab8">🌯 The Wrap-up</a></h2>
+<div class="outline-text-2" id="text-orgdc24ab8">
 <p>
 The beauty of this project lies in its simplicity and versatility. Now that we have the foundation set up, the possibilities are endless. You can easily add any logic you desire to this code, allowing you to achieve a wide range of exciting functionalities.
 </p>
