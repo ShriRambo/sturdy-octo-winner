@@ -1,0 +1,9 @@
+#+TITLE: Recipe for Disaster
+#+SUBTITLE: Running a kitchen with multithreading, multiprocessing, and asynchronous processing.
+#+DATE: [2025-12-07 Sun]
+#+AUTHOR: shrirambo
+#+DESCRIPTION:
+#+KEYWORDS: 
+#+OPTIONS: tex:t toc:nil
+
+

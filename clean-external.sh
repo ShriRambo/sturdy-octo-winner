@@ -1,2 +1,2 @@
-rm "./content/publish-settings.org" "./content/paperless-ngx-config.org" "./content/emacs-config.org" "./content/adguardhome-config.org" "./content/index.org"
+rm "./content/publish-settings.org" "./content/blog/paperless-ngx-config.org" "./content/blog/emacs-config.org" "./content/blog/adguardhome-config.org" "./content/blog/index.org"
 
